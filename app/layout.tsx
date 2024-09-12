@@ -4,6 +4,9 @@ import './globals.css';
 
 import { RedHat } from './fonts';
 
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+
 import { GlobalMsgProvider } from './global-msg-context';
 import GlobalActionTip from './global-action-tip';
 import { cn } from '../lib/utils';
@@ -51,18 +54,22 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages();
+
   return (
     <html lang="en">
       <Head>{!isProduction ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}</Head>
       <body className={cn(RedHat.variable)}>
         <GlobalMsgProvider>
-          <Web3ModalProvider>{children}</Web3ModalProvider>
-          <GlobalActionTip />
+          <NextIntlClientProvider messages={messages}>
+            <Web3ModalProvider>{children}</Web3ModalProvider>
+            <GlobalActionTip />
+          </NextIntlClientProvider>
         </GlobalMsgProvider>
       </body>
     </html>

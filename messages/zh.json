@@ -1,3 +1,5 @@
 {
-  "Common": {}
+  "Common": {
+    "ConnectWallet": "Connect Wallet"
+  }
 }

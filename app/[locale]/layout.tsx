@@ -1,4 +1,4 @@
-import ConnectBtn from '@/lib/components/connect-btn';
+import ConnectBtn from '@/components/connect-btn';
 
 export default function Layout({
   children,
