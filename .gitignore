@@ -25,9 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-package-lock.json
-pnpm-lock.yaml
-
 # local env files
 .env*.local
 .env
@@ -42,3 +39,9 @@ next-env.d.ts
 # misc
 .vscode
 .idea
+
+# Sentry Config File
+.sentryclirc
+
+pnpm-lock.yaml
+package-lock.json
