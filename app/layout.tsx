@@ -11,16 +11,16 @@ import Web3ModalProvider from '../lib/web3-modal';
 
 export const metadata = {
   title: {
-    template: '%s - Many Gold | PoWFi',
-    default: 'Many Gold | PoWFi',
+    template: '%s - Inphura',
+    default: 'Inphura',
   },
   description: '',
   metadataBase: new URL(`https://${process.env.VERCEL_DOMAIN}`),
   openGraph: {
-    title: 'Many Gold',
-    description: 'Replay the art of PoW on qualified chains.',
+    title: '',
+    description: '',
     url: `https://${process.env.VERCEL_DOMAIN}`,
-    siteName: 'Many',
+    siteName: '',
     images: '/images/907d507a.png',
     locale: 'en_US',
     type: 'website',
@@ -43,9 +43,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Many Gold | PoWFi',
-    description: 'Replay the art of PoW on qualified chains.',
-    creator: '@many_pow',
+    title: '',
+    description: '',
+    creator: '@xxx',
     images: ['/images/907d507a.png'],
   },
 };
