@@ -1,5 +1,17 @@
 {
   "Common": {
-    "ConnectWallet": "Connect Wallet"
+    "Connecting": "Connecting...",
+    "ConnectWallet": "Connect Wallet",
+    "NextAirdrop": "Next AirDrop",
+    "Hour": "{num, plural, =0 {hour} =1 {hour} other {hours}}",
+    "Minute": "{num, plural, =0 {minute} =1 {minute} other {minutes}}",
+    "Second": "{num, plural, =0 {second} =1 {second} other {seconds}}",
+    "ServerNodes": "Server Nodes",
+    "ServerName": "Server Name",
+    "Owner": "Owner",
+    "Members": "Members",
+    "MAKPower": "MAK Power",
+    "Airdrop": "Airdrop",
+    "TotalAirdrop": "Total Airdrop"
   }
 }

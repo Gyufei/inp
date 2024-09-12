@@ -1,5 +1,11 @@
 {
   "Common": {
-    "ConnectWallet": "Connect Wallet"
+    "Connecting": "连接中...",
+    "ConnectWallet": "连接钱包",
+    "NextAirDrop": "下次空投",
+    "Hour": "小时",
+    "Minute": "分钟",
+    "Second": "秒",
+    "ServerNodes": "服务器节点"
   }
 }

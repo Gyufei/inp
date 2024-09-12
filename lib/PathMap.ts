@@ -5,9 +5,13 @@ export const isProduction = process.env.NODE_ENV === 'production' && !isPreview;
 export function WithHost(path: string) {
   const prodHost = ``;
   // const devHost = `https://test-sign.many.gold`;
-  const devHost = ``;
+  const devHost = `https://preview-inphura.aggregation.top`;
   const host = isProduction ? prodHost : devHost;
   return `${host}${path}`;
 }
 
-export const Paths = {};
+export const Paths = {
+  register: WithHost('/server/list'),
+  serverList: WithHost('/server/list'),
+  airdropInfo: WithHost('/airdrop/info'),
+};

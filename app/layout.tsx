@@ -13,7 +13,7 @@ import { cn } from '../lib/utils';
 import { isProduction } from '../lib/PathMap';
 import Web3ModalProvider from '../lib/web3-modal';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     template: '%s - Inphura',
     default: 'Inphura',
@@ -64,7 +64,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <Head>{!isProduction ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}</Head>
-      <body className={cn(RedHat.variable)}>
+      <body className={cn(RedHat.variable, 'overflow-x-hidden')}>
         <GlobalMsgProvider>
           <NextIntlClientProvider messages={messages}>
             <Web3ModalProvider>{children}</Web3ModalProvider>
