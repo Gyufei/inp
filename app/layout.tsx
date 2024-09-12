@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Head from 'next/head';
+import './globals.css';
 
 import { HaasGrotDisp, HaasGrotText } from './fonts';
 
