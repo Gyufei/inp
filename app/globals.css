@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-haas-text);
+  font-family: var(--font-red-hat);
 }
 
 :root {

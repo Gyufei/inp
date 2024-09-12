@@ -8,8 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        haasText: ["var(--font-haas-text)"],
-        haasDisp: ["var(--font-haas-disp)"],
+        redHat: ["var(--font-red-hat)"],
       },
     },
   },

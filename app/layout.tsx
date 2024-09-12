@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Head from 'next/head';
 import './globals.css';
 
-import { HaasGrotDisp, HaasGrotText } from './fonts';
+import { RedHat } from './fonts';
 
 import { GlobalMsgProvider } from './global-msg-context';
 import GlobalActionTip from './global-action-tip';
@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>{!isProduction ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}</Head>
-      <body className={cn(HaasGrotDisp.variable, HaasGrotText.variable)}>
+      <body className={cn(RedHat.variable)}>
         <GlobalMsgProvider>
           <Web3ModalProvider>{children}</Web3ModalProvider>
           <GlobalActionTip />
