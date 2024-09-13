@@ -47,12 +47,12 @@ export function NodesList() {
                 {index + 1}
               </div>
               <div className="flex items-center w-[140px] mr-[50px]">
-                {/* <Image src={server.server_logo} width={60} height={60} alt="" />
-              <div className="w-4 flex flex-col justify-between items-center">
-                {server.album_list.map((item: any) => (
-                  <Image key={item} src={item} width={16} height={16} alt="" />
-                ))}
-              </div> */}
+                <Image className="rounded-lg w-[60px] h-[60px]" src={server.server_logo} width={60} height={60} alt="" />
+                <div className="w-4 gap-y-2 ml-1 h-full flex flex-col justify-start items-center">
+                  {server.album_list.map((item: any) => (
+                    <Image className="h-4 w-4 rounded-md" key={item} src={item} width={16} height={16} alt="" />
+                  ))}
+                </div>
               </div>
               <div className="flex flex-col items-start justify-between w-[200px] pl-[10px] mr-6 gap-y-1">
                 <div className="text-white text-[22px] leading-[32px] text-nowrap">{server.server_name}</div>

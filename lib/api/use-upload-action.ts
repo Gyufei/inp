@@ -4,8 +4,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { r2 } from '@/lib/r2'
 import { R2_BUCKET_NAME } from '@/lib/const'
 
-export async function useUploadAction({filename}: {filename: string}) {
- 
+export async function uploadAction({filename}: {filename: string}) {
   try {
     console.log("🚀 ~ uploadAction ~ process.env.R2_BUCKET_NAME:", R2_BUCKET_NAME)
     const nameKey = `${crypto.randomUUID().replace(/-/g, '')}-${filename}` 
@@ -28,7 +27,7 @@ export async function useUploadAction({filename}: {filename: string}) {
     console.log("🚀 ~ POST ~ err:", err)
   } 
 }
-export async function useDelAction({KeyFilename}: {KeyFilename: string}) {
+export async function delAction({KeyFilename}: {KeyFilename: string}) {
  
   try {
     // 生成上传URL

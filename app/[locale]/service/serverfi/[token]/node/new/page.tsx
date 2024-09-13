@@ -23,7 +23,7 @@ export default function RegisterForm() {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as any);
     const serverName = formData.get('serverName');
     const ownerName = formData.get('ownerName');
     const serverNo = formData.get('serverNo') || '0';
