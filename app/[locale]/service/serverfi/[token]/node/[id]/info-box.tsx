@@ -9,7 +9,7 @@ export function InfoBox() {
 
   return (
     <div
-    className="w-[300px]"
+    className="w-[300px] ml-[8px]"
     >
       <div
           className="w-[146px] h-[68px] bg-no-repeat flex items-center justify-center pl-6 text-2xl leading-9 text-white font-cal"
@@ -22,7 +22,7 @@ export function InfoBox() {
           Info
       </div>
         <div
-          className="bg-[rgba(255,255,255,0.1)] h-[292px] w-[300px] overflow-y-auto trans-scroll-bar backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tr-none"
+          className="bg-[rgba(255,255,255,0.1)] h-[292px] w-[300px] overflow-hidden overflow-y-auto trans-scroll-bar backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tr-none"
         >
         <div className="absolute">
             <div className="flex flex-col gap-y-[10px] mb-[20px]">
@@ -38,11 +38,11 @@ export function InfoBox() {
               <div className="font-medium text-[16px] leading-[16px] font-din text-white">1200</div>
             </div>
           </div>
-          <div className="absolute -z-10 top-[24px] right-[10px]">
+          <div className="absolute -z-10 top-[24px] -right-[35px]">
             <Image className="" src="/images/server.png" width={231} height={231} alt="" />
           </div>
       </div>
-      <div className="mt-[20px] flex gap-x-[10px] overflow-x-auto">
+      <div className="mt-[8px] flex gap-x-[10px] overflow-x-auto">
         <Image className="w-[66px] h-[66px] rounded-[12px]" src="/images/server.png" width={231} height={231} alt="" />
         <Image className="w-[66px] h-[66px] rounded-[12px]" src="/images/server.png" width={231} height={231} alt="" />
         <Image className="w-[66px] h-[66px] rounded-[12px]" src="/images/server.png" width={231} height={231} alt="" />
