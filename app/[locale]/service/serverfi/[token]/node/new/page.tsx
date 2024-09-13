@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import UploadImage from "@/components/uploadImage"
+import UploadImageList from "@/components/uploadImageList"
 
 export default  function RegisterForm() {
   const [serverImage, setServerImage] = useState<string | null>(null);
@@ -33,6 +34,7 @@ export default  function RegisterForm() {
             onImageUpload={handleImageUpload}
           />
         </div>
+        <UploadImageList />
       </div>
       <div className="p-6 pt-0 grid gap-4">
         <div className="grid gap-2">

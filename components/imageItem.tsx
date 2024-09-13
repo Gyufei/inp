@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 interface ImageItemProps {
-  image: { id: string; url: string };
+  image: string;
   onDelete: (id: string) => void;
 }
 
