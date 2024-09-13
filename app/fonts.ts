@@ -22,8 +22,13 @@ export const Hel = localFont({
 export const Din = localFont({
   src: [
     {
-      path: '../public/fonts/DIN-Regular.otf',
+      path: '../public/fonts/DIN-Light.otf',
       weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/DIN-Regular.otf',
+      weight: '400',
       style: 'normal',
     },
     {

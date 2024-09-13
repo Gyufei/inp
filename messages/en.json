@@ -2,18 +2,29 @@
   "Common": {
     "Connecting": "Connecting...",
     "ConnectWallet": "Connect Wallet",
-    "NextAirdrop": "Next AirDrop",
+    "NextAirdrop": "Next Airdrop",
     "Hour": "{num, plural, =0 {hour} =1 {hour} other {hours}}",
     "Minute": "{num, plural, =0 {minute} =1 {minute} other {minutes}}",
     "Second": "{num, plural, =0 {second} =1 {second} other {seconds}}",
     "ServerNodes": "Server Nodes",
     "ServerName": "Server Name",
     "Owner": "Owner",
+    "OwnedBy": "Owned By",
     "Members": "Members",
     "MAKPower": "MAK Power",
     "Airdrop": "Airdrop",
     "TotalAirdrop": "Total Airdrop",
-    "BannerTitle": "${token} ServerFi Node <br></br> Computing Power Portal",
-    "BannerDesc": "Get your own server from MetaCene, <br></br> and make money from it."
+    "NodesBannerTitle": "MAK ServerFi Node <br></br> Computing Power Portal",
+    "NodesBannerDesc": "Get your own server from MetaCene, <br></br> and make money from it.",
+    "NodeBannerTitle": "MAK ServerFi Node",
+    "TotalMAKPower": "Total MAK Power",
+    "Rank": "Rank",
+    "MyMAKPower": "My MAK Power",
+    "MyAirdrop": "My Airdrop",
+    "Deposit": "Deposit",
+    "Confirm": "Confirm",
+    "Withdraw": "Withdraw",
+    "PotentialProfit": "Potential Profit",
+    "Register": "Register"
   }
 }

@@ -1,52 +1,54 @@
 'use client';
-import { useLedger } from '@/lib/api/use-ledger';
 import { useServers } from '@/lib/api/use-servers';
-import { MAKDecimal } from '@/lib/const';
-import { useDeposit } from '@/lib/hook/use-deposit';
-import { useWithdraw } from '@/lib/hook/use-withdraw';
-import { useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { useAccount } from 'wagmi';
+import LanguageSetting from '@/components/language-setting';
+import ConnectBtn from '@/components/connect-btn';
+import { AirdropTime } from '@/components/airdrop-time';
+import { useTranslations } from 'next-intl';
+import { NodeInfoRow } from './node-info-row';
+import { DepositBtn } from './deposit-btn';
+import { WithdrawBtn } from './withdraw-btn';
+import { ProfitBtn } from './profit-btn';
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
-  const { address } = useAccount();
+  const T = useTranslations('Common');
   const { data: servers } = useServers();
 
-  const queryClient = useQueryClient();
-
   const currentServer = (servers || [])?.find((server) => server.server_id === Number(id));
-
-  const { data: userLedger } = useLedger(currentServer?.server_id || null);
-
-  const stakeAmount = Number(userLedger?.stake_amount || 0);
-
-  const { isLoading: isWdLoading, write: withdrawAction, isSuccess: isWdSuccess } = useWithdraw();
-  const { isLoading: isDepositLoading, write: depositAction, isSuccess: isDepositSuccess } = useDeposit();
-
-  function handleWithdraw() {
-    withdrawAction({ serverId: BigInt(id), amount: BigInt(stakeAmount * 10 ** MAKDecimal) });
-  }
-
-  function handleDeposit() {
-    depositAction({ serverId: BigInt(id), amount: BigInt(100) });
-  }
-
-  useEffect(() => {
-    if (isWdSuccess || isDepositSuccess) {
-      queryClient.invalidateQueries({ queryKey: ['user-ledger', id, address] });
-      queryClient.invalidateQueries({ queryKey: ['user-activities', id] });
-    }
-  }, [isWdSuccess, isDepositSuccess]);
+  const rank = servers ? servers.findIndex((server) => server.server_id === Number(id)) + 1 : null;
 
   return (
-    <div>
-      {id}
-      <button className="bg-white text-black mr-4" onClick={handleWithdraw}>
-        {isWdLoading ? 'Withdrawing' : isWdSuccess ? 'Withdraw Success' : 'Withdraw'}
-      </button>
-      <button className="bg-white text-black" onClick={handleDeposit}>
-        {isDepositLoading ? 'Depositing' : isDepositSuccess ? 'Deposit Success' : 'Deposit'}
-      </button>
+    // <div>
+    //   <button className="bg-white text-black mr-4" onClick={handleWithdraw}>
+    //     {isWdLoading ? 'Withdrawing' : isWdSuccess ? 'Withdraw Success' : 'Withdraw'}
+    //   </button>
+    //   <button className="bg-white text-black" onClick={handleDeposit}>
+    //     {isDepositLoading ? 'Depositing' : isDepositSuccess ? 'Deposit Success' : 'Deposit'}
+    //   </button>
+    // </div>
+    <div className="w-full">
+      <div className="flex items-start justify-between">
+        <AirdropTime />
+        <div className="flex items-center gap-x-5">
+          <LanguageSetting />
+          <ConnectBtn />
+        </div>
+      </div>
+
+      <div className="flex flex-col items-start mt-[76px]">
+        <div className="font-cal text-[40px] font-bold leading-[80px] text-white">{T('NodeBannerTitle')}</div>
+        <div className="font-cal text-white font-bold">
+          <span className="text-[50px]">No.</span>
+          <span className="text-[100px]">{id}</span>
+        </div>
+      </div>
+
+      <NodeInfoRow server={currentServer || null} rank={rank} />
+
+      <div className="mt-10 flex items-center gap-x-1">
+        <DepositBtn serverId={Number(id)} />
+        <WithdrawBtn serverId={Number(id)} />
+        <ProfitBtn serverId={Number(id)} />
+      </div>
     </div>
   );
 }

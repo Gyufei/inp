@@ -1,7 +1,7 @@
 import { useParams } from 'next/navigation';
 import { Tokens } from '../const';
 
-export default function useCurrentToken() {
+export function useCurrentToken() {
   const params = useParams();
   const tokenName = params.token as string;
 
