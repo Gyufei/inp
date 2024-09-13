@@ -1,17 +1,18 @@
 'use client';
-import { useLedger } from '@/lib/api/use-ledger';
-import { useServers } from '@/lib/api/use-servers';
-import { MAKDecimal } from '@/lib/const';
-import { useDeposit } from '@/lib/hook/use-deposit';
-import { useWithdraw } from '@/lib/hook/use-withdraw';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
+import { useQueryClient } from '@tanstack/react-query';
+import { useCurrentToken } from '@/lib/hook/use-current-token';
+import { useLedger } from '@/lib/api/use-ledger';
+import { useServers } from '@/lib/api/use-servers';
+import { useDeposit } from '@/lib/hook/use-deposit';
+import { useWithdraw } from '@/lib/hook/use-withdraw';
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
   const { address } = useAccount();
   const { data: servers } = useServers();
 
+  const currentToken = useCurrentToken();
   const queryClient = useQueryClient();
 
   const currentServer = (servers || [])?.find((server) => server.server_id === Number(id));
@@ -24,7 +25,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   const { isLoading: isDepositLoading, write: depositAction, isSuccess: isDepositSuccess } = useDeposit();
 
   function handleWithdraw() {
-    withdrawAction({ serverId: BigInt(id), amount: BigInt(stakeAmount * 10 ** MAKDecimal) });
+    withdrawAction({ serverId: BigInt(id), amount: BigInt(stakeAmount * 10 ** (currentToken?.decimal || 0)) });
   }
 
   function handleDeposit() {
@@ -40,7 +41,6 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
   return (
     <div>
-      {id}
       <button className="bg-white text-black mr-4" onClick={handleWithdraw}>
         {isWdLoading ? 'Withdrawing' : isWdSuccess ? 'Withdraw Success' : 'Withdraw'}
       </button>
