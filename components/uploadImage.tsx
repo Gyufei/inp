@@ -1,5 +1,4 @@
 import ImageUploader from './reactImageUploader'
-import 'react-image-upload/dist/index.css'
 
 const UploadImageList = ({onImageUpload, hideImg = false}: {
     onImageUpload: (file: File) => void,
