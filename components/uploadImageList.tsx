@@ -10,45 +10,12 @@ interface UploadedImage {
 }
 
 const UploadImageList: React.FC = () => {
-  const [images, setImages] = useState<UploadedImage[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   console.log("🚀 ~ images:", images)
 
-  const handleImageUpload = async (file: File) => {
-    try {
-      // 这里应该是实际的文件上传逻辑
-      // 以下是模拟上传过程
-      const formData = new FormData();
-      formData.append('file', file);
-      setIsUploading(true)
-      // 模拟API调用
-      // await new Promise(resolve => setTimeout(resolve, 1000));
-      // 1. 生成上传URL
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-      })
-      const { url } = await response.json()
-      
-      // 2. 使用上传URL上传文件 
-      await fetch(url, {  
-        method: 'PUT',
-        body: formData,
-      })
-      // setIsUploading(false)
-
-      // 假设服务器返回了图片URL
-      // const imageUrl = URL.createObjectURL(file);
-
-      const newImage: UploadedImage = {
-        id: Date.now().toString(),
-        url: file.dataUrl,
-      };
-
+  const handleImageUpload = async (newImage: string) => {
       setImages(prevImages => [...prevImages, newImage]);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      // 这里可以添加错误处理逻辑，比如显示错误消息
-    }
   };
 
   const handleImageDelete = (id: string) => {
@@ -57,11 +24,11 @@ const UploadImageList: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-      {images.map((image) => (
+      {images.map((image, index) => (
         <ImageItem
-          key={image.id}
+          key={index}
           image={image}
-          onDelete={() => handleImageDelete(image.id)}
+          onDelete={() => handleImageDelete(image)}
         />
       ))}
       <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading}/>
