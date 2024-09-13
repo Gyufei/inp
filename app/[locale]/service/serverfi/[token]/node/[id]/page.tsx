@@ -34,6 +34,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   useEffect(() => {
     if (isWdSuccess || isDepositSuccess) {
       queryClient.invalidateQueries({ queryKey: ['user-ledger', id, address] });
+      queryClient.invalidateQueries({ queryKey: ['user-activities', id] });
     }
   }, [isWdSuccess, isDepositSuccess]);
 
