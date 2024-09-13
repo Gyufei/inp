@@ -8,7 +8,6 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
     hideImg?: boolean,
     style?: any
 }) => {
-  console.log("🚀 ~ style:", style)
   async function getImageFileObject(imageFile: File) {
     const file = (imageFile as any).file;
     console.log({ imageFile });
@@ -18,7 +17,6 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
         return;
       }
       const { url, nameKey } = await response.json();
-      console.log('🚀 ~ handleImageUpload ~ url:', url, nameKey);
 
       // 2. 使用上传URL上传文件
       await fetch(url, {

@@ -6,7 +6,6 @@ import { R2_BUCKET_NAME } from '@/lib/const'
 
 export async function uploadAction({filename}: {filename: string}) {
   try {
-    console.log("🚀 ~ uploadAction ~ process.env.R2_BUCKET_NAME:", R2_BUCKET_NAME)
     const nameKey = `${crypto.randomUUID().replace(/-/g, '')}-${filename}` 
     // 生成上传URL
     const signedUrl = await getSignedUrl(
@@ -24,7 +23,6 @@ export async function uploadAction({filename}: {filename: string}) {
 
   } catch (err) {
     console.log('出错了')
-    console.log("🚀 ~ POST ~ err:", err)
   } 
 }
 export async function delAction({KeyFilename}: {KeyFilename: string}) {
@@ -44,6 +42,5 @@ export async function delAction({KeyFilename}: {KeyFilename: string}) {
     return NextResponse.json({ url: signedUrl })
 
   } catch (err) {
-    console.log("🚀 ~ POST ~ err:", err)
   } 
 }

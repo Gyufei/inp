@@ -18,7 +18,6 @@ export default function RegisterForm() {
   const { open } = useWeb3Modal();
 
   const handleImageUpload = async (imgUrl: string) => {
-    console.log('🚀 ~ handleImageUpload ~ imgUrl:', imgUrl);
     setServerImage(imgUrl);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +26,6 @@ export default function RegisterForm() {
     const serverName = formData.get('serverName');
     const ownerName = formData.get('ownerName');
     const serverNo = formData.get('serverNo') || '0';
-    console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
     //TODO: 数据提交
     if (!address) {
       open();
