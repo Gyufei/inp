@@ -2,14 +2,12 @@
 
 import { useState } from 'react';
 import UploadImage from "@/components/uploadImage"
-import UploadImageList from "@/components/uploadImageList"
 
 export default  function RegisterForm() {
-  const [serverImage, setServerImage] = useState<File | null>(null);
-  const handleImageUpload = (file: File) => {
-    console.log("🚀 ~ handleImageUpload ~ file:", file)
-    setServerImage(file);
-
+  const [serverImage, setServerImage] = useState<string | null>(null);
+  const handleImageUpload = async (imgUrl: string) => {
+    console.log("🚀 ~ handleImageUpload ~ imgUrl:", imgUrl)
+    setServerImage(imgUrl)
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,13 +16,13 @@ export default  function RegisterForm() {
     const ownerName = formData.get('ownerName');
     const serverNo = formData.get('serverNo');
     console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
+    //TODO: 数据提交
 
     
   }
   return (
     // <>
      
-    //   <UploadImageList />
     // </>
     <form onSubmit={handleSubmit} className="rounded-lg border shadow-sm w-full max-w-sm mx-auto text-white"
       style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(20px)'}}>

@@ -18,12 +18,23 @@ const UploadImageList: React.FC = () => {
     try {
       // 这里应该是实际的文件上传逻辑
       // 以下是模拟上传过程
-      // const formData = new FormData();
-      // formData.append('file', file);
+      const formData = new FormData();
+      formData.append('file', file);
       setIsUploading(true)
       // 模拟API调用
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setIsUploading(false)
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+      // 1. 生成上传URL
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+      })
+      const { url } = await response.json()
+      
+      // 2. 使用上传URL上传文件 
+      await fetch(url, {  
+        method: 'PUT',
+        body: formData,
+      })
+      // setIsUploading(false)
 
       // 假设服务器返回了图片URL
       // const imageUrl = URL.createObjectURL(file);
