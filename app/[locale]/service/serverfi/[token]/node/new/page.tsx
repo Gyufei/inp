@@ -5,9 +5,6 @@ import UploadImage from "@/components/uploadImage"
 import UploadImageList from "@/components/uploadImageList"
 
 export default  function RegisterForm() {
-  const [serverName, setServerName] = useState('');
-  const [ownerName, setOwnerName] = useState('');
-  const [serverNo, setServerNo] = useState('');
   const [serverImage, setServerImage] = useState<File | null>(null);
   const handleImageUpload = (file: File) => {
     console.log("🚀 ~ handleImageUpload ~ file:", file)
@@ -15,13 +12,13 @@ export default  function RegisterForm() {
 
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
     e.preventDefault();
-    
-    if (!serverImage) {
-      alert('Please upload a server image');
-      return;
-    }
+    const formData = new FormData(e.target);
+    const serverName = formData.get('serverName');
+    const ownerName = formData.get('ownerName');
+    const serverNo = formData.get('serverNo');
+    console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
+
     
   }
   return (
@@ -43,43 +40,33 @@ export default  function RegisterForm() {
         <div className="grid gap-2">
           <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="serverName">Server Name</label>
           <input 
-            id="serverName"
-            value={serverName}
-            onChange={(e) => setServerName(e.target.value)}
-            style={{backgroundColor: 'rgba(16, 20, 24, 0.1)'}}
+            name="serverName"
             type="text" 
-            className="flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
+            className="bg-[rgba(16, 20, 24, 0.1)] flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
             required 
           />
         </div>
         <div className="grid gap-2">
           <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="ownerName">Owner Name</label>
           <input 
-            id="ownerName"
-            value={ownerName}
-            onChange={(e) => setOwnerName(e.target.value)}
-            style={{backgroundColor: 'rgba(16, 20, 24, 0.1)'}}
+            name="ownerName"
             type="text" 
-            className="flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
+            className="bg-[rgba(16, 20, 24, 0.1)] flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
             required 
           />
         </div>
         <div className="grid gap-2">
           <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="registrationCode">Registration Under Server No.</label>
           <input 
-            id="serverNo"
-            value={serverNo}
-            onChange={(e) => setServerNo(e.target.value)}
-            style={{backgroundColor: 'rgba(16, 20, 24, 0.1)'}}
+            name="serverNo"
             type="text" 
-            className="flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
+            className="bg-[rgba(16, 20, 24, 0.1)] flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
           />
         </div>
       </div>
       <div className="flex items-center p-6 pt-0">
         <button 
-          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
-          style={{backgroundColor: '#3E71FF'}}
+          className="bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
           >Register</button>
       </div>
     </form>
