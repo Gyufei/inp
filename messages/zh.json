@@ -2,10 +2,18 @@
   "Common": {
     "Connecting": "连接中...",
     "ConnectWallet": "连接钱包",
-    "NextAirDrop": "下次空投",
+    "NextAirdrop": "下次空投",
     "Hour": "小时",
     "Minute": "分钟",
     "Second": "秒",
-    "ServerNodes": "服务器节点"
+    "ServerNodes": "服务器节点",
+    "ServerName": "Server Name",
+    "Owner": "Owner",
+    "Members": "Members",
+    "MAKPower": "MAK Power",
+    "Airdrop": "Airdrop",
+    "TotalAirdrop": "Total Airdrop",
+    "BannerTitle": "${token} ServerFi Node Computing Power Portal",
+    "BannerDesc": "Get your own server from MetaCene, and make money from it."
   }
 }

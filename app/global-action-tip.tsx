@@ -1,6 +1,7 @@
 'use client';
 
 import { useContext, useEffect } from 'react';
+import Image from 'next/image';
 import { GlobalMsgContext } from './global-msg-context';
 
 export default function GlobalActionTip() {
@@ -40,11 +41,11 @@ export default function GlobalActionTip() {
           {((type) => {
             switch (type) {
               case 'success':
-                return <img className="tip-icon" src="images/tip-success.svg" loading="lazy" alt="" />;
+                return <Image className="tip-icon" src="images/tip-success.svg" loading="lazy" alt="" />;
               case 'warning':
-                return <img className="tip-icon" src="images/tip-info.svg" loading="lazy" alt="" />;
+                return <Image className="tip-icon" src="images/tip-info.svg" loading="lazy" alt="" />;
               case 'error':
-                return <img className="tip-icon" src="images/tip.svg" loading="lazy" alt="" />;
+                return <Image className="tip-icon" src="images/tip.svg" loading="lazy" alt="" />;
               default:
                 return null;
             }

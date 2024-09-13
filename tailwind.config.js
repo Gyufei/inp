@@ -8,7 +8,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        redHat: ["var(--font-red-hat)"],
+        inter: ["var(--font-inter)"],
+        cal: ["var(--font-cal-sans)"],
+        hel: ["var(--font-hel)"],
+        din: ["var(--font-din)"],
       },
     },
   },
