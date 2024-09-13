@@ -7,9 +7,6 @@ import { R2_BUCKET_NAME } from '@/lib/const'
 export async function useUploadAction({filename}: {filename: string}) {
  
   try {
-    
-    console.log(chalk.yellow(`正在生成上传URL!`))  
-
     console.log("🚀 ~ uploadAction ~ process.env.R2_BUCKET_NAME:", R2_BUCKET_NAME)
     const nameKey = `${crypto.randomUUID().replace(/-/g, '')}-${filename}` 
     // 生成上传URL
@@ -22,7 +19,6 @@ export async function useUploadAction({filename}: {filename: string}) {
       { expiresIn: 60 } 
     )
 
-    console.log(chalk.green(`上传URL生成成功!`))
     
     // 返回上传URL
     return NextResponse.json({ url: signedUrl, nameKey })

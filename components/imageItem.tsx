@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 interface ImageItemProps {
   image: string;
-  onDelete: (id: string) => void;
+  onDelete: (image: string) => void;
 }
 
 const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete }) => {
@@ -23,13 +23,13 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-        src={image.url}
+        src={image}
         alt="Uploaded"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
       {isHovered && (
         <button
-          onClick={() => onDelete(image.id)}
+          onClick={() => onDelete(image)}
           style={{
             position: 'absolute',
             top: '5px',

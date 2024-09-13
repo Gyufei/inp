@@ -54,8 +54,10 @@ const ImageUploader = ({
 
         {/* upload Input Box */}
         {currentImg && currentImg.dataUrl !== null && (
-          <label id='file_uploader' className='uploader__file_input_label'>
-            <UploadIcon element={uploadIcon} />
+          <label id='file_uploader' className='uploader__file_input_label w-full'>
+            <div className={ (currentImg.dataUrl && !hideImg) ? 'opacity-0' : 'opacity-100'}>
+              <UploadIcon element={uploadIcon} />
+            </div>
             {/* input element */}
             <input
               className='uploader__file_input'
