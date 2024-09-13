@@ -7,7 +7,7 @@ import UploadImageList from "@/components/uploadImageList"
 export default  function RegisterForm() {
   const [serverName, setServerName] = useState('');
   const [ownerName, setOwnerName] = useState('');
-  const [serverNo, setServerNo] = useState('');
+  const [registrationCode, setRegistrationCode] = useState('');
   const [serverImage, setServerImage] = useState<File | null>(null);
   const handleImageUpload = (file: File) => {
     console.log("🚀 ~ handleImageUpload ~ file:", file)
@@ -15,14 +15,38 @@ export default  function RegisterForm() {
 
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
     e.preventDefault();
     
     if (!serverImage) {
       alert('Please upload a server image');
       return;
     }
-    
+
+    const formData = new FormData();
+    formData.append('serverName', serverName);
+    formData.append('ownerName', ownerName);
+    formData.append('registrationCode', registrationCode);
+    formData.append('serverImage', serverImage);
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Registration successful:', data);
+        // Handle successful registration (e.g., redirect or show success message)
+      } else {
+        const errorData = await response.json();
+        console.error('Registration failed:', errorData);
+        // Handle registration error (e.g., show error message)
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      // Handle network or other errors
+    }
   }
   return (
     // <>
@@ -65,11 +89,11 @@ export default  function RegisterForm() {
           />
         </div>
         <div className="grid gap-2">
-          <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="registrationCode">Registration Under Server No.</label>
+          <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="registrationCode">Registration Code</label>
           <input 
-            id="serverNo"
-            value={serverNo}
-            onChange={(e) => setServerNo(e.target.value)}
+            id="registrationCode"
+            value={registrationCode}
+            onChange={(e) => setRegistrationCode(e.target.value)}
             style={{backgroundColor: 'rgba(16, 20, 24, 0.1)'}}
             type="text" 
             className="flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
