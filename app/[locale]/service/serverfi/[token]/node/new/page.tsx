@@ -12,7 +12,7 @@ export default function RegisterForm() {
   const router = useRouter();
   const [serverImage, setServerImage] = useState<string | null>(null);
 
-  const { address, isConnected, isConnecting } = useAccount();
+  const { address } = useAccount();
   // const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useWithdraw();
 
   const { open } = useWeb3Modal();
