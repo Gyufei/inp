@@ -2,8 +2,7 @@
 
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { IServer } from '@/lib/type';
-import { useServers } from '@/lib/api/use-servers';
+import { IServer, useServers } from '@/lib/api/use-servers';
 
 export function ServerList() {
   const T = useTranslations('Common');

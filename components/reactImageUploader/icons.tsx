@@ -1,6 +1,6 @@
 
 import React, { Fragment } from 'react'
-import { UploadIconProp, DeleteIconProps } from '../interface'
+import { UploadIconProp, DeleteIconProps } from './interface'
 
 export function UploadIcon({ element }: UploadIconProp): JSX.Element {
   if (element) {
