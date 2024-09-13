@@ -6,7 +6,7 @@ import UploadImage from "@/components/uploadImage"
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useAccount } from 'wagmi';
 // import { useWithdraw } from '@/lib/hook/use-withdraw';
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/app/navigation";
 
 export default function RegisterForm() {
   const router = useRouter();
