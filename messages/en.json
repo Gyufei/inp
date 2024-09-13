@@ -25,6 +25,11 @@
     "Confirm": "Confirm",
     "Withdraw": "Withdraw",
     "PotentialProfit": "Potential Profit",
-    "Register": "Register"
+    "Register": "Register",
+    "Activities": "Activities",
+    "Wallet": "Wallet",
+    "Op": "Op.",
+    "Power": "Power",
+    "BlockNo": "Block No."
   }
 }

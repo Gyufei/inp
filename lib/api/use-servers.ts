@@ -30,25 +30,21 @@ export function useServers() {
   async function getServers() {
     const res = await fetcher(Paths.serverList);
 
-    const servers = res.map((server: any) => {
-      return {
-        ...server,
-        album_list: JSON.parse(server.album_list || '[]'),
-      };
-    });
+    const servers = (res || []).sort((a: IServer, b: IServer) => Number(b.total_power) - Number(a.total_power));
 
-    const sortServers = (servers || []).sort((a: IServer, b: IServer) => Number(b.total_power) - Number(a.total_power));
-
-    const percentServers = sortServers.map((server: IServer, index: number) => {
-      const extraNum = ServerPercent.length - 10;
+    const percentServers = servers.map((server: IServer, index: number) => {
+      const extraNum = servers.length - 10;
       const extraP = extraNum > 0 ? NP.divide(OtherPercent, extraNum) : 0;
       const percent = index > 9 ? extraP : ServerPercent[index];
 
+      console.log(percent);
       return {
         ...server,
         airdrop_percent: percent * 100,
       };
     });
+
+    console.log(percentServers);
 
     return percentServers;
   }

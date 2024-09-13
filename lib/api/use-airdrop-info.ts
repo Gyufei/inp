@@ -1,5 +1,5 @@
-import fetcher from '@/lib/fetcher';
-import { Paths } from '@/lib/PathMap';
+// import fetcher from '@/lib/fetcher';
+// import { Paths } from '@/lib/PathMap';
 import { useQuery } from '@tanstack/react-query';
 
 export function useAirdropInfo() {
@@ -12,8 +12,13 @@ export function useAirdropInfo() {
   });
 
   async function getAirdropInfo() {
-    const res = await fetcher(Paths.airdropInfo);
-    return res;
+    // const res = await fetcher(Paths.airdropInfo);
+    // return res;
+    //
+    return {
+      airdrop_cycle: 86400,
+      first_airdrop_at: Math.floor(new Date().getTime() / 1000) - 100000,
+    };
   }
 
   return res;

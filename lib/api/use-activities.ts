@@ -2,13 +2,16 @@ import fetcher from '@/lib/fetcher';
 import { Paths } from '@/lib/PathMap';
 import { useQuery } from '@tanstack/react-query';
 
+export interface UserActivity {
+  action: 'Deposit' | 'Withdraw';
+  amount: string;
+  tx_hash: string;
+  user: string;
+  block_number: string;
+}
+
 export function useActivities(serverId: number | null) {
-  const res = useQuery<{
-    action: 'Deposit' | 'Withdraw';
-    amount: string;
-    tx_hash: string;
-    user: string;
-  }>({
+  const res = useQuery<Array<UserActivity>>({
     queryKey: ['user-activities', serverId],
     queryFn: getServers,
     enabled: !!serverId,
