@@ -8,6 +8,7 @@ import { NodeInfoRow } from './node-info-row';
 import { DepositBtn } from './deposit-btn';
 import { WithdrawBtn } from './withdraw-btn';
 import { ProfitBtn } from './profit-btn';
+import { InfoBox } from './info-box';
 import { RegisterBtn } from './register-btn';
 import { NodeActivities } from './node-activities';
 
@@ -53,6 +54,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
       <div className="mt-20 flex">
         <NodeActivities serverId={Number(id)} />
+        <InfoBox />
       </div>
     </div>
   );

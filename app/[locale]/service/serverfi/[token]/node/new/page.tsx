@@ -1,11 +1,22 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import UploadImage from '@/components/uploadImage';
+import Image from 'next/image'
+import UploadImage from "@/components/uploadImage"
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useAccount } from 'wagmi';
+// import { useWithdraw } from '@/lib/hook/use-withdraw';
+import { useRouter } from "@/app/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [serverImage, setServerImage] = useState<string | null>(null);
+
+  const { address, isConnected, isConnecting } = useAccount();
+  // const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useWithdraw();
+
+  const { open } = useWeb3Modal();
+
   const handleImageUpload = async (imgUrl: string) => {
     console.log('🚀 ~ handleImageUpload ~ imgUrl:', imgUrl);
     setServerImage(imgUrl);
@@ -15,10 +26,26 @@ export default function RegisterForm() {
     const formData = new FormData(e.target as any);
     const serverName = formData.get('serverName');
     const ownerName = formData.get('ownerName');
-    const serverNo = formData.get('serverNo');
-    console.log('🚀 ~ handleSubmit ~ handleSubmit:', serverName, ownerName, serverNo, serverImage);
+    const serverNo = formData.get('serverNo') || '0';
+    console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
     //TODO: 数据提交
-  };
+    if (!address) {
+      open();
+      return;
+    } 
+    router.push('/');
+    // 跳转到列表
+    // registerAction?.({
+    //   serverName: serverName as string,
+    //   ownerName: ownerName as string,
+    //   serverNo: serverNo as string,
+    //   serverLogo: serverImage as string
+    // })
+
+
+
+    
+  }
   return (
     <div className="relative overflow-hidden" style={{ height: 'calc(100vh - 70px)' }}>
       <video className="absolute -top-[220px] -right-[195px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />

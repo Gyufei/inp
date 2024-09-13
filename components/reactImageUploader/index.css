@@ -5,8 +5,8 @@
     position: relative;
     background: whitesmoke;
     overflow: hidden;
-    min-height: 100px;
-    min-width: 100px;
+    /* min-height: 100px;
+    min-width: 100px; */
   }
   .uploader__btn_wrapper {
     top: 4px;
