@@ -5,7 +5,7 @@ import Image from 'next/image'
 import UploadImage from "@/components/uploadImage"
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useAccount } from 'wagmi';
-import { useWithdraw } from '@/lib/hook/use-withdraw';
+// import { useWithdraw } from '@/lib/hook/use-withdraw';
 import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
@@ -13,7 +13,7 @@ export default function RegisterForm() {
   const [serverImage, setServerImage] = useState<string | null>(null);
 
   const { address, isConnected, isConnecting } = useAccount();
-  const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useWithdraw();
+  // const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useWithdraw();
 
   const { open } = useWeb3Modal();
 

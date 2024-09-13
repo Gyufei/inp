@@ -1,11 +1,7 @@
-import { useTranslations } from 'next-intl';
 import Image from 'next/image'
 import UploadImageList from "@/components/uploadImageList"
 
 export function InfoBox() {
-  const T = useTranslations('Common');
-
-  function handleClick() {}
 
   return (
     <div
