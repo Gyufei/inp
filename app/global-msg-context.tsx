@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export interface IMsg {
   type: 'success' | 'warning' | 'error';
