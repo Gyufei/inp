@@ -18,8 +18,8 @@ const UploadImageList: React.FC = () => {
       setImages(prevImages => [...prevImages, newImage]);
   };
 
-  const handleImageDelete = (id: string) => {
-    setImages((prevImages) => prevImages.filter((image) => image.id !== id));
+  const handleImageDelete = (newImage: string) => {
+    // setImages((prevImages) => prevImages.filter((image) => image.id !== id));
   };
 
   return (

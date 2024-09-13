@@ -46,8 +46,7 @@ const UploadImageList = ({onImageUpload, hideImg = false}: {
         width: '140px',
         color: '#ffb200',
         backgroundColor: '#1014181a',
-        border: '1px solid #ffffff80',
-        borderRadius: '20px'
+
       }}
       hideImg={hideImg}
     />
