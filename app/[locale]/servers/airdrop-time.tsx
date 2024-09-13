@@ -1,28 +1,18 @@
 'use client';
-import fetcher from '@/lib/fetcher';
-import { Paths } from '@/lib/PathMap';
-import { useQuery } from '@tanstack/react-query';
+import { useAirdropInfo } from '@/lib/api/use-airdrop-info';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 
 export function AirdropTime() {
   const T = useTranslations('Common');
 
+  const { data: airdropInfo } = useAirdropInfo();
+
   const [timeObj, setTimeObj] = useState({
     hour: 0,
     minute: 0,
     second: 0,
   });
-
-  const { data: airdropInfo } = useQuery({
-    queryKey: ['airdropInfo'],
-    queryFn: getAirdropInfo,
-  });
-
-  async function getAirdropInfo() {
-    const res = await fetcher(Paths.airdropInfo);
-    return res;
-  }
 
   const calcTime = useCallback(
     function () {

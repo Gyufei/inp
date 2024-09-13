@@ -14,4 +14,6 @@ export const Paths = {
   register: WithHost('/server/list'),
   serverList: WithHost('/server/list'),
   airdropInfo: WithHost('/airdrop/info'),
+  userLedger: WithHost('/user/ledger'),
+  userActivities: WithHost('/user/activities'),
 };

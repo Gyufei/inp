@@ -2,31 +2,13 @@
 
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import fetcher from '@/lib/fetcher';
-import { Paths } from '@/lib/PathMap';
-import { useQuery } from '@tanstack/react-query';
 import { IServer } from '@/lib/type';
+import { useServers } from '@/lib/api/use-servers';
 
 export function ServerList() {
   const T = useTranslations('Common');
 
-  const { data: servers } = useQuery<Array<IServer>>({
-    queryKey: ['servers'],
-    queryFn: getServers,
-  });
-
-  async function getServers() {
-    const res = await fetcher(Paths.serverList);
-
-    const servers = res.map((server: any) => {
-      return {
-        ...server,
-        album_list: JSON.parse(server.album_list || '[]'),
-      };
-    });
-
-    return servers;
-  }
+  const { data: servers } = useServers();
 
   return (
     <div className="mt-10">
