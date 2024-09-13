@@ -9,7 +9,8 @@ interface UploadedImage {
   url: string;
 }
 
-const UploadImageList: React.FC = () => {
+const UploadImageList = ({style}: {style: any}) => {
+  console.log("🚀 ~ UploadImageList ~ style:", style)
   const [images, setImages] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   console.log("🚀 ~ images:", images)
@@ -31,7 +32,7 @@ const UploadImageList: React.FC = () => {
           onDelete={() => handleImageDelete(image)}
         />
       ))}
-      <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading}/>
+      <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>
     </div>
   );
 };

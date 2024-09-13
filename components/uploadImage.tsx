@@ -3,10 +3,12 @@ import ImageUploader from './reactImageUploader'
 import { useUploadAction } from "@/lib/api/use-upload-action";
 import { R2_URl_HOST } from '@/lib/const'
 
-const UploadImageList = ({onImageUpload, hideImg = false}: {
+const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
     onImageUpload: (url: string) => void,
     hideImg: boolean,
+    style?: any
 }) => {
+  console.log("🚀 ~ style:", style)
   async function getImageFileObject(imageFile: File) {
     const file = imageFile.file
     console.log({ imageFile })
@@ -46,6 +48,7 @@ const UploadImageList = ({onImageUpload, hideImg = false}: {
         width: '140px',
         color: '#ffb200',
         backgroundColor: '#1014181a',
+        ...style,
 
       }}
       hideImg={hideImg}

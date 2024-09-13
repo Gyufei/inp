@@ -8,6 +8,7 @@ import { NodeInfoRow } from './node-info-row';
 import { DepositBtn } from './deposit-btn';
 import { WithdrawBtn } from './withdraw-btn';
 import { ProfitBtn } from './profit-btn';
+import { InfoBox } from './info-box';
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
   const T = useTranslations('Common');
@@ -49,6 +50,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         <WithdrawBtn serverId={Number(id)} />
         <ProfitBtn serverId={Number(id)} />
       </div>
+      <InfoBox />
     </div>
   );
 }
