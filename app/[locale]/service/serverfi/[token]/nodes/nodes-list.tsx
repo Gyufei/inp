@@ -13,8 +13,6 @@ export function NodesList() {
 
   const { data: servers } = useServers();
 
-  const sortServers = (servers || []).sort((a, b) => Number(b.mak_power) - Number(a.mak_power));
-
   return (
     <div className="mt-[152px] relative z-10">
       <div className="absolute top-[228px] w-[176px] h-[176px] bg-[#A57755] blur-[250px]"></div>
@@ -36,7 +34,7 @@ export function NodesList() {
             borderImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%)',
           }}
         >
-          {(sortServers || []).map((server: IServer, index: number) => (
+          {(servers || []).map((server: IServer, index: number) => (
             <Link
               href={`/service/serverfi/${params.token}/node/${server.server_id}`}
               className="flex justify-between h-[100px] pl-[10px] py-5 bg-[rgba(22,23,22,0.01)] hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
@@ -69,7 +67,7 @@ export function NodesList() {
               </div>
               <div className="flex flex-col justify-between w-[140px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('MAKPower')}</div>
-                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{server.mak_power}</div>
+                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{server.total_power}</div>
               </div>
               <div className="flex flex-col justify-between w-[140px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('TotalAirdrop')}</div>

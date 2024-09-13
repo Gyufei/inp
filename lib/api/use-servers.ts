@@ -1,19 +1,24 @@
+import NP from 'number-precision';
 import fetcher from '@/lib/fetcher';
 import { Paths } from '@/lib/PathMap';
 import { useQuery } from '@tanstack/react-query';
+import { OtherPercent, ServerPercent } from '../const';
 
 export interface IServer {
-  airdrop_percent: string;
   album_list: Array<string>;
   is_up: number;
-  mak_power: string;
   members: number;
   owner_name: string;
+  parent_server_id: number;
   server_id: number;
   server_logo: string;
   server_name: string;
+  stake_token_address: string;
   total_airdrop: string;
+  total_power: string;
   wallet: string;
+
+  airdrop_percent: string;
 }
 
 export function useServers() {
@@ -32,7 +37,20 @@ export function useServers() {
       };
     });
 
-    return servers;
+    const sortServers = (servers || []).sort((a: IServer, b: IServer) => Number(b.total_power) - Number(a.total_power));
+
+    const percentServers = sortServers.map((server: IServer, index: number) => {
+      const extraNum = ServerPercent.length - 10;
+      const extraP = extraNum > 0 ? NP.divide(OtherPercent, extraNum) : 0;
+      const percent = index > 9 ? extraP : ServerPercent[index];
+
+      return {
+        ...server,
+        airdrop_percent: percent * 100,
+      };
+    });
+
+    return percentServers;
   }
 
   return res;

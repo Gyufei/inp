@@ -8,6 +8,8 @@ export function useLedger(serverId: number | null) {
 
   const res = useQuery<{
     stake_amount: string;
+    my_airdrop: string;
+    potential_profit: string;
   }>({
     queryKey: ['user-ledger', serverId, address],
     queryFn: getServers,

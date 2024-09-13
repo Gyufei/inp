@@ -2,14 +2,11 @@
 
 import ConnectBtn from '@/components/connect-btn';
 import LanguageSetting from '@/components/language-setting';
-import { useCurrentToken } from '@/lib/hook/use-current-token';
 import { useTranslations } from 'next-intl';
 import { AirdropTime } from '../../../../../../components/airdrop-time';
 
 export function NodesBanner() {
   const T = useTranslations('Common');
-
-  const token = useCurrentToken();
 
   return (
     <div className="relative">
@@ -20,9 +17,11 @@ export function NodesBanner() {
         </div>
         <div>
           <div className="text-[60px] leading-[80px] font-semibold text-white font-cal">
-            {T.rich('BannerTitle', { br: () => <br />, token: token?.name })}
+            {T.rich('NodesBannerTitle', { br: () => <br /> })}
           </div>
-          <div className="mt-5 text-[20px] leading-[30px] text-[rgba(255,255,255,0.6)]">{T.rich('BannerDesc', { br: () => <br /> })}</div>
+          <div className="mt-5 text-[20px] leading-[30px] text-[rgba(255,255,255,0.6)]">
+            {T.rich('NodesBannerDesc', { br: () => <br /> })}
+          </div>
         </div>
         <AirdropTime className="mt-[90px]" />
       </div>

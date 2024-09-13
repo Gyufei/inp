@@ -2,7 +2,7 @@ import fetcher from '@/lib/fetcher';
 import { Paths } from '@/lib/PathMap';
 import { useQuery } from '@tanstack/react-query';
 
-export function useLedger(serverId: number | null) {
+export function useActivities(serverId: number | null) {
   const res = useQuery<{
     action: 'Deposit' | 'Withdraw';
     amount: string;

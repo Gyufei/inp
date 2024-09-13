@@ -13,7 +13,7 @@
     "MAKPower": "MAK Power",
     "Airdrop": "Airdrop",
     "TotalAirdrop": "Total Airdrop",
-    "BannerTitle": "${token} ServerFi Node Computing Power Portal",
-    "BannerDesc": "Get your own server from MetaCene, and make money from it."
+    "NodesBannerTitle": "MAK ServerFi Node Computing Power Portal",
+    "NodesBannerDesc": "Get your own server from MetaCene, and make money from it."
   }
 }
