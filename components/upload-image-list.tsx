@@ -44,7 +44,7 @@ const UploadImageList = ({
         {images.map((image, index) => (
           <ImageItem key={index} image={image} onDelete={() => handleImageDelete(image)} style={style} />
         ))}
-      {hideAdd && <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>}
+      {!hideAdd && <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>}
     </div>
   );
 };
