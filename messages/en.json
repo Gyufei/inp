@@ -9,6 +9,7 @@
     "ServerNodes": "Server Nodes",
     "ServerName": "Server Name",
     "Owner": "Owner",
+    "OwnerName": "Owner Name",
     "OwnedBy": "Owned By",
     "Members": "Members",
     "MAKPower": "MAK Power",

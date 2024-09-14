@@ -54,7 +54,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
       <div className="mt-20 flex">
         <NodeActivities serverId={Number(id)} />
-        <InfoBox />
+        <InfoBox server={currentServer || null} />
       </div>
     </div>
   );

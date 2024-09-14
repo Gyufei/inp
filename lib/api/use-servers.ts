@@ -37,14 +37,11 @@ export function useServers() {
       const extraP = extraNum > 0 ? NP.divide(OtherPercent, extraNum) : 0;
       const percent = index > 9 ? extraP : ServerPercent[index];
 
-      console.log(percent);
       return {
         ...server,
         airdrop_percent: percent * 100,
       };
     });
-
-    console.log(percentServers);
 
     return percentServers;
   }

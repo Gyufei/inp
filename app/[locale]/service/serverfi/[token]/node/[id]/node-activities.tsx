@@ -51,11 +51,11 @@ export function NodeActivities({ serverId }: { serverId: number }) {
               </div>
               <div className="w-[20%] text-base leading-5 text-[rgba(255,255,255,0.6)]">
                 {act.action === 'Deposit' ? (
-                  <div className="h-6 w-fit px-3 rounded-md flex items-center text-[#6EFF90] text-base leading-6">
+                  <div className="h-6 w-fit flex items-center text-[#6EFF90] text-base leading-6">
                     +{act.amount} {currentToken?.name}
                   </div>
                 ) : (
-                  <div className="h-6 w-fit px-3 rounded-md flex items-center text-[#FFB39E] text-base leading-6">
+                  <div className="h-6 w-fit flex items-center text-[#FFB39E] text-base leading-6">
                     -{act.amount} {currentToken?.name}
                   </div>
                 )}
