@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 import Image from 'next/image';
+import { useQueryClient } from '@tanstack/react-query';
 
 import UploadImageList from '@/components/uploadImageList';
 import { IServer } from '@/lib/api/use-servers';
@@ -10,6 +11,7 @@ import { albumUpload } from '@/lib/api/album-upload';
 export function InfoBox({ server }: { server: IServer | null }) {
   const T = useTranslations('Common');
   const { address } = useAccount();
+  const queryClient = useQueryClient();
 
   const handleChangeImage = async (albumList: string[]) => {
     if (!server) return;
@@ -17,8 +19,9 @@ export function InfoBox({ server }: { server: IServer | null }) {
       server_id: server?.server_id,
       album_list: albumList,
     });
-
-    return res;
+    if (res) {
+      queryClient.invalidateQueries({ queryKey: ['server'] });
+    }
   };
 
   const allowUploadImg = useMemo(() => {
@@ -65,6 +68,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
           }}
           initImages={server ? server.album_list : []}
           onChangeImage={handleChangeImage}
+          hideAdd={!allowUploadImg}
         />
       </div>
     </div>

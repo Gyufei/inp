@@ -17,7 +17,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {} }) =>
           width: style.width ? style.width : '140px',
           height: style.height ? style.height : '140px',
           position: 'relative',
-          border: `2px solid ${isHovered ? '#007bff' : 'transparent'}`,
+          border: `1px solid ${isHovered ? '#007bff' : 'rgba(255, 255, 255, 0.2)'}`,
           borderRadius: '8px',
           overflow: 'hidden',
           transition: 'border-color 0.3s ease',
