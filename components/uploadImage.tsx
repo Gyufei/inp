@@ -9,22 +9,22 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
     style?: React.CSSProperties
 }) => {
   async function handleFileAdded(imageFile: File) {
-    const file = (imageFile as any).file;
-    console.log({ imageFile });
+  
     try {
-      const response = await uploadAction({ filename: file.name });
+      const response = await uploadAction({ filename: imageFile.name });
       if (!response) {
         return;
       }
       const { url, nameKey } = await response.json();
+      console.log("🚀 ~ handleFileAdded ~ nameKey:", nameKey)
 
       // 2. 使用上传URL上传文件
       await fetch(url, {
         method: 'PUT',
         headers: {
-          'Content-Type': file.type,
+          'Content-Type': imageFile.type,
         },
-        body: file,
+        body: imageFile,
       });
       console.log('Image uploaded successfully!');
       onImageUpload(`${IMG_URl_HOST}/test/${nameKey}`);

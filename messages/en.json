@@ -9,6 +9,7 @@
     "ServerNodes": "Server Nodes",
     "ServerName": "Server Name",
     "Owner": "Owner",
+    "OwnerName": "Owner Name",
     "OwnedBy": "Owned By",
     "Members": "Members",
     "MAKPower": "MAK Power",
@@ -30,6 +31,7 @@
     "Wallet": "Wallet",
     "Op": "Op.",
     "Power": "Power",
-    "BlockNo": "Block No."
+    "BlockNo": "Block No.",
+    "Info": "Info"
   }
 }

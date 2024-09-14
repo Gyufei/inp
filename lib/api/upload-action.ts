@@ -4,32 +4,33 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { r2 } from '@/lib/r2'
 
 export async function uploadAction({filename}: {filename: string}) {
+  console.log("🚀 ~ uploadAction ~ filename:", filename)
   try {
     const nameKey = `${crypto.randomUUID().replace(/-/g, '')}-${filename}` 
+    console.log("🚀 ~ uploadAction ~ nameKey:", nameKey)
     const signedUrl = await getSignedUrl(
       r2,
       new PutObjectCommand({
-        Bucket: process.env.R2_BUCKET_NAME, 
+        Bucket: 'inphura', 
         Key: `test/${nameKey}` ,    
       }),
       { expiresIn: 60 } 
     )
 
-    
     // 返回上传URL
-    return NextResponse.json({ url: signedUrl, nameKey })
+    return NextResponse.json({ url: signedUrl, nameKey: nameKey })
 
   } catch (err) {
     return NextResponse.json({ err })
   } 
 }
-export async function delAction({KeyFilename}: {KeyFilename: string}) {
+export async function delAction({keyFilename}: {keyFilename: string}) {
   try {
     const signedUrl = await getSignedUrl(
       r2,
       new PutObjectCommand({
-        Bucket: process.env.R2_BUCKET_NAME, 
-        Key: `test/${KeyFilename}` ,    
+        Bucket: 'inphura', 
+        Key: `test/${keyFilename}` ,    
       }),
       { expiresIn: 60 } 
     )
