@@ -29,6 +29,8 @@ export function InfoBox({ server }: { server: IServer | null }) {
     return server?.wallet === address;
   }, [server, address]);
 
+  console.log(allowUploadImg);
+
   return (
     <div className="w-[300px] ml-[8px]">
       <div
@@ -68,7 +70,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
           }}
           initImages={server ? server.album_list : []}
           onChangeImage={handleChangeImage}
-          hideAdd={!allowUploadImg}
+          showAdd={allowUploadImg}
         />
       </div>
     </div>
