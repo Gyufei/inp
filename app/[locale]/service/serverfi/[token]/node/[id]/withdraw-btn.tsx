@@ -22,6 +22,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
 
   function handleWithdraw() {
     const stakeAmount = userLedger?.stake_amount || 0;
+    console.log(stakeAmount);
     const amount = Number(stakeAmount) * 10 ** (currentToken?.decimal || 0);
     withdrawAction({ serverId: BigInt(serverId), amount: BigInt(amount) });
   }

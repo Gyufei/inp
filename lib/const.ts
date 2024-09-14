@@ -11,6 +11,7 @@ export const Tokens = [
     symbol: 'MAK',
     decimal: 18,
     logo: '/images/mak.png',
+    address: '0x0f4801e7a6f480DF0B5330Ef38122Ea0149f269d',
   },
 ];
 

@@ -1,58 +1,84 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image'
-import UploadImage from "@/components/uploadImage"
-import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useContext, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useAccount } from 'wagmi';
-// import { useWithdraw } from '@/lib/hook/use-withdraw';
-import { useRouter } from "@/app/navigation";
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+
+import { useRouter } from '@/app/navigation';
+import UploadImage from '@/components/uploadImage';
+import { useRegister } from '@/lib/hook/use-register';
+import { toHex } from '@/lib/utils';
+import { GlobalMsgContext } from '@/app/global-msg-context';
 
 export default function RegisterForm() {
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
+
+  const T = useTranslations('Common');
   const router = useRouter();
-  const [serverImage, setServerImage] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   const { address } = useAccount();
-  // const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useWithdraw();
-
   const { open } = useWeb3Modal();
+  const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useRegister();
+
+  const [serverName, setServerName] = useState('');
+  const [ownerName, setOwnerName] = useState('');
+  const [serverNo, setServerNo] = useState('');
+  const [serverImage, setServerImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (searchParams.get('ref')) {
+      setServerNo(searchParams.get('ref') as string);
+    }
+  }, [searchParams]);
 
   const handleImageUpload = async (imgUrl: string) => {
     setServerImage(imgUrl);
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("🚀 ~ RegisterForm ~ serverImage:", serverImage)
-    // const formData = new FormData(e.target as any);
-    // const serverName = formData.get('serverName');
-    // const ownerName = formData.get('ownerName');
-    // const serverNo = formData.get('serverNo') || '0';
-    //TODO: 数据提交
+
+  const handleSubmit = async () => {
     if (!address) {
       open();
       return;
-    } 
-    router.push('/');
-    // 跳转到列表
-    // registerAction?.({
-    //   serverName: serverName as string,
-    //   ownerName: ownerName as string,
-    //   serverNo: serverNo as string,
-    //   serverLogo: serverImage as string
-    // })
+    }
 
+    if (!serverName || !ownerName) {
+      setGlobalMessage({
+        type: 'error',
+        message: T('EnterNameAndOwner'),
+      });
+      return;
+    }
 
+    const name = toHex(serverName);
+    const owner = toHex(ownerName);
+    const image = serverImage ? toHex(serverImage as string) : '';
+    const no = serverNo;
 
-    
-  }
+    registerAction?.({
+      serverName: name,
+      ownerName: owner,
+      serverNo: no,
+      serverLogo: image,
+    });
+  };
+
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      router.push('/service/serverfi/mak/nodes');
+    }
+  }, [isRegisterSuccess, router]);
+
   return (
     <div className="relative overflow-hidden" style={{ height: 'calc(100vh - 70px)' }}>
       <video className="absolute -top-[220px] -right-[195px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
       <div className="absolute right-[60px] flex items-center">
         <div className="flex flex-col w-[446px] mb-10">
-          <h3 className="font-semibold text-[50px] text-white mb-4 text-center font-cal">Register Your Server</h3>
-          <form
-            onSubmit={handleSubmit}
+          <h3 className="font-semibold text-[50px] text-white mb-4 text-center font-cal">{T('RegisterYourServer')}</h3>
+          <div
             className="rounded-lg shadow-sm text-white"
             style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(20px)' }}
           >
@@ -60,7 +86,6 @@ export default function RegisterForm() {
               <div className="flex items-center justify-center mt-4">
                 <UploadImage onImageUpload={handleImageUpload} />
               </div>
-              {/* <UploadImageList /> */}
             </div>
             <div className="p-6 pt-0 grid gap-4">
               <div className="grid gap-2">
@@ -68,13 +93,15 @@ export default function RegisterForm() {
                   className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   htmlFor="serverName"
                 >
-                  Server Name
+                  {T('ServerName')}
                 </label>
                 <input
                   name="serverName"
                   type="text"
-                  className="bg-[rgba(16, 20, 24, 0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm focus-visible:ring-2  "
+                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm focus-visible:ring-2  "
                   required
+                  value={serverName}
+                  onChange={(e) => setServerName(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
@@ -82,13 +109,15 @@ export default function RegisterForm() {
                   className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   htmlFor="ownerName"
                 >
-                  Owner Name
+                  {T('OwnerName')}
                 </label>
                 <input
                   name="ownerName"
                   type="text"
-                  className="bg-[rgba(16, 20, 24, 0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm file:border-0 focus-visible:ring-2 "
+                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm file:border-0 focus-visible:ring-2 "
                   required
+                  value={ownerName}
+                  onChange={(e) => setOwnerName(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
@@ -96,21 +125,27 @@ export default function RegisterForm() {
                   className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   htmlFor="registrationCode"
                 >
-                  Registration Under Server No.
+                  {T('RegistrationUnder')}
                 </label>
                 <input
                   name="serverNo"
                   type="text"
-                  className="bg-[rgba(16, 20, 24, 0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm focus-visible:ring-2 "
+                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm focus-visible:ring-2 !disabled:bg-[(16,20,24,0.1)] disabled:cursor-not-allowed"
+                  disabled={true}
+                  value={serverNo}
                 />
               </div>
             </div>
             <div className="flex items-center p-6 pt-0">
-              <button className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full">
-                Register
+              <button
+                onClick={handleSubmit}
+                disabled={isRegisterLoading}
+                className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
+              >
+                {T('Register')}
               </button>
             </div>
-          </form>
+          </div>
         </div>
         <Image className="mt-[56%] ml-[100px]" src="/images/metacene.png" width={303} height={35} alt="" />
       </div>

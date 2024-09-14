@@ -10,7 +10,7 @@ export function useApproveMak(allowAmount: number = 0) {
   const tokenAddr = EthConfig.contract.makToken;
   const spender = EthConfig.contract.inphura;
 
-  const CT = useTranslations('Common');
+  const T = useTranslations('Common');
 
   const { address } = useAccount();
 
@@ -18,7 +18,7 @@ export function useApproveMak(allowAmount: number = 0) {
   const [isAllowanceLoading, setIsAllowanceLoading] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
 
-  const { data: hash, writeContract } = useWriteContract();
+  const { data: hash, writeContract, error } = useWriteContract();
 
   const { data: txReceipt, error: txError } = useWaitForTransactionReceipt({
     hash,
@@ -28,8 +28,10 @@ export function useApproveMak(allowAmount: number = 0) {
   });
 
   useEffect(() => {
+    if (!address) return;
+
     readAllowance();
-  }, []);
+  }, [address]);
 
   useEffect(() => {
     if (txReceipt) {
@@ -68,30 +70,35 @@ export function useApproveMak(allowAmount: number = 0) {
 
   const approveBtnText = useMemo(() => {
     if (isApproving) {
-      return `${CT('btn-Approving')} Mak...`;
+      return `${T('Approving')} MAK...`;
     }
 
     if (isShouldApprove) {
-      return `${CT('btn-Approve')} Mak`;
+      return `${T('Approve')} MAK`;
     }
 
     return '';
-  }, [isShouldApprove, CT, isApproving]);
+  }, [isShouldApprove, T, isApproving]);
 
   async function approveAction() {
     setIsApproving(true);
     const amountMax = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
-    const amount = allowAmount == 0 ? amountMax : '0';
 
     const callParams = {
       abi: erc20Abi,
       address: tokenAddr as any,
       functionName: 'approve',
-      args: [spender, amount],
+      args: [spender, amountMax],
     };
 
     writeContract(callParams as any);
   }
+
+  useEffect(() => {
+    if (error || hash) {
+      setIsApproving(false);
+    }
+  }, [error, hash]);
 
   return {
     isShouldApprove,

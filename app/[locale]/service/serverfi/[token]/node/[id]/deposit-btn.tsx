@@ -1,3 +1,4 @@
+import { useApproveMak } from '@/lib/hook/use-approve';
 import { useCurrentToken } from '@/lib/hook/use-current-token';
 import { useDeposit } from '@/lib/hook/use-deposit';
 import { useQueryClient } from '@tanstack/react-query';
@@ -18,9 +19,15 @@ export function DepositBtn({ serverId }: { serverId: number }) {
   const [inputOpen, setInputOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
+  const { isShouldApprove, isApproving, approveAction, approveBtnText } = useApproveMak(Number(inputValue || -1));
   const { isLoading: isDepositLoading, write: depositAction, isSuccess: isDepositSuccess } = useDeposit();
 
   function handleDeposit() {
+    if (isShouldApprove) {
+      approveAction();
+      return;
+    }
+
     if (!inputValue) {
       return;
     }
@@ -34,11 +41,14 @@ export function DepositBtn({ serverId }: { serverId: number }) {
       queryClient.invalidateQueries({ queryKey: ['servers'] });
       queryClient.invalidateQueries({ queryKey: ['user-ledger', serverId, address] });
       queryClient.invalidateQueries({ queryKey: ['user-activities', serverId] });
+
+      setInputOpen(false);
+      setInputValue('');
     }
   }, [isDepositSuccess, address, serverId, queryClient]);
 
   function handleClick() {
-    if (isDepositLoading || isConnecting) {
+    if (isApproving || isDepositLoading || isConnecting) {
       return;
     }
 
@@ -73,10 +83,10 @@ export function DepositBtn({ serverId }: { serverId: number }) {
         />
         <div
           onClick={handleDeposit}
-          data-disabled={!inputValue}
+          data-disabled={!isShouldApprove && !inputValue}
           className="mt-[10px] bg-[#3E71FF] h-10 cursor-pointer rounded-xl flex items-center justify-center text-white font-hel text-base leading-5 data-[disabled=true]:brightness-75"
         >
-          {T('Confirm')}
+          {isShouldApprove ? approveBtnText : T('Confirm')}
         </div>
       </div>
     </div>

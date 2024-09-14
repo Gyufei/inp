@@ -24,7 +24,7 @@ export function useActivities(serverId: number | null) {
 
     const res = await fetcher(Paths.userActivities + `?&server_id=${serverId}`);
 
-    return res;
+    return Array.isArray(res) ? res.reverse() : res;
   }
 
   return res;

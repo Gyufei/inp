@@ -19,13 +19,19 @@ export default function GlobalActionTip() {
 
   const colorMap = {
     success: {
-      color: '#4CBF87',
+      bg: '#D8F0E9',
+      border: '#85DFC4',
+      icon: '#070709',
     },
     warning: {
-      color: '#F79218',
+      bg: '#F1E5D1',
+      border: '#DFCA9C',
+      icon: '#B38828',
     },
     error: {
-      color: '#FF6262',
+      bg: '#F8DEDA',
+      border: '#DEA69C',
+      icon: 'D42C1F',
     },
   };
 
@@ -35,17 +41,19 @@ export default function GlobalActionTip() {
         <div
           className="tip-con fixed bottom-6 left-1/2 z-[1000] mt-4 flex -translate-x-1/2 items-center gap-x-2 rounded-md border px-5 py-3"
           style={{
-            color: colorMap[type].color,
+            color: colorMap[type].icon,
+            backgroundColor: colorMap[type].bg,
+            borderColor: colorMap[type].border,
           }}
         >
           {((type) => {
             switch (type) {
               case 'success':
-                return <Image className="tip-icon" src="images/tip-success.svg" loading="lazy" alt="" />;
+                return <Image width={16} height={16} className="tip-icon" src="/icons/tip-success.svg" loading="lazy" alt="" />;
               case 'warning':
-                return <Image className="tip-icon" src="images/tip-info.svg" loading="lazy" alt="" />;
+                return <Image width={16} height={16} className="tip-icon" src="/icons/tip-info.svg" loading="lazy" alt="" />;
               case 'error':
-                return <Image className="tip-icon" src="images/tip.svg" loading="lazy" alt="" />;
+                return <Image width={16} height={16} className="tip-icon" src="/icons/tip.svg" loading="lazy" alt="" />;
               default:
                 return null;
             }
