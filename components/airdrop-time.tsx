@@ -1,4 +1,4 @@
-import { useAirdropInfo } from '@/lib/api/use-airdrop-info';
+import { useAirdropTime } from '@/lib/hook/use-airdrop-time';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
@@ -6,24 +6,35 @@ import { useCallback, useEffect, useState } from 'react';
 export function AirdropTime({ className }: { className?: string }) {
   const T = useTranslations('Common');
 
-  const { data: airdropInfo } = useAirdropInfo();
+  const { data: nextAirdropAt } = useAirdropTime();
 
   const [timeObj, setTimeObj] = useState({
     hour: 0,
     minute: 0,
     second: 0,
+    isValid: false,
   });
 
   const calcTime = useCallback(
     function () {
-      if (!airdropInfo) {
+      if (!nextAirdropAt) {
         return;
       }
 
-      const { first_airdrop_at: startAt, airdrop_cycle: cycle } = airdropInfo;
+      const nextAt = Number(nextAirdropAt);
 
       const nowNum = Math.floor(new Date().getTime() / 1000);
-      const remainSecond = cycle - ((nowNum - startAt) % cycle);
+
+      if (nowNum > nextAt) {
+        setTimeObj({
+          hour: 0,
+          minute: 0,
+          second: 0,
+          isValid: false,
+        });
+      }
+
+      const remainSecond = nextAt - nowNum;
 
       const hour = Math.floor(remainSecond / 3600);
       const minute = Math.floor((remainSecond - hour * 3600) / 60);
@@ -33,9 +44,10 @@ export function AirdropTime({ className }: { className?: string }) {
         hour,
         minute,
         second,
+        isValid: true,
       });
     },
-    [airdropInfo]
+    [nextAirdropAt]
   );
 
   useEffect(() => {
@@ -53,19 +65,19 @@ export function AirdropTime({ className }: { className?: string }) {
       <div className="text-[40px] leading-9 text-[rgba(255,255,255,0.8)] font-hel">{T('NextAirdrop')}</div>
       <div className="mt-5 flex justify-start items-center">
         <div className="flex flex-col items-start gap-y-[10px] pr-12">
-          <div className="text-5xl text-white leading-[60px] font-light font-din">{timeObj.hour}</div>
+          <div className="text-5xl text-white leading-[60px] font-light font-din">{timeObj.isValid ? timeObj.hour : '--'}</div>
           <div className="text-[18px] leading-[26px] text-[rgba(255,255,255,0.4)] uppercase font-semibold">
             {T('Hour', { num: timeObj.hour })}
           </div>
         </div>
         <div className="flex flex-col items-center px-10 gap-y-[10px] mr-12 border-x border-solid border-[rgba(255,255,255,0.4)]">
-          <div className="text-5xl text-white leading-[60px] font-light font-din">{timeObj.minute}</div>
+          <div className="text-5xl text-white leading-[60px] font-light font-din">{timeObj.isValid ? timeObj.minute : '--'}</div>
           <div className="text-[18px] leading-[26px] text-[rgba(255,255,255,0.4)] uppercase font-semibold">
             {T('Minute', { num: timeObj.minute })}
           </div>
         </div>
         <div className="flex flex-col items-end gap-y-[10px] mr-12">
-          <div className="text-5xl text-white leading-[60px] font-light font-din">{timeObj.second}</div>
+          <div className="text-5xl text-white leading-[60px] font-light font-din">{timeObj.isValid ? timeObj.second : '--'}</div>
           <div className="text-[18px] leading-[26px] text-[rgba(255,255,255,0.4)] uppercase font-semibold">
             {T('Second', { num: timeObj.second })}
           </div>
