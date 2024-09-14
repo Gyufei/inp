@@ -19,8 +19,9 @@ export function InfoBox({ server }: { server: IServer | null }) {
       server_id: server?.server_id,
       album_list: albumList,
     });
-
-    return  queryClient.invalidateQueries({ queryKey: ['servers'] });
+    if (res) {
+      queryClient.invalidateQueries({ queryKey: ['server'] });
+    }
   };
 
   const allowUploadImg = useMemo(() => {
