@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import ImageUploader from './reactImageUploader';
+import ImageUploader from './react-image-uploader';
 import { uploadAction } from '@/lib/api/upload-action';
 import { R2_URl_HOST } from '@/lib/const';
 import { isProduction } from '@/lib/PathMap';

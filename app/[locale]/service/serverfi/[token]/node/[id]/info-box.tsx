@@ -3,7 +3,7 @@ import { useAccount } from 'wagmi';
 import Image from 'next/image';
 import { useQueryClient } from '@tanstack/react-query';
 
-import UploadImageList from '@/components/uploadImageList';
+import UploadImageList from '@/components/upload-image-list';
 import { IServer } from '@/lib/api/use-servers';
 import { useTranslations } from 'next-intl';
 import { albumUpload } from '@/lib/api/album-upload';

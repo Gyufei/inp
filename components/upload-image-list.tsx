@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import UploadImage from './uploadImage';
-import ImageItem from './imageItem';
+import UploadImage from './upload-image';
+import ImageItem from './image-item';
 import { delAction } from '@/lib/api/upload-action';
 
 
