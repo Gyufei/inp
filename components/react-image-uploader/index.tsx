@@ -1,5 +1,6 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useContext} from 'react'
 import Image from 'next/image'
+import { GlobalMsgContext } from '@/app/global-msg-context';
 import { DeleteIcon, UploadIcon } from './icons'
 import { FileUploaderProps, FileObjectType } from './interface'
 import './index.css'
@@ -12,6 +13,8 @@ const ImageUploader = ({
   style,
   hideImg = false
 }: FileUploaderProps): JSX.Element => {
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
+
   const [currentImg, setCurrentImg] = useState<Partial<FileObjectType>>({
     file: {} as File,
     dataUrl: ''
@@ -19,8 +22,16 @@ const ImageUploader = ({
 
   const handleFilePicker = (e: ChangeEvent<HTMLInputElement>): void => {
     const { files } = e.target
+   
 
     if (files != null && files.length > 0) {
+      if (files[0].size > 31) {
+        setGlobalMessage({
+          type: 'error',
+          message: 'The image size exceeds 3MB, please select again.',
+        });
+        return
+      }
       const imageObject = {
         file: files[0],
         dataUrl: URL.createObjectURL(files[0])
