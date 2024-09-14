@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
+import { GlobalMsgContext } from '@/app/global-msg-context';
+import { useContext, useEffect, useState } from 'react';
 
-export default function useTxStatus(
-  txFn: (_args: any) => Promise<any>
-  // successTip?: string
-  // errorTip?: string,
-) {
-  // const setGlobalMessage = useSetAtom(GlobalMessageAtom);
+export default function useTxStatus(txFn: (_args: any) => Promise<any>, successTip?: string, errorTip?: string) {
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
 
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<any>(null);
@@ -32,18 +29,20 @@ export default function useTxStatus(
       const data = await txFn(...args);
       setData(data);
       setIsSuccess(true);
-      // setGlobalMessage({
-      //   type: "success",
-      //   message: successTip || "Successfully",
-      // });
+      setGlobalMessage({
+        type: 'success',
+        message: successTip || 'Successfully',
+      });
     } catch (e: any) {
       console.error(e);
       setIsError(true);
       setError(e);
-      // setGlobalMessage({
-      //   type: "error",
-      //   message: e?.message || errorTip || "Fail: Some error occur",
-      // });
+
+      const eMsg = e?.message || '';
+      setGlobalMessage({
+        type: 'error',
+        message: eMsg.length > 40 ? eMsg.substring(0, 40) + '...' : eMsg || errorTip || 'Fail: Some error occur',
+      });
     } finally {
       setIsLoading(false);
     }

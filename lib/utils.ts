@@ -20,3 +20,7 @@ export function truncateAddr(
 
   return shorter;
 }
+
+export function toHex(str: string) {
+  return '0x' + Buffer.from(str, 'utf8').toString('hex');
+}

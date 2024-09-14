@@ -32,6 +32,11 @@
     "Op": "Op.",
     "Power": "Power",
     "BlockNo": "Block No.",
+    "RegisterYourServer": "Register Your Server",
+    "RegistrationUnder": "Registration Under Server No.",
+    "EnterNameAndOwner": "Please enter server name and owner name",
+    "Approve": "Approve",
+    "Approving": "Approving",
     "Info": "Info"
   }
 }
