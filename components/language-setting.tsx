@@ -18,6 +18,7 @@ export default function LanguageSetting() {
       { pathname, params },
       { locale: locale === 'en' ? 'zh' : 'en' }
     );
+    window.location.reload();
   }
 
   return (

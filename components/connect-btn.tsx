@@ -1,6 +1,6 @@
 'use client';
 import { truncateAddr } from '@/lib/utils';
-import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react';
 import { useTranslations } from 'next-intl';
 import { useAccount } from 'wagmi';
 
@@ -9,11 +9,12 @@ export default function ConnectBtn() {
 
   const { address, isConnected, isConnecting } = useAccount();
   const { open } = useWeb3Modal();
+  const { open: isOpen } = useWeb3ModalState();
 
   const displayAddress = truncateAddr(address || '', { nPrefix: 6, nSuffix: 4 });
 
   function handleClick() {
-    if (address || isConnected || isConnecting) {
+    if (address || isConnected) {
       return;
     }
 
@@ -22,7 +23,7 @@ export default function ConnectBtn() {
 
   return (
     <button onClick={handleClick} className="h-12 border rounded-[32px] text-base leading-5 text-white border-[rgba(255,255,255,0.4)] px-6">
-      {isConnecting ? T('Connecting') : isConnected ? displayAddress : T('ConnectWallet')}
+      {isConnecting && isOpen ? T('Connecting') : isConnected ? displayAddress : T('ConnectWallet')}
     </button>
   );
 }
