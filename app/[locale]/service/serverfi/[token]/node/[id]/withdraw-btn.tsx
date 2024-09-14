@@ -12,7 +12,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
 
   const { isLoading: isWdLoading, write: withdrawAction, isSuccess: isWdSuccess } = useWithdraw();
 
-  const { address, isConnecting } = useAccount();
+  const { address } = useAccount();
   const { open } = useWeb3Modal();
 
   const currentToken = useCurrentToken();
@@ -22,7 +22,6 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
 
   function handleWithdraw() {
     const stakeAmount = userLedger?.stake_amount || 0;
-    console.log(stakeAmount);
     const amount = Number(stakeAmount) * 10 ** (currentToken?.decimal || 0);
     withdrawAction({ serverId: BigInt(serverId), amount: BigInt(amount) });
   }
@@ -36,12 +35,13 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
   }, [isWdSuccess]);
 
   function handleClick() {
-    if (isWdLoading || isConnecting) {
+    if (isWdLoading) {
       return;
     }
 
     if (!address) {
       open();
+      return;
     }
 
     handleWithdraw();

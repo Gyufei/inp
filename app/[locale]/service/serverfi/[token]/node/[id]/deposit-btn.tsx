@@ -10,7 +10,7 @@ import { useAccount } from 'wagmi';
 export function DepositBtn({ serverId }: { serverId: number }) {
   const T = useTranslations('Common');
 
-  const { address, isConnecting } = useAccount();
+  const { address } = useAccount();
   const { open } = useWeb3Modal();
 
   const currentToken = useCurrentToken();
@@ -48,12 +48,13 @@ export function DepositBtn({ serverId }: { serverId: number }) {
   }, [isDepositSuccess, address, serverId, queryClient]);
 
   function handleClick() {
-    if (isApproving || isDepositLoading || isConnecting) {
+    if (isApproving || isDepositLoading) {
       return;
     }
 
     if (!address) {
       open();
+      return;
     }
 
     setInputOpen(!inputOpen);
