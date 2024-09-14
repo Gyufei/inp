@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import UploadImageList from '@/components/uploadImageList';
 import { IServer } from '@/lib/api/use-servers';
@@ -9,14 +10,14 @@ export function InfoBox({ server }: { server: IServer | null }) {
   return (
     <div className="w-[300px] ml-[8px]">
       <div
-        className="w-[146px] h-[68px] bg-no-repeat flex items-center justify-center pl-6 text-2xl leading-9 text-white font-cal"
-        style={{
-          backgroundImage: "url('/images/1097.png')",
-          backgroundSize: 'cover',
-          float: 'right',
-        }}
-      >
-        Info
+          className="w-[146px] h-[68px] bg-no-repeat flex items-center justify-center pl-6 text-2xl leading-9 text-white font-cal"
+          style={{
+            backgroundImage: "url('/images/1097.png')",
+            backgroundSize: 'cover',
+            float: 'right'
+          }}
+        >
+          {T('Info')}
       </div>
       <div className="bg-[rgba(255,255,255,0.1)] h-[292px] w-[300px] overflow-hidden overflow-y-auto trans-scroll-bar backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tr-none">
         <div className="absolute">
@@ -38,14 +39,12 @@ export function InfoBox({ server }: { server: IServer | null }) {
         </div>
       </div>
       <div className="mt-[8px] flex gap-x-[10px] overflow-x-auto">
-        {server?.album_list?.map((item) => (
-          <Image key={item} className="w-[66px] h-[66px] rounded-[12px]" src={item} width={231} height={231} alt="" />
-        ))}
-        <UploadImageList
+        <UploadImageList 
           style={{
             height: '66px',
             width: '66px',
           }}
+          initImages={server ? server.album_list : []}
         />
       </div>
     </div>

@@ -36,6 +36,7 @@
     "RegistrationUnder": "Registration Under Server No.",
     "EnterNameAndOwner": "Please enter server name and owner name",
     "Approve": "Approve",
-    "Approving": "Approving"
+    "Approving": "Approving",
+    "Info": "Info"
   }
 }

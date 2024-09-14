@@ -36,6 +36,7 @@
     "RegistrationUnder": "注册在服务器之下",
     "EnterNameAndOwner": "请输入服务器名称和所有者名称",
     "Approve": "Approve",
-    "Approving": "Approving"
+    "Approving": "Approving",
+    "Info": "Info"
   }
 }
