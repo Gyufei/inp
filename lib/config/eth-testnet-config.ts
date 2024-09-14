@@ -7,4 +7,4 @@ export const TestnetConfig = {
   },
 };
 
-export const devHost = `https://bam-cell.inphura.com`;
+export const devHost = `https://bam-cell-test.inphura.com`;
