@@ -2,14 +2,9 @@ import Image from 'next/image';
 import UploadImageList from '@/components/uploadImageList';
 import { IServer } from '@/lib/api/use-servers';
 import { useTranslations } from 'next-intl';
-import { useQueryClient } from '@tanstack/react-query';
 
 export function InfoBox({ server }: { server: IServer | null }) {
   const T = useTranslations('Common');
-
-  // const queryClient =useQueryClient();
-
-  // queryClient.invalidateQueries({ queryKey: ['servers'] });
 
   return (
     <div className="w-[300px] ml-[8px]">

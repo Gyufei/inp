@@ -5,10 +5,8 @@ import UploadImage from './uploadImage';
 import ImageItem from './imageItem';
 
 const UploadImageList = ({style}: {style: any}) => {
-  console.log("🚀 ~ UploadImageList ~ style:", style)
   const [images, setImages] = useState<string[]>([]);
   const [isUploading] = useState(false);
-  console.log('🚀 ~ images:', images);
 
   const handleImageUpload = async (newImage: string) => {
     setImages((prevImages) => [...prevImages, newImage]);

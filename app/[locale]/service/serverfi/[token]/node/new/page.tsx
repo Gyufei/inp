@@ -12,22 +12,21 @@ export default function RegisterForm() {
   const router = useRouter();
   const [serverImage, setServerImage] = useState<string | null>(null);
 
-  const { address, isConnected, isConnecting } = useAccount();
+  const { address } = useAccount();
   // const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useWithdraw();
 
   const { open } = useWeb3Modal();
 
   const handleImageUpload = async (imgUrl: string) => {
-    console.log('🚀 ~ handleImageUpload ~ imgUrl:', imgUrl);
     setServerImage(imgUrl);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as any);
-    const serverName = formData.get('serverName');
-    const ownerName = formData.get('ownerName');
-    const serverNo = formData.get('serverNo') || '0';
-    console.log("🚀 ~ handleSubmit ~ handleSubmit:", serverName, ownerName, serverNo, serverImage)
+    console.log("🚀 ~ RegisterForm ~ serverImage:", serverImage)
+    // const formData = new FormData(e.target as any);
+    // const serverName = formData.get('serverName');
+    // const ownerName = formData.get('ownerName');
+    // const serverNo = formData.get('serverNo') || '0';
     //TODO: 数据提交
     if (!address) {
       open();

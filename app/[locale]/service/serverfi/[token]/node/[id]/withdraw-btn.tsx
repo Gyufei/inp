@@ -28,6 +28,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
 
   useEffect(() => {
     if (isWdSuccess) {
+      queryClient.invalidateQueries({ queryKey: ['servers'] });
       queryClient.invalidateQueries({ queryKey: ['user-ledger', serverId, address] });
       queryClient.invalidateQueries({ queryKey: ['user-activities', serverId] });
     }
