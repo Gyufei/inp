@@ -14,4 +14,5 @@ export const Paths = {
   airdropInfo: WithHost('/airdrop/info'),
   userLedger: WithHost('/user/ledger'),
   userActivities: WithHost('/user/activities'),
+  albumUpload: WithHost('/server/album/upload'),
 };

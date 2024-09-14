@@ -6,12 +6,22 @@ import ImageItem from './imageItem';
 // import { delAction } from '@/lib/api/upload-action';
 
 
-const UploadImageList = ({style, initImages}: {style: any, initImages?: string[] | null}) => {
+const UploadImageList = ({
+  style, 
+  initImages,
+  onChangeImage,
+}: {
+  style: any, 
+  initImages?: string[] | null,
+  onChangeImage?: (images: string[]) => void,
+}) => {
   const [images, setImages] = useState<string[]>(initImages || []);
   const [isUploading] = useState(false);
 
   const handleImageUpload = async (newImage: string) => {
-    setImages((prevImages) => [...prevImages, newImage]);
+    const newImages = [...images, newImage]
+    setImages(newImages);
+    onChangeImage?.(newImages)
   };
 
   const handleImageDelete = async (newImage: string) => {
@@ -36,7 +46,10 @@ const UploadImageList = ({style, initImages}: {style: any, initImages?: string[]
     // } catch (error) {
     //   console.error('Error uploading image:', error);
     // }
-    // setImages((prevImages) => prevImages.filter((image) => image.id !== id));
+    const newImages = images.filter((img) => img !== newImage);
+    setImages(newImages);
+    onChangeImage?.(newImages)
+
   };
 
   return (

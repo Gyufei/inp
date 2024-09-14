@@ -3,9 +3,28 @@ import Image from 'next/image';
 import UploadImageList from '@/components/uploadImageList';
 import { IServer } from '@/lib/api/use-servers';
 import { useTranslations } from 'next-intl';
-
+import { albumUpload } from '@/lib/api/album-upload';
+import { useQueryClient } from '@tanstack/react-query';
 export function InfoBox({ server }: { server: IServer | null }) {
   const T = useTranslations('Common');
+  const queryClient = useQueryClient();
+    const handleChangeImage = async (albumList: string[]) => {
+    console.log("🚀 ~ handleChangeImage ~ handleChangeImage:")
+    if (!server) return;
+    // 处理添加，删除逻辑
+    const res = await albumUpload({
+      server_id: server?.server_id,
+      album_list: albumList,
+    });
+
+    if (!res) {
+      console.log("🚀 ~ handleChangeImage ~ res:", res)
+    } else {
+      console.log("🚀 ~ handleChangeImage ~ res:", res)
+      // TODO: 重启请求list接口
+      queryClient.invalidateQueries({ queryKey: ['servers'] });
+    }
+  };
 
   return (
     <div className="w-[300px] ml-[8px]">
@@ -45,6 +64,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
             width: '66px',
           }}
           initImages={server ? server.album_list : []}
+          onChangeImage={handleChangeImage}
         />
       </div>
     </div>
