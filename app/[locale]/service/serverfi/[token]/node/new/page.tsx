@@ -22,10 +22,11 @@ export default function RegisterForm() {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as any);
-    const serverName = formData.get('serverName');
-    const ownerName = formData.get('ownerName');
-    const serverNo = formData.get('serverNo') || '0';
+    console.log("🚀 ~ RegisterForm ~ serverImage:", serverImage)
+    // const formData = new FormData(e.target as any);
+    // const serverName = formData.get('serverName');
+    // const ownerName = formData.get('ownerName');
+    // const serverNo = formData.get('serverNo') || '0';
     //TODO: 数据提交
     if (!address) {
       open();

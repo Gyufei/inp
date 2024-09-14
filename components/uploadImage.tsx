@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import ImageUploader from './reactImageUploader';
-import { uploadAction } from '@/lib/api/use-upload-action';
-import { R2_URl_HOST } from '@/lib/const';
+import { uploadAction } from '@/lib/api/upload-action';
+import { IMG_URl_HOST } from '@/lib/const';
 
 const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
     onImageUpload: (url: string) => void,
     hideImg?: boolean,
-    style?: any
+    style?: React.CSSProperties
 }) => {
-  async function getImageFileObject(imageFile: File) {
+  async function handleFileAdded(imageFile: File) {
     const file = (imageFile as any).file;
     console.log({ imageFile });
     try {
@@ -27,7 +27,7 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
         body: file,
       });
       console.log('Image uploaded successfully!');
-      onImageUpload(`${R2_URl_HOST}/test/${nameKey}`);
+      onImageUpload(`${IMG_URl_HOST}/test/${nameKey}`);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -39,7 +39,7 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
 
   return (
     <ImageUploader
-      onFileAdded={(img) => getImageFileObject(img as any)}
+      onFileAdded={(img) => handleFileAdded(img as any)}
       onFileRemoved={(img) => runAfterImageDelete(img as any)}
       uploadIcon={<Image src="/icons/add.svg" width={140} height={140} alt="" />}
       deleteIcon={null}

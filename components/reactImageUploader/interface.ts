@@ -5,8 +5,8 @@ interface FileObjectType {
   dataUrl: string
 }
 interface FileUploaderProps {
-  onFileAdded: ({ file, dataUrl }: FileObjectType) => any
-  onFileRemoved?: ({ file, dataUrl }: FileObjectType) => any
+  onFileAdded: (file: File) => any
+  onFileRemoved?: (file: File) => any
 
   uploadIcon?: ReactNode
   deleteIcon?: ReactNode

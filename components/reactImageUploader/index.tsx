@@ -28,7 +28,7 @@ const ImageUploader = ({
         return { ...oldImage, ...imageObject }
       })
       if (onFileAdded) {
-        onFileAdded(imageObject)
+        onFileAdded(files[0])
       }
     }
   }
@@ -37,7 +37,7 @@ const ImageUploader = ({
     if (onFileRemoved != null && Object.keys(currentImg).length > 0) {
       const partialCurrentImg: Partial<FileObjectType> = currentImg
       const _currentImg: FileObjectType = partialCurrentImg as FileObjectType
-      onFileRemoved(_currentImg)
+      onFileRemoved(_currentImg.file)
     }
     setCurrentImg({})
   }
