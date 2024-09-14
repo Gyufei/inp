@@ -65,6 +65,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
           }}
           initImages={server ? server.album_list : []}
           onChangeImage={handleChangeImage}
+          hideAdd={true}
         />
       </div>
     </div>

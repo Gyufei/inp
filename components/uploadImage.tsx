@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import ImageUploader from './reactImageUploader';
 import { uploadAction } from '@/lib/api/upload-action';
 import { R2_URl_HOST } from '@/lib/const';
@@ -8,8 +9,10 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
     hideImg?: boolean,
     style?: React.CSSProperties
 }) => {
+  const [isUploading, setIsUploading] = useState(false);
+
   async function handleFileAdded(imageFile: File) {
-  
+    setIsUploading(true)
     try {
       const response = await uploadAction({ filename: imageFile.name });
       if (!response) {
@@ -26,9 +29,11 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
         body: imageFile,
       });
       console.log('Image uploaded successfully!');
+      setIsUploading(false)
       onImageUpload(`${R2_URl_HOST}/test/${nameKey}`);
     } catch (error) {
       console.error('Error uploading image:', error);
+      setIsUploading(false)
     }
   }
 
@@ -47,10 +52,11 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
         width: '140px',
         color: '#ffb200',
         backgroundColor: '#1014181a',
+        filter: isUploading ? 'blur(2px)' : 'none',
         ...style,
 
       }}
-      hideImg={hideImg}
+      hideImg={isUploading ? false : hideImg}
     />
   );
 };

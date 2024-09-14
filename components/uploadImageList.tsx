@@ -10,10 +10,12 @@ const UploadImageList = ({
   style, 
   initImages,
   onChangeImage,
+  hideAdd = false
 }: {
   style: any, 
   initImages?: string[] | null,
   onChangeImage?: (images: string[]) => void,
+  hideAdd: boolean
 }) => {
   const [images, setImages] = useState<string[]>(initImages || []);
   const [isUploading] = useState(false);
@@ -54,10 +56,10 @@ const UploadImageList = ({
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-      {images.map((image, index) => (
-        <ImageItem key={index} image={image} onDelete={() => handleImageDelete(image)} style={style} />
-      ))}
-      <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>
+        {images.map((image, index) => (
+          <ImageItem key={index} image={image} onDelete={() => handleImageDelete(image)} style={style} />
+        ))}
+      {hideAdd && <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>}
     </div>
   );
 };
