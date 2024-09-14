@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { useRouter } from '@/app/navigation';
-import UploadImage from '@/components/uploadImage';
+import UploadImage from '@/components/upload-image';
 import { useRegister } from '@/lib/hook/use-register';
 import { toHex } from '@/lib/utils';
 import useServerName from '@/lib/hook/use-server-name';
