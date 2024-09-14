@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PreviewImage from './preview-image';
+import Image from 'next/image';
 interface ImageItemProps {
   image: string;
   onDelete: (image: string) => void;
@@ -26,10 +27,10 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {} }) =>
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsFullScreen(true)}
       >
-        <img
+        <Image
           src={image}
           alt="Uploaded"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          layout="fill"
         />
         
         {isHovered && (

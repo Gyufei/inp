@@ -27,7 +27,6 @@ const UploadImageList = ({
   };
 
   const handleImageDelete = async (newImage: string) => {
-    // try {
       const keyFilename = newImage.split('/').pop() || '';
       const response = await delAction({ keyFilename });
       if (!response) {

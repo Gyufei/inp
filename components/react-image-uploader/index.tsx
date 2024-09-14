@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from 'react'
+import Image from 'next/image'
 import { DeleteIcon, UploadIcon } from './icons'
 import { FileUploaderProps, FileObjectType } from './interface'
 import './index.css'
@@ -72,8 +73,10 @@ const ImageUploader = ({
         )}
         {/* image */}
         {(currentImg.dataUrl && !hideImg) && (
-          <img
+          <Image
             className='uploader__file'
+            width={200}
+            height={200}
             src={currentImg.dataUrl}
             alt={currentImg.dataUrl}
             loading='lazy'
