@@ -45,7 +45,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         <video className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
       </div>
 
-      <div className="mt-10 flex items-center gap-x-1">
+      <div className="mt-10 flex items-center gap-x-1 z-10 relative">
         <DepositBtn serverId={Number(id)} />
         <WithdrawBtn serverId={Number(id)} />
         <ProfitBtn serverId={Number(id)} />

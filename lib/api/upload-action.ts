@@ -2,16 +2,14 @@ import { NextResponse } from 'next/server'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { r2 } from '@/lib/r2'
-
+import { R2_BUCKET_NAME } from '@/lib/const'
 export async function uploadAction({filename}: {filename: string}) {
-  console.log("🚀 ~ uploadAction ~ filename:", filename)
   try {
     const nameKey = `${crypto.randomUUID().replace(/-/g, '')}-${filename}` 
-    console.log("🚀 ~ uploadAction ~ nameKey:", nameKey)
     const signedUrl = await getSignedUrl(
       r2,
       new PutObjectCommand({
-        Bucket: 'inphura', 
+        Bucket: R2_BUCKET_NAME, 
         Key: `test/${nameKey}` ,    
       }),
       { expiresIn: 60 } 
@@ -29,7 +27,7 @@ export async function delAction({keyFilename}: {keyFilename: string}) {
     const signedUrl = await getSignedUrl(
       r2,
       new PutObjectCommand({
-        Bucket: 'inphura', 
+        Bucket: R2_BUCKET_NAME, 
         Key: `test/${keyFilename}` ,    
       }),
       { expiresIn: 60 } 

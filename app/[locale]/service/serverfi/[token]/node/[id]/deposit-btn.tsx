@@ -31,6 +31,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
 
   useEffect(() => {
     if (isDepositSuccess) {
+      queryClient.invalidateQueries({ queryKey: ['servers'] });
       queryClient.invalidateQueries({ queryKey: ['user-ledger', serverId, address] });
       queryClient.invalidateQueries({ queryKey: ['user-activities', serverId] });
     }
@@ -59,7 +60,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
         <span className="select-none font-hel text-[#070709] text-base leading-5">{T('Deposit')}</span>
       </div>
       <div
-        className="absolute -top-[120px] w-[200px] bg-[rgba(255,255,255,0.1)] backdrop-blur-xl p-3 rounded-2xl"
+        className="absolute z-10 -top-[120px] w-[200px] bg-[rgba(255,255,255,0.1)] backdrop-blur-xl p-3 rounded-2xl"
         style={{
           display: inputOpen ? 'block' : 'none',
         }}

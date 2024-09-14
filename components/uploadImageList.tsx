@@ -8,7 +8,6 @@ import ImageItem from './imageItem';
 
 const UploadImageList = ({style, initImages}: {style: any, initImages?: string[] | null}) => {
   const [images, setImages] = useState<string[]>(initImages || []);
-  console.log("🚀 ~ UploadImageList ~ images:", images)
   const [isUploading] = useState(false);
 
   const handleImageUpload = async (newImage: string) => {
@@ -16,7 +15,6 @@ const UploadImageList = ({style, initImages}: {style: any, initImages?: string[]
   };
 
   const handleImageDelete = async (newImage: string) => {
-    console.log("🚀 ~ handleImageDelete ~ newImage:", newImage)
     // try {
     //   const keyFilename = newImage.split('/').pop() || '';
     //   const response = await delAction({ keyFilename });

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import ImageUploader from './reactImageUploader';
 import { uploadAction } from '@/lib/api/upload-action';
-import { IMG_URl_HOST } from '@/lib/const';
+import { R2_URl_HOST } from '@/lib/const';
 
 const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
     onImageUpload: (url: string) => void,
@@ -16,7 +16,6 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
         return;
       }
       const { url, nameKey } = await response.json();
-      console.log("🚀 ~ handleFileAdded ~ nameKey:", nameKey)
 
       // 2. 使用上传URL上传文件
       await fetch(url, {
@@ -27,7 +26,7 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
         body: imageFile,
       });
       console.log('Image uploaded successfully!');
-      onImageUpload(`${IMG_URl_HOST}/test/${nameKey}`);
+      onImageUpload(`${R2_URl_HOST}/test/${nameKey}`);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
