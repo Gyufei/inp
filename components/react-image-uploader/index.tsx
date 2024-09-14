@@ -25,7 +25,7 @@ const ImageUploader = ({
    
 
     if (files != null && files.length > 0) {
-      if (files[0].size > 31) {
+      if (files[0].size > 3145728) {
         setGlobalMessage({
           type: 'error',
           message: 'The image size exceeds 3MB, please select again.',
