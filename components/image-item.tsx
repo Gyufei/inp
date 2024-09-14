@@ -5,9 +5,10 @@ interface ImageItemProps {
   image: string;
   onDelete: (image: string) => void;
   style?: React.CSSProperties;
+  hideDel?: boolean;
 }
 
-const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {} }) => {
+const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hideDel = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -33,7 +34,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {} }) =>
           layout="fill"
         />
         
-        {isHovered && (
+        { !hideDel && isHovered && (
           <button
             onClick={(event) => {
               event.stopPropagation()
