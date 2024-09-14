@@ -6,6 +6,7 @@
     "Hour": "小时",
     "Minute": "分钟",
     "Second": "秒",
+    "Server": "服务器",
     "ServerNodes": "服务器节点",
     "ServerName": "服务器名称",
     "Owner": "所有者",
@@ -37,6 +38,10 @@
     "EnterNameAndOwner": "请输入服务器名称和所有者名称",
     "Approve": "Approve",
     "Approving": "Approving",
-    "Info": "Info"
+    "Info": "Info",
+    "NameErrorRequired": "{name}名称是必填项",
+    "NameErrorTooShort": "名称太短",
+    "NameErrorStartWith": "名称开头或结尾不能是 {letter} ",
+    "NameErrorForbidden": "名称含有禁止字符"
   }
 }

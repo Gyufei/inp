@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
@@ -11,11 +11,10 @@ import { useRouter } from '@/app/navigation';
 import UploadImage from '@/components/uploadImage';
 import { useRegister } from '@/lib/hook/use-register';
 import { toHex } from '@/lib/utils';
-import { GlobalMsgContext } from '@/app/global-msg-context';
+import useServerName from '@/lib/hook/use-server-name';
+import useOwnerName from '@/lib/hook/use-owner-name';
 
 export default function RegisterForm() {
-  const { setGlobalMessage } = useContext(GlobalMsgContext);
-
   const T = useTranslations('Common');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,8 +23,15 @@ export default function RegisterForm() {
   const { open } = useWeb3Modal();
   const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useRegister();
 
-  const [serverName, setServerName] = useState('');
-  const [ownerName, setOwnerName] = useState('');
+  const {
+    serverName,
+    invalidMsg: serverInvalidMsg,
+    handleChange: handleServerChange,
+    handleValidate: handleServerValidate,
+  } = useServerName();
+
+  const { ownerName, invalidMsg: ownerInvalidMsg, handleChange: handleOwnerChange, handleValidate: handleOwnerValidate } = useOwnerName();
+
   const [serverNo, setServerNo] = useState('');
   const [serverImage, setServerImage] = useState<string | null>(null);
 
@@ -39,17 +45,20 @@ export default function RegisterForm() {
     setServerImage(imgUrl);
   };
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     if (!address) {
       open();
       return;
     }
 
+    const serverNameValid = await handleServerValidate(serverName);
+    const ownerNameValid = await handleOwnerValidate(ownerName);
+
+    if (!serverNameValid || !ownerNameValid) {
+      return;
+    }
+
     if (!serverName || !ownerName) {
-      setGlobalMessage({
-        type: 'error',
-        message: T('EnterNameAndOwner'),
-      });
       return;
     }
 
@@ -64,7 +73,7 @@ export default function RegisterForm() {
       serverNo: no,
       serverLogo: image,
     });
-  };
+  }
 
   useEffect(() => {
     if (isRegisterSuccess) {
@@ -73,7 +82,7 @@ export default function RegisterForm() {
   }, [isRegisterSuccess, router]);
 
   return (
-    <div className="relative overflow-hidden" style={{ height: 'calc(100vh - 70px)' }}>
+    <div className="relative overflow-hidden h-[657px]">
       <video className="absolute -top-[220px] -right-[195px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
       <div className="absolute right-[60px] flex items-center">
         <div className="flex flex-col w-[446px] mb-10">
@@ -87,8 +96,8 @@ export default function RegisterForm() {
                 <UploadImage onImageUpload={handleImageUpload} />
               </div>
             </div>
-            <div className="p-6 pt-0 grid gap-4">
-              <div className="grid gap-2">
+            <div className="p-6 pt-0 grid gap-6">
+              <div className="grid gap-2 relative">
                 <label
                   className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   htmlFor="serverName"
@@ -96,15 +105,17 @@ export default function RegisterForm() {
                   {T('ServerName')}
                 </label>
                 <input
+                  data-error={!!serverInvalidMsg}
                   name="serverName"
                   type="text"
-                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm focus-visible:ring-2  "
+                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm data-[error=true]:border-[#E86565]"
                   required
                   value={serverName}
-                  onChange={(e) => setServerName(e.target.value)}
+                  onChange={(e) => handleServerChange(e.target.value)}
                 />
+                <div className="absolute w-full top-full text-[#E86565] text-sm leading-5">{serverInvalidMsg}</div>
               </div>
-              <div className="grid gap-2">
+              <div className="grid gap-2 relative">
                 <label
                   className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   htmlFor="ownerName"
@@ -112,13 +123,15 @@ export default function RegisterForm() {
                   {T('OwnerName')}
                 </label>
                 <input
+                  data-error={!!ownerInvalidMsg}
                   name="ownerName"
                   type="text"
-                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm file:border-0 focus-visible:ring-2 "
+                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm data-[error=true]:border-[#E86565]"
                   required
                   value={ownerName}
-                  onChange={(e) => setOwnerName(e.target.value)}
+                  onChange={(e) => handleOwnerChange(e.target.value)}
                 />
+                <div className="absolute w-full top-full text-[#E86565] text-sm leading-5">{ownerInvalidMsg}</div>
               </div>
               <div className="grid gap-2">
                 <label
@@ -130,7 +143,7 @@ export default function RegisterForm() {
                 <input
                   name="serverNo"
                   type="text"
-                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm focus-visible:ring-2 !disabled:bg-[(16,20,24,0.1)] disabled:cursor-not-allowed"
+                  className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm !disabled:bg-[(16,20,24,0.1)] disabled:cursor-not-allowed"
                   disabled={true}
                   value={serverNo}
                 />
@@ -140,7 +153,7 @@ export default function RegisterForm() {
               <button
                 onClick={handleSubmit}
                 disabled={isRegisterLoading}
-                className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
+                className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
               >
                 {T('Register')}
               </button>

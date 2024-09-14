@@ -55,7 +55,7 @@ export function NodesList() {
                   alt=""
                 />
                 <div className="w-4 gap-y-2 ml-1 h-full flex flex-col justify-start items-center">
-                  {server.album_list.map((item: any) => (
+                  {server.album_list.slice(0, 3).map((item: any) => (
                     <Image className="h-4 w-4 rounded-sm" key={item} src={item} width={16} height={16} alt="" />
                   ))}
                 </div>

@@ -3,16 +3,16 @@ export const isProduction = process.env.NODE_ENV === 'production' && !isPreview;
 // export const isProduction = true;
 
 export function WithHost(path: string) {
-  const prodHost = `https://preview-inphura.aggregation.top`;
-  const devHost = `https://preview-inphura.aggregation.top`;
+  const prodHost = `https://bam-cell.inphura.com`;
+  const devHost = `https://bam-cell.inphura.com`;
   const host = isProduction ? prodHost : devHost;
   return `${host}${path}`;
 }
 
 export const Paths = {
   serverList: WithHost('/server/list'),
-  airdropInfo: WithHost('/airdrop/info'),
   userLedger: WithHost('/user/ledger'),
   userActivities: WithHost('/user/activities'),
   albumUpload: WithHost('/server/album/upload'),
+  userNameCheck: WithHost('/user/name/check'),
 };

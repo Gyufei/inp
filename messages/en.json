@@ -6,6 +6,7 @@
     "Hour": "{num, plural, =0 {hour} =1 {hour} other {hours}}",
     "Minute": "{num, plural, =0 {minute} =1 {minute} other {minutes}}",
     "Second": "{num, plural, =0 {second} =1 {second} other {seconds}}",
+    "Server": "Server",
     "ServerNodes": "Server Nodes",
     "ServerName": "Server Name",
     "Owner": "Owner",
@@ -37,6 +38,10 @@
     "EnterNameAndOwner": "Please enter server name and owner name",
     "Approve": "Approve",
     "Approving": "Approving",
-    "Info": "Info"
+    "Info": "Info",
+    "NameErrorRequired": "{name}Name is required",
+    "NameErrorStartWith": "Name shouldn't start or end with {letter}",
+    "NameErrorTooShort": "Name is too short",
+    "NameErrorForbidden": "Name contains forbidden characters"
   }
 }
