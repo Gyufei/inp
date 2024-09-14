@@ -54,6 +54,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
 
     if (!address) {
       open();
+      return;
     }
 
     setInputOpen(!inputOpen);

@@ -66,10 +66,12 @@ export default async function RootLayout({ children, params: { locale } }: Props
       <Head>{!isProduction ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}</Head>
       <body className={cn(Inter.variable, CalSans.variable, Hel.variable, Din.variable, 'overflow-x-hidden')}>
         <GlobalMsgProvider>
-          <NextIntlClientProvider messages={messages}>
-            <Web3ModalProvider>{children}</Web3ModalProvider>
-            <GlobalActionTip />
-          </NextIntlClientProvider>
+          <Web3ModalProvider>
+            <NextIntlClientProvider messages={messages}>
+              {children}
+              <GlobalActionTip />
+            </NextIntlClientProvider>
+          </Web3ModalProvider>
         </GlobalMsgProvider>
       </body>
     </html>
