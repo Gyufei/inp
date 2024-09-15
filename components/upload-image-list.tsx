@@ -27,7 +27,6 @@ const UploadImageList = ({
   };
 
   const handleImageDelete = async (newImage: string) => {
-    // try {
       const keyFilename = newImage.split('/').pop() || '';
       const response = await delAction({ keyFilename });
       if (!response) {
@@ -43,9 +42,9 @@ const UploadImageList = ({
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
         {images.map((image, index) => (
-          <ImageItem key={index} image={image} onDelete={() => handleImageDelete(image)} style={style} />
+          <ImageItem key={index} image={image} onDelete={() => handleImageDelete(image)} style={style} hideDel={hideAdd} />
         ))}
-      {hideAdd && <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>}
+      {!hideAdd && <UploadImage onImageUpload={handleImageUpload} hideImg={!isUploading} style={style}/>}
     </div>
   );
 };

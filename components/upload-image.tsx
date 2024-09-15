@@ -5,7 +5,7 @@ import { uploadAction } from '@/lib/api/upload-action';
 import { R2_URl_HOST } from '@/lib/const';
 import { isProduction } from '@/lib/PathMap';
 
-const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
+const UploadImage = ({onImageUpload, hideImg = false, style = {}}: {
     onImageUpload: (url: string) => void,
     hideImg?: boolean,
     style?: React.CSSProperties
@@ -62,4 +62,4 @@ const UploadImageList = ({onImageUpload, hideImg = false, style = {}}: {
   );
 };
 
-export default UploadImageList;
+export default UploadImage;
