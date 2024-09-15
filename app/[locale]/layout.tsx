@@ -24,24 +24,24 @@ export const metadata: Metadata = {
     description: '',
     url: `https://${process.env.VERCEL_DOMAIN}`,
     siteName: '',
-    images: '/images/907d507a.png',
+    images: '/images/77d25eba.png',
     locale: 'en_US',
     type: 'website',
   },
   icons: {
-    icon: [{ url: '/images/favs/favicon-32x32.png' }, { url: '/images/favs/favicon-16x16.png', sizes: '16x16', type: 'image/png' }],
+    icon: [{ url: '/images/favicons/favicon-32x32.png' }, { url: '/images/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' }],
     shortcut: '/images/shortcut-icon.png',
     apple: [
-      { url: '/images/favs/apple-touch-icon.png' },
+      { url: '/images/favicons/apple-touch-icon.png' },
       {
-        url: '/images/favs/apple-touch-icon.png',
+        url: '/images/favicons/apple-touch-icon.png',
         sizes: '180x180',
         type: 'image/png',
       },
     ],
     other: {
       rel: 'apple-touch-icon-precomposed',
-      url: '/images/favs/apple-touch-icon-precomposed.png',
+      url: '/images/favicons/apple-touch-icon-precomposed.png',
     },
   },
   twitter: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: '',
     description: '',
     creator: '@xxx',
-    images: ['/images/907d507a.png'],
+    images: ['/images/77d25eba.png'],
   },
 };
 
