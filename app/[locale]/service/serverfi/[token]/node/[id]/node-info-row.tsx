@@ -45,10 +45,9 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
           </div>
 
           <div className="flex flex-col gap-y-1">
-            <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyAirdrop')}</div>
+            <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyMCPoints')}</div>
             <div className="flex items-center gap-x-2">
               <div className="font-din font-medium text-2xl leading-9 text-white">{userLedger ? userLedger.my_airdrop : '--'}</div>
-              <Image className="rounded-full" src={currentToken?.logo || ''} width={22} height={22} alt="clap" />
             </div>
           </div>
         </div>
