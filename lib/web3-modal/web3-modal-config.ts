@@ -33,7 +33,7 @@ export const config = defaultWagmiConfig({
     walletFeatures: true, // default to true
   },
   transports: {
-    [mainnet.id]: http(),
+    [mainnet.id]: http('https://mainnet.infura.io/v3/534d2ca5a3a84db7accafc2eab774a3a'),
     [testnet.id]: http(),
   },
 });
