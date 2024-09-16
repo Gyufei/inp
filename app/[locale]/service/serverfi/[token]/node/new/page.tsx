@@ -65,7 +65,7 @@ export default function RegisterForm() {
     const name = toHex(serverName);
     const owner = toHex(ownerName);
     const image = serverImage ? toHex(serverImage as string) : '';
-    const no = serverNo;
+    const no = serverNo || '0';
 
     registerAction?.({
       serverName: name,
