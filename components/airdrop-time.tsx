@@ -32,6 +32,7 @@ export function AirdropTime({ className }: { className?: string }) {
           second: 0,
           isValid: false,
         });
+        return;
       }
 
       const remainSecond = nextAt - nowNum;
