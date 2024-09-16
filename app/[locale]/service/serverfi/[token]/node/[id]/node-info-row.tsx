@@ -1,12 +1,10 @@
 import { useLedger } from '@/lib/api/use-ledger';
 import { IServer } from '@/lib/api/use-servers';
-import { useCurrentToken } from '@/lib/hook/use-current-token';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: number | null }) {
   const T = useTranslations('Common');
-  const currentToken = useCurrentToken();
   const { data: userLedger } = useLedger(server?.server_id || null);
 
   return (
