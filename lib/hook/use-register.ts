@@ -22,7 +22,7 @@ export function useRegister() {
     serverNo: string;
     serverLogo: string;
   }) => {
-    if (!purchasePrice) {
+    if (purchasePrice == undefined) {
       throw new Error('No purchase price');
       return;
     }
