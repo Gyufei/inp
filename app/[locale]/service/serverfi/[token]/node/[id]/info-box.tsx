@@ -26,7 +26,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
 
   const allowUploadImg = useMemo(() => {
     if (!server || !address) return false;
-    return server?.wallet === address;
+    return server.wallet.toLowerCase() === address.toLowerCase();
   }, [server, address]);
 
   return (
