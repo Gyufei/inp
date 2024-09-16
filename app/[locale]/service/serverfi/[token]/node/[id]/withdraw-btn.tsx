@@ -23,7 +23,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
   const { data: userLedger } = useLedger(serverId || null);
 
   function handleWithdraw() {
-    const stakeAmount = userLedger?.stake_amount || 0;
+    const stakeAmount = Number(userLedger?.stake_amount || 0);
 
     if (!stakeAmount) {
       setGlobalMessage({
