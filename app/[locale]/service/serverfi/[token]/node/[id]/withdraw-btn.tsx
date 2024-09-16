@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useWithdraw } from '@/lib/hook/use-withdraw';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
@@ -6,8 +6,10 @@ import { useCurrentToken } from '@/lib/hook/use-current-token';
 import { useQueryClient } from '@tanstack/react-query';
 import { useLedger } from '@/lib/api/use-ledger';
 import { useTranslations } from 'next-intl';
+import { GlobalMsgContext } from '@/app/global-msg-context';
 
 export function WithdrawBtn({ serverId }: { serverId: number }) {
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
   const T = useTranslations('Common');
 
   const { isLoading: isWdLoading, write: withdrawAction, isSuccess: isWdSuccess } = useWithdraw();
@@ -22,6 +24,13 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
 
   function handleWithdraw() {
     const stakeAmount = userLedger?.stake_amount || 0;
+
+    setGlobalMessage({
+      type: 'warning',
+      message: T('NoDeposits'),
+    });
+    return;
+
     const amount = Number(stakeAmount) * 10 ** (currentToken?.decimal || 0);
     withdrawAction({ serverId: BigInt(serverId), amount: BigInt(amount) });
   }
