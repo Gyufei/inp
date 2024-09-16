@@ -6,6 +6,7 @@ import { IServer, useServers } from '@/lib/api/use-servers';
 import GoToTokenWebsite from '@/components/go-to-token-website';
 import { Link } from '@/app/navigation';
 import { useParams } from 'next/navigation';
+import { formatNum, toPercent } from '@/lib/number';
 
 export function NodesList() {
   const T = useTranslations('Common');
@@ -73,16 +74,18 @@ export function NodesList() {
               </div>
               <div className="flex flex-col justify-between w-[140px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('MAKPower')}</div>
-                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{server.total_power}</div>
+                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{formatNum(server.total_power)}</div>
               </div>
               <div className="flex flex-col justify-between w-[140px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('TotalAirdrop')}</div>
-                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">${server.total_airdrop}</div>
+                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">${formatNum(server.total_airdrop)}</div>
               </div>
               <div className="flex flex-col justify-between w-[160px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('Airdrop')}</div>
                 <div className="flex items-center justify-between">
-                  <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{server.airdrop_percent}%</div>
+                  <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">
+                    {toPercent(Number(server.airdrop_percent))}%
+                  </div>
                   {server.is_up ? (
                     <Image src="/icons/up.svg" width={24} height={24} alt="" />
                   ) : (

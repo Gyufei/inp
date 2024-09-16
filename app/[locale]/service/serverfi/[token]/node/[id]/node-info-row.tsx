@@ -1,5 +1,6 @@
 import { useLedger } from '@/lib/api/use-ledger';
 import { IServer } from '@/lib/api/use-servers';
+import { formatNum } from '@/lib/number';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -16,7 +17,7 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
 
         <div className="flex flex-col gap-y-[10px]">
           <div className="font-cal text-[#707274] font-bold text-[20px] leading-[30px]">{T('TotalMAKPower')}</div>
-          <div className="font-medium text-[60px] leading-[60px] font-din text-white">{server ? server.total_power : '--'}</div>
+          <div className="font-medium text-[60px] leading-[60px] font-din text-white">{server ? formatNum(server.total_power) : '--'}</div>
         </div>
 
         <div className="flex flex-col gap-y-[10px] ml-[87px]">
@@ -33,7 +34,9 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
 
           <div className="flex flex-col gap-y-1">
             <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyMAKPower')}</div>
-            <div className="font-din font-medium text-2xl leading-9 text-white">{userLedger ? userLedger.stake_amount : '--'}</div>
+            <div className="font-din font-medium text-2xl leading-9 text-white">
+              {userLedger ? formatNum(userLedger.stake_amount) : '--'}
+            </div>
           </div>
         </div>
 
@@ -45,7 +48,9 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
           <div className="flex flex-col gap-y-1">
             <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyMCPoints')}</div>
             <div className="flex items-center gap-x-2">
-              <div className="font-din font-medium text-2xl leading-9 text-white">{userLedger ? userLedger.my_airdrop : '--'}</div>
+              <div className="font-din font-medium text-2xl leading-9 text-white">
+                {userLedger ? formatNum(userLedger.my_airdrop) : '--'}
+              </div>
             </div>
           </div>
         </div>

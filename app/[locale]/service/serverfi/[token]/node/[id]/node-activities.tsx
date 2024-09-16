@@ -1,6 +1,7 @@
 import GoToTokenWebsite from '@/components/go-to-token-website';
 import { useActivities, UserActivity } from '@/lib/api/use-activities';
 import { useCurrentToken } from '@/lib/hook/use-current-token';
+import { formatNum } from '@/lib/number';
 import { truncateAddr } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
@@ -52,11 +53,11 @@ export function NodeActivities({ serverId }: { serverId: number }) {
               <div className="w-[20%] text-base leading-5 text-[rgba(255,255,255,0.6)]">
                 {act.action === 'Deposit' ? (
                   <div className="h-6 w-fit flex items-center text-[#6EFF90] text-base leading-6">
-                    +{act.amount} {currentToken?.name}
+                    +{formatNum(act.amount)} {currentToken?.name}
                   </div>
                 ) : (
                   <div className="h-6 w-fit flex items-center text-[#FFB39E] text-base leading-6">
-                    -{act.amount} {currentToken?.name}
+                    -{formatNum(act.amount)} {currentToken?.name}
                   </div>
                 )}
               </div>
