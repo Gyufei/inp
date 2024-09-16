@@ -12,13 +12,14 @@ export function useGasEth() {
 
       const gasLimit = NP.times(Number(estGas), 130 / 100).toFixed();
       const maxPriorityFeePerGas = Math.ceil(NP.times(Number(gasPrice), 0.05));
+      const maxFeePerGas = Math.ceil(NP.times(Number(gasPrice), 1.15));
 
       const gasParams: {
         maxFeePerGas?: bigint;
         gas?: bigint;
         maxPriorityFeePerGas?: bigint;
       } = {
-        maxFeePerGas: gasPrice,
+        maxFeePerGas: BigInt(maxFeePerGas),
         gas: BigInt(gasLimit),
         maxPriorityFeePerGas: BigInt(maxPriorityFeePerGas),
       };
