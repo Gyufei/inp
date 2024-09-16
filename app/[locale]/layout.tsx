@@ -15,13 +15,13 @@ import Web3ModalProvider from '../../lib/web3-modal';
 export const metadata: Metadata = {
   title: {
     template: '%s - Inphura',
-    default: 'Inphura',
+    default: 'MetaCene ServerFi Node Computing Power Portal - Inphura',
   },
-  description: '',
+  description: 'Get your own server from MetaCene, and make money from it.',
   metadataBase: new URL(`https://${process.env.VERCEL_DOMAIN}`),
   openGraph: {
-    title: '',
-    description: '',
+    title: 'MetaCene ServerFi Node Computing Power Portal - Inphura',
+    description: 'Get your own server from MetaCene, and make money from it.',
     url: `https://${process.env.VERCEL_DOMAIN}`,
     siteName: '',
     images: '/images/77d25eba.png',
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '',
-    description: '',
-    creator: '@xxx',
+    title: 'MetaCene ServerFi Node Computing Power Portal - Inphura',
+    description: 'Get your own server from MetaCene, and make money from it.',
+    creator: '@MetaCeneGame',
     images: ['/images/77d25eba.png'],
   },
 };
