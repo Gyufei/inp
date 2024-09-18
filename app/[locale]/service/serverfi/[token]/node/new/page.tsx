@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
@@ -41,6 +41,9 @@ export default function RegisterForm() {
 
   const [serverNo, setServerNo] = useState('');
   const [serverImage, setServerImage] = useState<string | null>(null);
+  const [isStartUpload, setIsStartUpload] = useState(false);
+
+  const isLoading = isRegisterLoading || (serverImage && isStartUpload) || false;
 
   useEffect(() => {
     if (searchParams.get('ref')) {
@@ -51,6 +54,15 @@ export default function RegisterForm() {
   const handleImageUpload = async (imgUrl: string) => {
     setServerImage(imgUrl);
   };
+
+  const handleScheduledUpload = async () => {
+    setIsStartUpload(false);
+    goToNodes();
+  };
+
+  const goToNodes = useCallback(() => {
+    router.push('/service/serverfi/mak/nodes');
+  }, [router]);
 
   async function handleSubmit() {
     if (!address) {
@@ -84,9 +96,13 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (isRegisterSuccess) {
-      router.push('/service/serverfi/mak/nodes');
+      if (serverImage) {
+        setIsStartUpload(true);
+      } else {
+        goToNodes();
+      }
     }
-  }, [isRegisterSuccess, router]);
+  }, [isRegisterSuccess, serverImage, goToNodes]);
 
   return (
     <div className="relative overflow-hidden h-[657px]">
@@ -107,7 +123,12 @@ export default function RegisterForm() {
           >
             <div className="flex flex-col p-6">
               <div className="flex items-center justify-center mt-4">
-                <UploadImage onImageUpload={handleImageUpload} />
+                <UploadImage
+                  onImageUpload={handleImageUpload}
+                  scheduledUpload={true}
+                  isStartScheduledUpload={isStartUpload}
+                  onScheduledUpload={handleScheduledUpload}
+                />
               </div>
             </div>
             <div className="p-6 pt-0 grid gap-6">
@@ -166,7 +187,7 @@ export default function RegisterForm() {
             <div className="flex items-center p-6 pt-0">
               <button
                 onClick={handleSubmit}
-                disabled={isRegisterLoading}
+                disabled={isLoading}
                 className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
               >
                 {T('Register')}
@@ -175,7 +196,7 @@ export default function RegisterForm() {
           </div>
         </div>
         <Image className="mt-[56%] ml-[100px]" src="/images/metacene.png" width={303} height={35} alt="" />
-        <div className="flex items-center gap-x-5 absolute right-[10px] top-[10px]">
+        <div className="flex items-center gap-x-5 absolute -right-[100px] top-[10px]">
           <LanguageSetting />
           <ConnectBtn />
         </div>
