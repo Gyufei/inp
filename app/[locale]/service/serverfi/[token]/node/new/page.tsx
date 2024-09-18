@@ -9,6 +9,8 @@ import { useTranslations } from 'next-intl';
 
 import { useRouter } from '@/app/navigation';
 import UploadImage from '@/components/upload-image';
+import LanguageSetting from '@/components/language-setting';
+import ConnectBtn from '@/components/connect-btn';
 import { useRegister } from '@/lib/hook/use-register';
 import { toHex } from '@/lib/utils';
 import useServerName from '@/lib/hook/use-server-name';
@@ -30,7 +32,12 @@ export default function RegisterForm() {
     handleValidate: handleServerValidate,
   } = useServerName();
 
-  const { ownerName, invalidMsg: ownerInvalidMsg, handleChange: handleOwnerChange, handleValidate: handleOwnerValidate } = useOwnerName();
+  const {
+    ownerName,
+    invalidMsg: ownerInvalidMsg,
+    handleChange: handleOwnerChange,
+    handleValidate: handleOwnerValidate,
+  } = useOwnerName();
 
   const [serverNo, setServerNo] = useState('');
   const [serverImage, setServerImage] = useState<string | null>(null);
@@ -83,7 +90,14 @@ export default function RegisterForm() {
 
   return (
     <div className="relative overflow-hidden h-[657px]">
-      <video className="absolute -top-[256px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
+      <video
+        className="absolute -top-[256px] -right-[100px] z-0 w-[1920px] h-[1080px]"
+        src="/1-1.mp4"
+        muted
+        loop
+        autoPlay
+        playsInline
+      />
       <div className="absolute right-[160px] flex items-center">
         <div className="flex flex-col w-[446px] mb-10">
           <h3 className="font-semibold text-[50px] text-white mb-4 text-center font-cal">{T('RegisterYourServer')}</h3>
@@ -161,6 +175,10 @@ export default function RegisterForm() {
           </div>
         </div>
         <Image className="mt-[56%] ml-[100px]" src="/images/metacene.png" width={303} height={35} alt="" />
+        <div className="flex items-center gap-x-5 absolute right-[10px] top-[10px]">
+          <LanguageSetting />
+          <ConnectBtn />
+        </div>
       </div>
     </div>
   );

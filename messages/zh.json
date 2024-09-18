@@ -44,6 +44,7 @@
     "NameErrorStartWith": "名称开头或结尾不能是 {letter} ",
     "NameErrorForbidden": "名称含有禁止字符",
     "ImgTooLarge": "图片大小超过 3MB，请重新选择",
-    "NoDeposits": "没有存款可以提现"
+    "NoDeposits": "没有存款可以提现",
+    "AllNodes": "全部服务器"
   }
 }

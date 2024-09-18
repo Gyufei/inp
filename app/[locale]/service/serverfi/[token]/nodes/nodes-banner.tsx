@@ -26,7 +26,14 @@ export function NodesBanner() {
         <AirdropTime className="mt-[90px]" />
       </div>
 
-      <video className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
+      <video
+        className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]"
+        src="/1-1.mp4"
+        muted
+        loop
+        autoPlay
+        playsInline
+      />
     </div>
   );
 }
