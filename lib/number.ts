@@ -2,6 +2,10 @@ import NP from 'number-precision';
 
 type NumberType = string | number;
 
+/*
+ * 1.2345678 => 1.2345
+ * 1234.567 => 1,234.56
+ */
 export function formatNum(num: NumberType, decimal = 2, unit = false): string {
   if (num == null) return num as any;
 
@@ -24,35 +28,6 @@ export function formatNum(num: NumberType, decimal = 2, unit = false): string {
     const result = addThousandsSep(dealDecimals(num, decimal));
     return result;
   }
-}
-
-/*
- * 1.2345678 => 1.2345
- * 1234.567 => 1,234.56
- * 0.0000001234567 => 0.0{6}1234
- */
-export function formatPlainNum(price: NumberType) {
-  if (!price) return price;
-
-  if (typeof price === 'string') {
-    price = Number(price);
-  }
-
-  if (typeof price === 'number') {
-    if (price >= 100) {
-      return addThousandsSep(dealDecimals(price, 2));
-    }
-
-    if (price >= 1) {
-      return dealDecimals(price, 4);
-    }
-
-    if (price > 0) {
-      return replaceZero(price);
-    }
-  }
-
-  return price;
 }
 
 export function addThousandsSep(num: NumberType) {
@@ -172,28 +147,6 @@ export function dealDecimals(num: NumberType, decimals: NumberType) {
   }
 
   return notExpNum;
-}
-
-/*
- * 0.0000001234567 => 0.0{6}1234
- */
-export function replaceZero(price: NumberType) {
-  if (!price) return price;
-
-  const number = toNonExponential(price);
-  const isDealPoint = number.split('.');
-
-  if (isDealPoint?.length === 2) {
-    const index = isDealPoint[1].search(/[1-9]/);
-    const head = `${isDealPoint[0]}.0{${index}}`;
-    if (index === 0) {
-      const noZeroHead = `${isDealPoint[0]}.`;
-      return noZeroHead + isDealPoint[1].substring(index, index + 4);
-    }
-    const result = head + isDealPoint[1].substring(index, index + 4);
-    return result;
-  }
-  return number;
 }
 
 /*
