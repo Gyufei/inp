@@ -1,4 +1,5 @@
 'use client';
+import { Link } from '@/app/navigation';
 import { useServers } from '@/lib/api/use-servers';
 import LanguageSetting from '@/components/language-setting';
 import ConnectBtn from '@/components/connect-btn';
@@ -32,6 +33,9 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
           </div>
 
           <div className="flex flex-col items-start mt-[76px]">
+            <Link href="/service/serverfi/mak/nodes" className="text-[20px] text-[#3E71FF] font-400">
+              &lt; {T('AllNodes')}
+            </Link>
             <div className="font-cal text-[40px] font-bold leading-[80px] text-white">{T('NodeBannerTitle')}</div>
             <div className="font-cal text-white font-bold">
               <span className="text-[50px]">No.</span>
@@ -42,7 +46,14 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
           <NodeInfoRow server={currentServer || null} rank={rank} />
         </div>
 
-        <video className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
+        <video
+          className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]"
+          src="/1-1.mp4"
+          muted
+          loop
+          autoPlay
+          playsInline
+        />
       </div>
 
       <div className="mt-10 flex items-center gap-x-1 z-10 relative">
@@ -54,7 +65,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
       <div className="mt-20 flex">
         <NodeActivities serverId={Number(id)} />
-        {currentServer && <InfoBox server={currentServer || null}/>}
+        {currentServer && <InfoBox server={currentServer || null} />}
       </div>
     </div>
   );

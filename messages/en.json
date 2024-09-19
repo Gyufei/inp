@@ -44,6 +44,7 @@
     "NameErrorTooShort": "Name is too short",
     "NameErrorForbidden": "Name contains forbidden characters",
     "ImgTooLarge": "The image size exceeds 3MB, please select again.",
-    "NoDeposits": "There are no deposits to withdraw"
+    "NoDeposits": "There are no deposits to withdraw",
+    "AllNodes": "All Nodes"
   }
 }

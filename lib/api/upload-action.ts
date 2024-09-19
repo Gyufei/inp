@@ -1,30 +1,28 @@
-import { NextResponse } from 'next/server'
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3'
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { r2 } from '@/lib/r2'
-import { R2_BUCKET_NAME, R2_ACCESS_KEY_ID, R2_ACCOUNT_ID, R2_SECRET_ACCESS_KEY } from '@/lib/const'
+import { NextResponse } from 'next/server';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { r2 } from '@/lib/r2';
+import { R2_BUCKET_NAME, R2_ACCESS_KEY_ID, R2_ACCOUNT_ID, R2_SECRET_ACCESS_KEY } from '@/lib/const';
 import { isProduction } from '../PathMap';
 
-export async function uploadAction({filename}: {filename: string}) {
+export async function uploadAction(nameKey: string) {
   try {
-    const nameKey = `${crypto.randomUUID().replace(/-/g, '')}-${filename}` 
     const signedUrl = await getSignedUrl(
       r2,
       new PutObjectCommand({
-        Bucket: R2_BUCKET_NAME, 
-        Key: `${isProduction ? 'production' : 'test'}/${nameKey}` ,    
+        Bucket: R2_BUCKET_NAME,
+        Key: `${isProduction ? 'production' : 'test'}/${nameKey}`,
       }),
-      { expiresIn: 60 } 
-    )
+      { expiresIn: 60 }
+    );
 
     // 返回上传URL
-    return NextResponse.json({ url: signedUrl, nameKey: nameKey })
-
+    return NextResponse.json({ url: signedUrl });
   } catch (err) {
-    return NextResponse.json({ err })
-  } 
+    return NextResponse.json({ err });
+  }
 }
-export async function delAction({keyFilename}: {keyFilename: string}) {
+export async function delAction({ keyFilename }: { keyFilename: string }) {
   const deleteParams = {
     Bucket: R2_BUCKET_NAME, // The name of your bucket
     Key: `${isProduction ? 'production' : 'test'}/${keyFilename}`, // The name of the file you want to delete
@@ -44,7 +42,7 @@ export async function delAction({keyFilename}: {keyFilename: string}) {
     console.log(`File ${keyFilename} deleted successfully.`);
     return true;
   } catch (error) {
-    console.error("Error deleting file: ", error);
+    console.error('Error deleting file: ', error);
     throw error;
   }
 }
