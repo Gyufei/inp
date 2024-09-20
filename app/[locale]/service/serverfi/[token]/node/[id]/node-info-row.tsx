@@ -7,6 +7,7 @@ import Image from 'next/image';
 export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: number | null }) {
   const T = useTranslations('Common');
   const { data: userLedger } = useLedger(server?.server_id || null);
+  localStorage.setItem('stake_amount', userLedger?.stake_amount || '');
 
   return (
     <div className="mt-[146px] flex justify-between items-end">
@@ -34,9 +35,7 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
 
           <div className="flex flex-col gap-y-1">
             <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyMAKPower')}</div>
-            <div className="font-din font-medium text-2xl leading-9 text-white">
-              {userLedger ? formatNum(userLedger.stake_amount) : '--'}
-            </div>
+            <div className="font-din font-medium text-2xl leading-9 text-white">{userLedger ? formatNum(userLedger.stake_amount) : '--'}</div>
           </div>
         </div>
 
@@ -48,9 +47,7 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
           <div className="flex flex-col gap-y-1">
             <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyMCPoints')}</div>
             <div className="flex items-center gap-x-2">
-              <div className="font-din font-medium text-2xl leading-9 text-white">
-                {userLedger ? formatNum(userLedger.my_airdrop) : '--'}
-              </div>
+              <div className="font-din font-medium text-2xl leading-9 text-white">{userLedger ? formatNum(userLedger.my_airdrop) : '--'}</div>
             </div>
           </div>
         </div>

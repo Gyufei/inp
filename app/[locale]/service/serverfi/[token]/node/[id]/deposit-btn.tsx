@@ -5,7 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
+import { formatUnits } from 'viem';
 
 export function DepositBtn({ serverId }: { serverId: number }) {
   const T = useTranslations('Common');
@@ -14,6 +15,9 @@ export function DepositBtn({ serverId }: { serverId: number }) {
   const { open } = useWeb3Modal();
 
   const currentToken = useCurrentToken();
+
+  const { data: balance } = useBalance({ address });
+
   const queryClient = useQueryClient();
 
   const [inputOpen, setInputOpen] = useState(false);
@@ -65,6 +69,11 @@ export function DepositBtn({ serverId }: { serverId: number }) {
     setInputValue(newV);
   }
 
+  function handleMaxClick() {
+    const value = formatUnits(balance?.value || BigInt(0), balance?.decimals || 0);
+    setInputValue(value);
+  }
+
   return (
     <div className="relative">
       <div onClick={handleClick} className="w-[200px] h-12 bg-[#6EFF90] flex items-center cursor-pointer justify-center rounded-2xl">
@@ -76,12 +85,17 @@ export function DepositBtn({ serverId }: { serverId: number }) {
           display: inputOpen ? 'block' : 'none',
         }}
       >
-        <input
-          className="w-full rounded-xl text-white border border-solid h-10 px-3 py-2 border-[rgba(255,255,255,0.2)] bg-transparent"
-          value={inputValue}
-          placeholder="0"
-          onChange={(e) => handleInput(e.target.value)}
-        />
+        <div className="relative">
+          <input
+            className="w-full rounded-xl text-white border border-solid h-10 px-3 py-2 pr-16 border-[rgba(255,255,255,0.2)] bg-transparent"
+            value={inputValue}
+            placeholder="0"
+            onChange={(e) => handleInput(e.target.value)}
+          />
+          <button className="absolute right-2 top-1/2 -translate-y-1/2 text-[#3E71FF] text-[16px] font-[500]" onClick={handleMaxClick}>
+            MAX
+          </button>
+        </div>
         <div
           onClick={handleDeposit}
           data-disabled={!isShouldApprove && !inputValue}

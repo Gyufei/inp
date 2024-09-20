@@ -17,23 +17,27 @@ export const metadata = {
 
 const chains = isProduction ? ([mainnet] as const) : ([mainnet, testnet] as const);
 
+export const getRpcUrl = (customRpc?: string) => {
+  return customRpc || localStorage.getItem('customRPC') || 'https://mainnet.infura.io/v3/534d2ca5a3a84db7accafc2eab774a3a';
+};
 // Create wagmiConfig
-export const config = defaultWagmiConfig({
-  chains,
-  projectId,
-  metadata,
-  ssr: true,
-  storage: createStorage({
-    storage: cookieStorage,
-  }),
-  auth: {
-    email: false, // default to true
-    socials: [],
-    showWallets: true, // default to true
-    walletFeatures: true, // default to true
-  },
-  transports: {
-    [mainnet.id]: http('https://mainnet.infura.io/v3/534d2ca5a3a84db7accafc2eab774a3a'),
-    [testnet.id]: http(),
-  },
-});
+export const config = (customRpc?: string) =>
+  defaultWagmiConfig({
+    chains,
+    projectId,
+    metadata,
+    ssr: true,
+    storage: createStorage({
+      storage: cookieStorage,
+    }),
+    auth: {
+      email: false,
+      socials: [],
+      showWallets: true,
+      walletFeatures: true,
+    },
+    transports: {
+      [mainnet.id]: http(getRpcUrl(customRpc)), // Use the dynamic RPC URL
+      [testnet.id]: http(),
+    },
+  });
