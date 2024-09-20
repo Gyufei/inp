@@ -44,7 +44,7 @@ export default function ConnectBtn() {
   }
 
   function handleMouseLeave() {
-    // setShowFloatingLayer(false);
+    setShowFloatingLayer(false);
   }
 
   function handleCustomRPCChange(e: React.ChangeEvent<HTMLInputElement>) {

@@ -27,7 +27,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hide
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsFullScreen(true)}
       >
-        <Image className="rounded-lg" src={image} alt="Uploaded" layout="fill" />
+        <Image className="rounded-lg" src={image} alt="Uploaded" fill sizes="140px" />
 
         {!hideDel && isHovered && (
           <Image

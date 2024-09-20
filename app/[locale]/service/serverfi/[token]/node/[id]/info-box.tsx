@@ -57,7 +57,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
           </div>
         </div>
         <div className="absolute -z-10 top-[24px] -right-[35px]">
-          <Image className="" src="/images/server.png" width={231} height={231} alt="" />
+          <Image className="" src="/images/server.png" width={231} height={231} alt="" priority />
         </div>
       </div>
       <div className="mt-[8px] flex gap-x-[10px]">
