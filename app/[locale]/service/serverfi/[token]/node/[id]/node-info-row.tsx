@@ -17,7 +17,7 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
     <div className="mt-[146px] flex justify-between items-end">
       <div className="flex items-end">
         <div className="w-16 mr-[30px] self-end flex h-16 items-center justify-center rounded-full border border-solid border-[rgba(255,255,255,0.2)] bg-[rgba(7,7,9,0.2)]">
-          <Image src="/icons/clap.svg" width={24} height={24} alt="clap" />
+          <Image src="/icons/clap.svg" width={64} height={64} alt="clap" />
         </div>
 
         <div className="flex flex-col gap-y-[10px]">
