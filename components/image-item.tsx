@@ -15,70 +15,35 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hide
   return (
     <>
       <div
+        className="relative cursor-pointer"
         style={{
           width: style.width ? style.width : '140px',
           height: style.height ? style.height : '140px',
-          position: 'relative',
           border: `1px solid ${isHovered ? '#007bff' : 'rgba(255, 255, 255, 0.2)'}`,
           borderRadius: '8px',
-          overflow: 'hidden',
           transition: 'border-color 0.3s ease',
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsFullScreen(true)}
       >
-        <Image
-          src={image}
-          alt="Uploaded"
-          layout="fill"
-        />
-        
-        { !hideDel && isHovered && (
-          <button
-            onClick={(event) => {
-              event.stopPropagation()
-              onDelete(image)
+        <Image className="rounded-lg" src={image} alt="Uploaded" layout="fill" />
+
+        {!hideDel && isHovered && (
+          <Image
+            className="absolute -top-2 -right-2 cursor-pointer"
+            src="/icons/close.svg"
+            alt="Uploaded"
+            width={20}
+            height={20}
+            onClick={() => {
+              onDelete(image);
             }}
-            style={{
-              position: 'absolute',
-              top: '5px',
-              right: '5px',
-              background: 'rgba(255, 255, 255, 0.7)',
-              border: 'none',
-              borderRadius: '50%',
-              width: '20px',
-              height: '20px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              cursor: 'pointer',
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        )}
-      </div>
-      {isFullScreen && (
-          <PreviewImage
-            imageUrl={image}
-            onClose={() => setIsFullScreen(false)}
           />
         )}
-      </>
+      </div>
+      {isFullScreen && <PreviewImage imageUrl={image} onClose={() => setIsFullScreen(false)} />}
+    </>
   );
 };
 

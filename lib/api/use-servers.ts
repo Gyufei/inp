@@ -17,6 +17,8 @@ export interface IServer {
   total_airdrop: string;
   total_power: string;
   wallet: string;
+  verified?: boolean;
+  hide?: boolean;
 
   airdrop_percent: string;
 }

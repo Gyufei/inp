@@ -12,7 +12,9 @@ export function NodesList() {
   const T = useTranslations('Common');
   const params = useParams();
 
-  const { data: servers } = useServers();
+  const { data } = useServers();
+  // TODO: hide server
+  const servers = data?.filter((server) => !server?.hide);
 
   return (
     <div className="mt-[152px] relative z-10">
@@ -44,17 +46,9 @@ export function NodesList() {
               }}
               key={server.server_id}
             >
-              <div className="flex items-center text-[rgba(255,255,255,0.6)] text-[30px] leading-[44px] w-[40px] mr-[10px] font-din font-medium">
-                {index + 1}
-              </div>
+              <div className="flex items-center text-[rgba(255,255,255,0.6)] text-[30px] leading-[44px] w-[40px] mr-[10px] font-din font-medium">{index + 1}</div>
               <div className="flex items-center w-[140px] mr-[50px]">
-                <Image
-                  className="rounded-lg w-[60px] h-[60px]"
-                  src={server.server_logo || '/images/server-placeholder.png'}
-                  width={60}
-                  height={60}
-                  alt=""
-                />
+                <Image className="rounded-lg w-[60px] h-[60px]" src={server.server_logo || '/images/server-placeholder.png'} width={60} height={60} alt="" />
                 <div className="w-4 gap-y-2 ml-1 h-full flex flex-col justify-start items-center">
                   {server.album_list.slice(0, 3).map((item: any) => (
                     <Image className="h-4 w-4 rounded-sm" key={item} src={item} width={16} height={16} alt="" />
@@ -62,7 +56,10 @@ export function NodesList() {
                 </div>
               </div>
               <div className="flex flex-col items-start justify-between w-[200px] pl-[10px] mr-6 gap-y-1">
-                <div className="text-white text-[22px] leading-[32px] text-nowrap">{server.server_name}</div>
+                <div className="text-white text-[22px] leading-[32px] text-nowrap flex items-center gap-x-2">
+                  {server.server_name}
+                  {server?.verified && <Image src="/icons/tick.svg" width={16} height={16} alt="" />}
+                </div>
                 <div className="text-base leading-6 flex items-center gap-x-2">
                   <span className="font-hel text-[rgba(255,255,255,0.6)]">{T('OwnedBy')}</span>
                   <span className="font-din text-white font-medium">{server.owner_name}</span>
@@ -83,14 +80,8 @@ export function NodesList() {
               <div className="flex flex-col justify-between w-[160px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('Airdrop')}</div>
                 <div className="flex items-center justify-between">
-                  <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">
-                    {toPercent(Number(server.airdrop_percent))}%
-                  </div>
-                  {server.is_up ? (
-                    <Image src="/icons/up.svg" width={24} height={24} alt="" />
-                  ) : (
-                    <Image src="/icons/down.svg" width={24} height={24} alt="" />
-                  )}
+                  <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{toPercent(Number(server.airdrop_percent))}%</div>
+                  {server.is_up ? <Image src="/icons/up.svg" width={24} height={24} alt="" /> : <Image src="/icons/down.svg" width={24} height={24} alt="" />}
                 </div>
               </div>
             </Link>

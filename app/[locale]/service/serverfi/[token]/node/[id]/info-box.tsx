@@ -60,7 +60,7 @@ export function InfoBox({ server }: { server: IServer | null }) {
           <Image className="" src="/images/server.png" width={231} height={231} alt="" />
         </div>
       </div>
-      <div className="mt-[8px] flex gap-x-[10px] overflow-x-auto">
+      <div className="mt-[8px] flex gap-x-[10px]">
         <UploadImageList
           style={{
             height: '66px',
