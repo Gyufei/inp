@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 
 if (!projectId) throw new Error('Project ID is not defined');
 
-const defaultConfig = getConfig();
+const defaultConfig = getConfig(typeof localStorage !== 'undefined' ? localStorage.getItem('customRPC') || '' : '');
 
 // Create modal
 createWeb3Modal({

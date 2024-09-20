@@ -18,7 +18,7 @@ export const metadata = {
 const chains = isProduction ? ([mainnet] as const) : ([mainnet, testnet] as const);
 
 export const getRpcUrl = (customRpc?: string) => {
-  return customRpc || localStorage.getItem('customRPC') || 'https://mainnet.infura.io/v3/534d2ca5a3a84db7accafc2eab774a3a';
+  return customRpc || 'https://mainnet.infura.io/v3/534d2ca5a3a84db7accafc2eab774a3a';
 };
 // Create wagmiConfig
 export const config = (customRpc?: string) =>

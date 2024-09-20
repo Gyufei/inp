@@ -1,3 +1,5 @@
+'use client';
+
 import { useLedger } from '@/lib/api/use-ledger';
 import { IServer } from '@/lib/api/use-servers';
 import { formatNum } from '@/lib/number';
@@ -7,7 +9,9 @@ import Image from 'next/image';
 export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: number | null }) {
   const T = useTranslations('Common');
   const { data: userLedger } = useLedger(server?.server_id || null);
-  localStorage.setItem('stake_amount', userLedger?.stake_amount || '');
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem('stake_amount', userLedger?.stake_amount || '');
+  }
 
   return (
     <div className="mt-[146px] flex justify-between items-end">

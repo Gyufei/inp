@@ -24,8 +24,10 @@ export default function ConnectBtn() {
 
   const displayAddress = truncateAddr(address || '', { nPrefix: 6, nSuffix: 4 });
 
-  const stakeAmount = localStorage.getItem('stake_amount');
-
+  let stakeAmount = '--';
+  if (typeof localStorage !== 'undefined') {
+    stakeAmount = localStorage.getItem('stake_amount') || '--';
+  }
   function handleClick() {
     if (address || isConnected) {
       disconnect();
@@ -42,7 +44,7 @@ export default function ConnectBtn() {
   }
 
   function handleMouseLeave() {
-    setShowFloatingLayer(false);
+    // setShowFloatingLayer(false);
   }
 
   function handleCustomRPCChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -60,7 +62,9 @@ export default function ConnectBtn() {
       setInputRpcError(true);
       return;
     }
-    localStorage.setItem(`customRPC`, customRPC);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(`customRPC`, customRPC);
+    }
     eventEmitterOverall.emit('change-rpc', customRPC);
   }
 
