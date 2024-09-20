@@ -36,8 +36,9 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hide
             alt="Uploaded"
             width={20}
             height={20}
-            onClick={() => {
+            onClick={(e) => {
               onDelete(image);
+              e.stopPropagation();
             }}
           />
         )}

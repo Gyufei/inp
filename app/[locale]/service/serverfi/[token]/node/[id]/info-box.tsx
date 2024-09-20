@@ -60,17 +60,19 @@ export function InfoBox({ server }: { server: IServer | null }) {
           <Image className="" src="/images/server.png" width={231} height={231} alt="" priority />
         </div>
       </div>
-      <div className="mt-[8px] flex gap-x-[10px]">
-        <UploadImageList
-          style={{
-            height: '66px',
-            width: '66px',
-          }}
-          initImages={server ? server.album_list : []}
-          onChangeImage={handleChangeImage}
-          hideAdd={!allowUploadImg}
-        />
-      </div>
+      {server && (
+        <div className="mt-[8px] flex gap-x-[10px]">
+          <UploadImageList
+            style={{
+              height: '66px',
+              width: '66px',
+            }}
+            initImages={server.album_list}
+            onChangeImage={handleChangeImage}
+            hideAdd={!allowUploadImg}
+          />
+        </div>
+      )}
     </div>
   );
 }

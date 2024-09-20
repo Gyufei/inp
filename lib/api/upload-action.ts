@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { r2 } from '@/lib/r2';
-import { R2_BUCKET_NAME, R2_ACCESS_KEY_ID, R2_ACCOUNT_ID, R2_SECRET_ACCESS_KEY } from '@/lib/const';
+import { R2_BUCKET_NAME } from '@/lib/const';
 import { isProduction } from '../PathMap';
 
 export async function uploadAction(nameKey: string) {
@@ -29,16 +29,7 @@ export async function delAction({ keyFilename }: { keyFilename: string }) {
   };
 
   try {
-    const s3 = new S3Client({
-      region: 'auto',
-      endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-      credentials: {
-        accessKeyId: R2_ACCESS_KEY_ID,
-        secretAccessKey: R2_SECRET_ACCESS_KEY,
-      },
-    });
-    // Execute the delete operation
-    await s3.send(new DeleteObjectCommand(deleteParams));
+    await r2.send(new DeleteObjectCommand(deleteParams));
     console.log(`File ${keyFilename} deleted successfully.`);
     return true;
   } catch (error) {

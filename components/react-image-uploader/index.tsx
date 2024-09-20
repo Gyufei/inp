@@ -1,9 +1,7 @@
 import React, { useState, ChangeEvent, useContext } from 'react';
 import Image from 'next/image';
 import { GlobalMsgContext } from '@/app/global-msg-context';
-import { DeleteIcon, UploadIcon } from './icons';
 import { FileUploaderProps, FileObjectType } from './interface';
-import './index.css';
 import { useTranslations } from 'next-intl';
 
 const ImageUploader = ({ onFileAdded, onFileRemoved, uploadIcon, deleteIcon, style, hideImg = false }: FileUploaderProps): JSX.Element => {
@@ -48,38 +46,24 @@ const ImageUploader = ({ onFileAdded, onFileRemoved, uploadIcon, deleteIcon, sty
     setCurrentImg({});
   };
   return (
-    <div className="uploader__container">
-      {/* button wrapper */}
-      <div className="uploader__placeholder" style={style}>
+    <div className="w-fit">
+      <div className="relative bg-white overflow-hidden" style={style}>
         {deleteIcon !== null && (
-          <div className="uploader__btn_wrapper">
-            <div className="uploader__btn" onClick={() => handleDeleteImage()}>
-              <DeleteIcon icon={deleteIcon} />
+          <div className="flex items-center justify-center absolute top-1 right-0 p-0 z-10">
+            <div className="bg-transparent border-none cursor-pointer" onClick={() => handleDeleteImage()}>
+              {deleteIcon}
             </div>
           </div>
         )}
 
-        {/* upload Input Box */}
         {currentImg && currentImg.dataUrl !== null && (
-          <label id="file_uploader" className="uploader__file_input_label w-full">
-            <div className={currentImg.dataUrl && !hideImg ? 'opacity-0' : 'opacity-100'}>
-              <UploadIcon element={uploadIcon} />
-            </div>
-            {/* input element */}
-            <input
-              className="uploader__file_input"
-              key={currentImg.dataUrl}
-              type="file"
-              name="upload"
-              onChange={(e) => handleFilePicker(e)}
-              accept="image/*"
-              id="file_uploader"
-            />
+          <label id="file_uploader" className="absolute top-1/2 left-1/2 z-[1] -translate-y-[50%] -translate-x-[50%] w-full hover:cursor-pointer">
+            <div className={currentImg.dataUrl && !hideImg ? 'opacity-0' : 'opacity-100'}>{uploadIcon && uploadIcon}</div>
+            <input className="absolute h-[0.1px] w-[0.1px] opacity-0 inset-0 -z-10" key={currentImg.dataUrl} type="file" name="upload" onChange={(e) => handleFilePicker(e)} accept="image/*" id="file_uploader" />
           </label>
         )}
-        {/* image */}
         {currentImg.dataUrl && !hideImg && (
-          <Image className="uploader__file" width={200} height={200} src={currentImg.dataUrl} alt={currentImg.dataUrl} loading="lazy" />
+          <Image className="block object-cover absolute w-full h-full border border-[#ffffff80] rounded-[20px]" width={200} height={200} src={currentImg.dataUrl} alt={currentImg.dataUrl} loading="lazy" />
         )}
       </div>
     </div>

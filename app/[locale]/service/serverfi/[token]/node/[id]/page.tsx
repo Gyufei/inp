@@ -46,14 +46,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
           <NodeInfoRow server={currentServer || null} rank={rank} />
         </div>
 
-        <video
-          className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]"
-          src="/1-1.mp4"
-          muted
-          loop
-          autoPlay
-          playsInline
-        />
+        <video className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
       </div>
 
       <div className="mt-10 flex items-center gap-x-1 z-10 relative">
@@ -65,7 +58,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
       <div className="mt-20 flex">
         <NodeActivities serverId={Number(id)} />
-        {currentServer && <InfoBox server={currentServer || null} />}
+        <InfoBox server={currentServer || null} />
       </div>
     </div>
   );
