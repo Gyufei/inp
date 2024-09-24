@@ -25,19 +25,9 @@ export default function RegisterForm() {
   const { open } = useWeb3Modal();
   const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useRegister();
 
-  const {
-    serverName,
-    invalidMsg: serverInvalidMsg,
-    handleChange: handleServerChange,
-    handleValidate: handleServerValidate,
-  } = useServerName();
+  const { serverName, invalidMsg: serverInvalidMsg, handleChange: handleServerChange, handleValidate: handleServerValidate } = useServerName();
 
-  const {
-    ownerName,
-    invalidMsg: ownerInvalidMsg,
-    handleChange: handleOwnerChange,
-    handleValidate: handleOwnerValidate,
-  } = useOwnerName();
+  const { ownerName, invalidMsg: ownerInvalidMsg, handleChange: handleOwnerChange, handleValidate: handleOwnerValidate } = useOwnerName();
 
   const [serverNo, setServerNo] = useState('');
   const [serverImage, setServerImage] = useState<string | null>(null);
@@ -106,43 +96,26 @@ export default function RegisterForm() {
 
   return (
     <div className="relative overflow-hidden h-[657px]">
-      <video
-        className="absolute -top-[256px] -right-[100px] z-0 w-[1920px] h-[1080px]"
-        src="/1-1.mp4"
-        muted
-        loop
-        autoPlay
-        playsInline
-      />
+      <video className="absolute -top-[256px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
       <div className="absolute right-[160px] flex items-center">
         <div className="flex flex-col w-[446px] mb-10">
           <h3 className="font-semibold text-[50px] text-white mb-4 text-center font-cal">{T('RegisterYourServer')}</h3>
-          <div
-            className="rounded-lg shadow-sm text-white"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(20px)' }}
-          >
+          <div className="rounded-lg shadow-sm text-white" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(20px)' }}>
             <div className="flex flex-col p-6">
               <div className="flex items-center justify-center mt-4">
-                <UploadImage
-                  onImageUpload={handleImageUpload}
-                  scheduledUpload={true}
-                  isStartScheduledUpload={isStartUpload}
-                  onScheduledUpload={handleScheduledUpload}
-                />
+                <UploadImage onImageUpload={handleImageUpload} scheduledUpload={true} isStartScheduledUpload={isStartUpload} onScheduledUpload={handleScheduledUpload} />
               </div>
             </div>
             <div className="p-6 pt-0 grid gap-6">
               <div className="grid gap-2 relative">
-                <label
-                  className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="serverName"
-                >
+                <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="serverName">
                   {T('ServerName')}
                 </label>
                 <input
                   data-error={!!serverInvalidMsg}
                   name="serverName"
                   type="text"
+                  autoComplete="off"
                   className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm data-[error=true]:border-[#E86565]"
                   required
                   value={serverName}
@@ -151,16 +124,14 @@ export default function RegisterForm() {
                 <div className="absolute w-full top-full text-[#E86565] text-sm leading-5">{serverInvalidMsg}</div>
               </div>
               <div className="grid gap-2 relative">
-                <label
-                  className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="ownerName"
-                >
+                <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="ownerName">
                   {T('OwnerName')}
                 </label>
                 <input
                   data-error={!!ownerInvalidMsg}
                   name="ownerName"
                   type="text"
+                  autoComplete="off"
                   className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm data-[error=true]:border-[#E86565]"
                   required
                   value={ownerName}
@@ -169,15 +140,13 @@ export default function RegisterForm() {
                 <div className="absolute w-full top-full text-[#E86565] text-sm leading-5">{ownerInvalidMsg}</div>
               </div>
               <div className="grid gap-2">
-                <label
-                  className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="registrationCode"
-                >
+                <label className="opacity-60 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="registrationCode">
                   {T('RegistrationUnder')}
                 </label>
                 <input
                   name="serverNo"
                   type="text"
+                  autoComplete="off"
                   className="bg-[rgba(16,20,24,0.1)] flex h-10 w-full rounded-md border border-gray-700 px-3 py-2 text-sm !disabled:bg-[(16,20,24,0.1)] disabled:cursor-not-allowed"
                   disabled={true}
                   value={serverNo}

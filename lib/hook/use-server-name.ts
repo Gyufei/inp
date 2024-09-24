@@ -42,7 +42,7 @@ export default function useServerName() {
       return false;
     }
 
-    if (v.length < 3) {
+    if (v.length < 2) {
       setInvalidMsg(T('NameErrorTooShort'));
       return false;
     }
