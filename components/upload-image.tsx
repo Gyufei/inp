@@ -12,6 +12,7 @@ const UploadImage = ({
   scheduledUpload = false,
   isStartScheduledUpload = false,
   onScheduledUpload,
+  uploadIcon,
 }: {
   onImageUpload: (url: string) => void;
   hideImg?: boolean;
@@ -19,6 +20,7 @@ const UploadImage = ({
   scheduledUpload?: boolean;
   isStartScheduledUpload?: boolean;
   onScheduledUpload?: () => void;
+  uploadIcon?: React.ReactNode;
 }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [scheduledUploadData, setScheduledUploadData] = useState<{
@@ -84,7 +86,7 @@ const UploadImage = ({
     <ImageUploader
       onFileAdded={(img) => handleFileAdded(img as any)}
       onFileRemoved={(img) => runAfterImageDelete(img as any)}
-      uploadIcon={<Image src="/icons/add.svg" width={140} height={140} alt="" />}
+      uploadIcon={uploadIcon || <Image src="/icons/add-picture.svg" width={140} height={140} alt="" />}
       deleteIcon={null}
       style={{
         height: '140px',

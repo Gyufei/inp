@@ -15,7 +15,7 @@ export function ProfitBtn({ serverId }: { serverId: number }) {
           <Image src="/icons/dollar.svg" width={16} height={16} alt="dollar" />
         </div>
         <div className="text-[rgba(255,255,255,0.4)] font-hel text-base left-5">{T('PotentialProfit')}</div>
-        <div className="ml-5 text-white font-hel leading-5 text-[22px]">{userLedger ? formatNum(userLedger?.potential_profit) : '--'}</div>
+        <div className="ml-5 text-white font-hel leading-5 text-[22px]">{userLedger?.potential_profit ? `${'$'}${formatNum(userLedger?.potential_profit)}` : '--'}</div>
       </div>
       <div
         style={{

@@ -38,7 +38,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
             </Link>
             <div className="font-cal text-[40px] font-bold leading-[80px] text-white">{T('NodeBannerTitle')}</div>
             <div className="font-cal text-white font-bold">
-              <span className="text-[50px]">No.</span>
+              <span className="text-[50px]">No. </span>
               <span className="text-[100px]">{id}</span>
             </div>
           </div>

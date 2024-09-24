@@ -91,8 +91,8 @@ export default function ConnectBtn() {
             </div>
             <hr className="border-[rgba(255,255,255,0.2)] mb-4" />
             <p className="text-[rgba(255,255,255,0.6)] text-[14px]  mb-2">{T('MyMCPoints')}</p>
-            <p className="text-white text-[24px] mb-2">{stakeAmount ? formatNum(stakeAmount) : '--'}</p>
-            <p className="text-[rgba(255,255,255,0.6)] text-[14px] mb-2">{T('CustomRPC')}</p>
+            <p className="text-white text-[24px] font-din mb-2">{stakeAmount ? formatNum(stakeAmount) : '--'}</p>
+            <p className="text-[rgba(255,255,255,0.6)]  text-[14px] mb-2">{T('CustomRPC')}</p>
             <div className="flex justify-between ">
               <input type="text" value={customRPC} onChange={handleCustomRPCChange} placeholder="" className="w-[140px] p-2 border rounded-xl border-[rgba(255,255,255,0.2)]  bg-gray-700 text-white" />
               <button onClick={handleCustomRPCSubmit} className="text-blue-500 size-[40px] border rounded-xl flex items-center justify-center border-[rgba(255,255,255,0.2)]">
