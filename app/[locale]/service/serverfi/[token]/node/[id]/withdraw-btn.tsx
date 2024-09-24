@@ -43,6 +43,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
       queryClient.invalidateQueries({ queryKey: ['user-ledger', serverId, address] });
       queryClient.invalidateQueries({ queryKey: ['user-activities', serverId] });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWdSuccess]);
 
   function handleClick() {

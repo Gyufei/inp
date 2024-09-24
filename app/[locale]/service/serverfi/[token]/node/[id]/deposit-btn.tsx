@@ -71,7 +71,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
   }
 
   function handleMaxClick() {
-    const value = formatUnits(balanceData || BigInt(0), 18 || 0);
+    const value = formatUnits(balanceData || BigInt(0), currentToken?.decimal || 0);
     setInputValue(value);
   }
 
