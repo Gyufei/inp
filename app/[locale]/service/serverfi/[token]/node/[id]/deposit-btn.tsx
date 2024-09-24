@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { formatUnits } from 'viem';
-import { useBalanceData } from '@/lib/hook/use-balance';
+import { useBalanceDataOf } from '@/lib/hook/use-balanceof';
 
 export function DepositBtn({ serverId }: { serverId: number }) {
   const T = useTranslations('Common');
@@ -17,7 +17,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
 
   const currentToken = useCurrentToken();
 
-  const balanceData = useBalanceData();
+  const { data: balanceData } = useBalanceDataOf();
 
   const queryClient = useQueryClient();
 
@@ -71,7 +71,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
   }
 
   function handleMaxClick() {
-    const value = formatUnits(balanceData?.value || BigInt(0), balanceData?.decimals || 0);
+    const value = formatUnits(balanceData || BigInt(0), 18 || 0);
     setInputValue(value);
   }
 
