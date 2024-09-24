@@ -15,4 +15,5 @@ export const Paths = {
   userActivities: WithHost('/user/activities'),
   albumUpload: WithHost('/server/album/upload'),
   userNameCheck: WithHost('/user/name/check'),
+  userMcPoints: WithHost('/user/mc_points'),
 };

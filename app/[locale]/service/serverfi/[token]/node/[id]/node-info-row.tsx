@@ -1,6 +1,7 @@
 'use client';
 
 import { useLedger } from '@/lib/api/use-ledger';
+import { useMcPoints } from '@/lib/api/use-mc-points';
 import { IServer } from '@/lib/api/use-servers';
 import { formatNum } from '@/lib/number';
 import { useTranslations } from 'next-intl';
@@ -9,8 +10,10 @@ import Image from 'next/image';
 export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: number | null }) {
   const T = useTranslations('Common');
   const { data: userLedger } = useLedger(server?.server_id || null);
+  const { data: userMcPoints } = useMcPoints();
+
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('stake_amount', userLedger?.stake_amount || '');
+    localStorage.setItem('mc_points', userMcPoints?.mc_points || '');
   }
 
   return (
@@ -51,7 +54,7 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
           <div className="flex flex-col gap-y-1">
             <div className="text-[14px] leading-5 font-semibold text-[rgba(255,255,255,0.6)]">{T('MyMCPoints')}</div>
             <div className="flex items-center gap-x-2">
-              <div className="font-din font-medium text-2xl leading-9 text-white">{userLedger ? formatNum(userLedger.my_airdrop) : '--'}</div>
+              <div className="font-din font-medium text-2xl leading-9 text-white">{userMcPoints ? formatNum(userMcPoints.mc_points) : '--'}</div>
             </div>
           </div>
         </div>

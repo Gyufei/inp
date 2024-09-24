@@ -1,4 +1,6 @@
 import { useTranslations } from 'next-intl';
+import fetcher from '../fetcher';
+import { Paths } from '../PathMap';
 import { useState } from 'react';
 
 export default function useOwnerName() {
@@ -43,6 +45,21 @@ export default function useOwnerName() {
     if (v.length < 2) {
       setInvalidMsg(T('NameErrorTooShort'));
       return false;
+    }
+
+    const res: {
+      code: number;
+      msg: 'Allowed' | 'Forbidden';
+    } = await fetcher(Paths.userNameCheck + `?name=${v}&is_server_name=false`);
+
+    if (res.msg === 'Forbidden') {
+      setInvalidMsg(T('NameErrorForbidden'));
+      return false;
+    }
+
+    if (res.msg === 'Allowed') {
+      setInvalidMsg('');
+      return true;
     }
 
     return true;

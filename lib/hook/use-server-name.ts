@@ -50,7 +50,7 @@ export default function useServerName() {
     const res: {
       code: number;
       msg: 'Allowed' | 'Forbidden';
-    } = await fetcher(Paths.userNameCheck + `?name=${v}`);
+    } = await fetcher(Paths.userNameCheck + `?name=${v}&is_server_name=true`);
 
     if (res.msg === 'Forbidden') {
       setInvalidMsg(T('NameErrorForbidden'));

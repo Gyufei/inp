@@ -13,8 +13,7 @@ export function NodesList() {
   const params = useParams();
 
   const { data } = useServers();
-  // TODO: hide server
-  const servers = data?.filter((server) => !server?.hide);
+  const servers = data?.filter((server) => server?.verified !== '0');
 
   return (
     <div className="mt-[152px] relative z-10">
@@ -58,7 +57,7 @@ export function NodesList() {
               <div className="flex flex-col items-start justify-between w-[200px] pl-[10px] mr-6 gap-y-1">
                 <div className="text-white text-[22px] leading-[32px] text-nowrap flex items-center gap-x-2">
                   {server.server_name}
-                  {server?.verified && <Image src="/icons/tick.svg" width={16} height={16} alt="" />}
+                  {server?.verified === '1' && <Image src="/icons/tick.svg" width={16} height={16} alt="" />}
                 </div>
                 <div className="text-base leading-6 flex items-center gap-x-2">
                   <span className="font-hel text-[rgba(255,255,255,0.6)]">{T('OwnedBy')}</span>

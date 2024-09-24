@@ -24,9 +24,9 @@ export default function ConnectBtn() {
 
   const displayAddress = truncateAddr(address || '', { nPrefix: 6, nSuffix: 4 });
 
-  let stakeAmount = '--';
+  let mcPoints = '--';
   if (typeof localStorage !== 'undefined') {
-    stakeAmount = localStorage.getItem('stake_amount') || '--';
+    mcPoints = localStorage.getItem('mc_points') || '--';
   }
   function handleClick() {
     if (address || isConnected) {
@@ -91,7 +91,7 @@ export default function ConnectBtn() {
             </div>
             <hr className="border-[rgba(255,255,255,0.2)] mb-4" />
             <p className="text-[rgba(255,255,255,0.6)] text-[14px]  mb-2">{T('MyMCPoints')}</p>
-            <p className="text-white text-[24px] font-din mb-2">{stakeAmount ? formatNum(stakeAmount) : '--'}</p>
+            <p className="text-white text-[24px] font-din mb-2">{mcPoints ? formatNum(mcPoints) : '--'}</p>
             <p className="text-[rgba(255,255,255,0.6)]  text-[14px] mb-2">{T('CustomRPC')}</p>
             <div className="flex justify-between ">
               <input type="text" value={customRPC} onChange={handleCustomRPCChange} placeholder="" className="w-[140px] p-2 border rounded-xl border-[rgba(255,255,255,0.2)]  bg-gray-700 text-white" />
