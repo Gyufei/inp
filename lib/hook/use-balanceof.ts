@@ -9,7 +9,7 @@ export function useBalanceDataOf() {
     abi: erc20Abi,
     address: abiAddress as any,
     functionName: 'balanceOf',
-    args: [address as any],
+    args: [address] as any,
   });
 
   return result;
