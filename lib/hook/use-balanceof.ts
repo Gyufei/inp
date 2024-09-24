@@ -13,5 +13,5 @@ export function useBalanceDataOf() {
     args: [address as `0x${string}`],
   });
 
-  return result;
+  return { data: result.data, value: result.data };
 }
