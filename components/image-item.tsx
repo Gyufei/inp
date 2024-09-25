@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PreviewImage from './preview-image';
 import Image from 'next/image';
-import { ImageWithDefaultOnError } from './Image-with-onError';
+import { ImageWithDefaultOnError } from './image-with-onError';
 interface ImageItemProps {
   image: string;
   onDelete: (image: string) => void;

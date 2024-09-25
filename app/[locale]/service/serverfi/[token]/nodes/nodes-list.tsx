@@ -8,7 +8,7 @@ import GoToTokenWebsite from '@/components/go-to-token-website';
 import { Link } from '@/app/navigation';
 import { useParams } from 'next/navigation';
 import { formatNum, toPercent } from '@/lib/number';
-import { ImageWithDefaultOnError } from '@/components/Image-with-onError';
+import { ImageWithDefaultOnError } from '@/components/image-with-onError';
 
 export function NodesList() {
   const T = useTranslations('Common');
