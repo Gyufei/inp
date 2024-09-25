@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+
 import { useTranslations } from 'next-intl';
 import { IServer, useServers } from '@/lib/api/use-servers';
 import GoToTokenWebsite from '@/components/go-to-token-website';
 import { Link } from '@/app/navigation';
 import { useParams } from 'next/navigation';
 import { formatNum, toPercent } from '@/lib/number';
+import { ImageWithDefaultOnError } from '@/components/Image-with-onError';
 
 export function NodesList() {
   const T = useTranslations('Common');
@@ -47,39 +49,10 @@ export function NodesList() {
             >
               <div className="flex items-center text-[rgba(255,255,255,0.6)] text-[30px] leading-[44px] w-[40px] mr-[10px] font-din font-medium">{index + 1}</div>
               <div className="flex items-center w-[140px] mr-[50px]">
-                <Image
-                  className="rounded-lg w-[60px] h-[60px]"
-                  src={server.server_logo || '/images/server-placeholder.png'}
-                  width={60}
-                  height={60}
-                  alt="logo"
-                  onError={(event) => {
-                    if (event.target instanceof HTMLImageElement) {
-                      event.target.src = '/images/server-placeholder.png';
-                    } else {
-                      console.error('images error');
-                    }
-                    return;
-                  }}
-                />
+                <ImageWithDefaultOnError className="rounded-lg w-[60px] h-[60px]" src={server.server_logo || '/images/server-placeholder.png'} width={60} height={60} alt="logo" />
                 <div className="w-4 gap-y-2 ml-1 h-full flex flex-col justify-start items-center">
                   {server.album_list.slice(0, 3).map((item: any) => (
-                    <Image
-                      className="h-4 w-4 rounded-sm"
-                      key={item}
-                      src={item}
-                      width={16}
-                      height={16}
-                      alt="album"
-                      onError={(event) => {
-                        if (event.target instanceof HTMLImageElement) {
-                          event.target.src = '/images/server-placeholder.png';
-                        } else {
-                          console.error('images error');
-                        }
-                        return;
-                      }}
-                    />
+                    <ImageWithDefaultOnError className="h-4 w-4 rounded-sm" key={item} src={item} width={16} height={16} alt="album" />
                   ))}
                 </div>
               </div>

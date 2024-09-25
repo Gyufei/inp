@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PreviewImage from './preview-image';
 import Image from 'next/image';
+import { ImageWithDefaultOnError } from './Image-with-onError';
 interface ImageItemProps {
   image: string;
   onDelete: (image: string) => void;
@@ -27,21 +28,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hide
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsFullScreen(true)}
       >
-        <Image
-          className="rounded-lg"
-          src={image}
-          alt="Uploaded"
-          fill
-          sizes="140px"
-          onError={(event) => {
-            if (event.target instanceof HTMLImageElement) {
-              event.target.src = '/images/server-placeholder.png';
-            } else {
-              console.error('images error');
-            }
-            return;
-          }}
-        />
+        <ImageWithDefaultOnError className="rounded-lg" src={image} alt="Uploaded" fill sizes="140px" />
 
         {!hideDel && isHovered && (
           <Image
