@@ -21,11 +21,8 @@ export default function LanguageSetting() {
   }
 
   return (
-    <div
-      onClick={toggleLang}
-      className="w-12 h-12 rounded-full flex items-center justify-center border border-solid border-[rgba(255,255,255,0.4)] text-base leading-5 text-white cursor-pointer"
-    >
-      {locale === 'en' ? 'EN' : '汉'}
+    <div onClick={toggleLang} className="w-12 h-12 rounded-full flex items-center justify-center border border-solid border-[rgba(255,255,255,0.4)] text-base leading-5 text-white cursor-pointer">
+      {locale === 'en' ? 'EN' : '中'}
     </div>
   );
 }

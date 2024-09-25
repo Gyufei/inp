@@ -47,6 +47,8 @@
     "NoDeposits": "There are no deposits to withdraw",
     "AllNodes": "All Nodes",
     "CustomRPC": "Custom RPC",
-    "UnsupportedRPC": "Unsupported RPC"
+    "UnsupportedRPC": "Unsupported RPC",
+    "Add": "Add",
+    "Picture": "Picture"
   }
 }

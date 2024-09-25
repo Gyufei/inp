@@ -4,6 +4,7 @@ import ImageUploader from './react-image-uploader';
 import { uploadAction } from '@/lib/api/upload-action';
 import { R2_URl_HOST } from '@/lib/const';
 import { isProduction } from '@/lib/PathMap';
+import { useTranslations } from 'next-intl';
 
 const UploadImage = ({
   onImageUpload,
@@ -22,6 +23,8 @@ const UploadImage = ({
   onScheduledUpload?: () => void;
   uploadIcon?: React.ReactNode;
 }) => {
+  const T = useTranslations('Common');
+
   const [isUploading, setIsUploading] = useState(false);
   const [scheduledUploadData, setScheduledUploadData] = useState<{
     imageFile: File | null;
@@ -86,7 +89,18 @@ const UploadImage = ({
     <ImageUploader
       onFileAdded={(img) => handleFileAdded(img as any)}
       onFileRemoved={(img) => runAfterImageDelete(img as any)}
-      uploadIcon={uploadIcon || <Image src="/icons/add-picture.svg" width={140} height={140} alt="" />}
+      uploadIcon={
+        uploadIcon || (
+          <div className="size-[140px] flex flex-col items-center justify-center bg-[rgba(255,255,255,0.1)] rounded-[20px] border border-[rgba(255,255,255,0.2)]">
+            <Image src="/icons/pic.svg" width={60} height={60} alt="" />
+            <p className="text-[16px] font-inter text-[#FFFFFF] opacity-40 mt-[4px]">
+              {T('Add')}
+              {T('Add') === 'Add' && '\u00A0'}
+              {T('Picture')}
+            </p>
+          </div>
+        )
+      }
       deleteIcon={null}
       style={{
         height: '140px',

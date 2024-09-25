@@ -47,6 +47,8 @@
     "NoDeposits": "没有存款可以提现",
     "AllNodes": "全部服务器",
     "CustomRPC": "自定义 RPC",
-    "UnsupportedRPC": "不支持的 RPC"
+    "UnsupportedRPC": "不支持的 RPC",
+    "Add": "添加",
+    "Picture": "图片"
   }
 }
