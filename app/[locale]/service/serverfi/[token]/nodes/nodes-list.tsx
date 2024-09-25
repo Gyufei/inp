@@ -31,7 +31,7 @@ export function NodesList() {
       </div>
       <div className="overflow-hidden rounded-[30px]  rounded-tl-none">
         <div
-          className="bg-[rgba(255,255,255,0.1)] h-[732px] overflow-y-auto trans-scroll-bar backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tl-none"
+          className="bg-[rgba(255,255,255,0.1)] min-h-[532px]  max-h-[10032px] overflow-y-auto trans-scroll-bar backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tl-none "
           style={{
             borderImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%)',
           }}
@@ -47,10 +47,39 @@ export function NodesList() {
             >
               <div className="flex items-center text-[rgba(255,255,255,0.6)] text-[30px] leading-[44px] w-[40px] mr-[10px] font-din font-medium">{index + 1}</div>
               <div className="flex items-center w-[140px] mr-[50px]">
-                <Image className="rounded-lg w-[60px] h-[60px]" src={server.server_logo || '/images/server-placeholder.png'} width={60} height={60} alt="" />
+                <Image
+                  className="rounded-lg w-[60px] h-[60px]"
+                  src={server.server_logo || '/images/server-placeholder.png'}
+                  width={60}
+                  height={60}
+                  alt="logo"
+                  onError={(event) => {
+                    if (event.target instanceof HTMLImageElement) {
+                      event.target.src = '/images/server-placeholder.png';
+                    } else {
+                      console.error('images error');
+                    }
+                    return;
+                  }}
+                />
                 <div className="w-4 gap-y-2 ml-1 h-full flex flex-col justify-start items-center">
                   {server.album_list.slice(0, 3).map((item: any) => (
-                    <Image className="h-4 w-4 rounded-sm" key={item} src={item} width={16} height={16} alt="" />
+                    <Image
+                      className="h-4 w-4 rounded-sm"
+                      key={item}
+                      src={item}
+                      width={16}
+                      height={16}
+                      alt="album"
+                      onError={(event) => {
+                        if (event.target instanceof HTMLImageElement) {
+                          event.target.src = '/images/server-placeholder.png';
+                        } else {
+                          console.error('images error');
+                        }
+                        return;
+                      }}
+                    />
                   ))}
                 </div>
               </div>

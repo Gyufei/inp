@@ -25,7 +25,7 @@ export function NodeActivities({ serverId }: { serverId: number }) {
       </div>
       <div className="overflow-hidden rounded-[30px]  rounded-tl-none">
         <div
-          className="bg-[rgba(255,255,255,0.1)] h-[374px] overflow-y-auto trans-scroll-bar backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tl-none"
+          className="bg-[rgba(255,255,255,0.1)] min-h-[374px] backdrop-blur-[20px] px-6 py-[50px] rounded-[30px] rounded-tl-none"
           style={{
             borderImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%)',
           }}
@@ -36,34 +36,37 @@ export function NodeActivities({ serverId }: { serverId: number }) {
             <div className="w-[20%] text-base leading-5 text-[rgba(255,255,255,0.6)]">{T('Power')}</div>
             <div className="w-[25%] text-base leading-5 text-[rgba(255,255,255,0.6)]">{T('BlockNo')}</div>
           </div>
-          {(activities || []).map((act: UserActivity) => (
-            <div className="flex justify-between h-12 pl-[10px] py-3 bg-[rgba(22,23,22,0.01)] mt-[10px]" key={act.tx_hash}>
-              <div className="w-[35%] text-base leading-6 text-white font-normal">{truncateAddr(act.user, { nPrefix: 6, nSuffix: 4 })}</div>
-              <div className="w-[20%]">
-                {act.action === 'Deposit' ? (
-                  <div className="h-6 w-fit px-3 rounded-md bg-[rgba(105,208,255,0.2)] flex items-center text-[#6EFF90] text-xs leading-4">
-                    {T('Deposit')}
-                  </div>
-                ) : (
-                  <div className="h-6 w-fit px-3 rounded-md bg-[rgba(255,179,158,0.2)] flex items-center text-[#FFB39E] text-xs leading-4">
-                    {T('Withdraw')}
-                  </div>
-                )}
+          <div
+            className=" max-h-[1160px] overflow-y-auto trans-scroll-bar"
+            style={{
+              borderImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%)',
+            }}
+          >
+            {(activities || []).map((act: UserActivity) => (
+              <div className="flex justify-between h-12 pl-[10px] py-3 bg-[rgba(22,23,22,0.01)] mt-[10px]" key={act.tx_hash}>
+                <div className="w-[35%] text-base leading-6 text-white font-normal">{truncateAddr(act.user, { nPrefix: 6, nSuffix: 4 })}</div>
+                <div className="w-[20%]">
+                  {act.action === 'Deposit' ? (
+                    <div className="h-6 w-fit px-3 rounded-md bg-[rgba(105,208,255,0.2)] flex items-center text-[#6EFF90] text-xs leading-4">{T('Deposit')}</div>
+                  ) : (
+                    <div className="h-6 w-fit px-3 rounded-md bg-[rgba(255,179,158,0.2)] flex items-center text-[#FFB39E] text-xs leading-4">{T('Withdraw')}</div>
+                  )}
+                </div>
+                <div className="w-[20%] text-base leading-5 text-[rgba(255,255,255,0.6)]">
+                  {act.action === 'Deposit' ? (
+                    <div className="h-6 w-fit flex items-center text-[#6EFF90] text-base leading-6">
+                      +{formatNum(act.amount)} {currentToken?.name}
+                    </div>
+                  ) : (
+                    <div className="h-6 w-fit flex items-center text-[#FFB39E] text-base leading-6">
+                      -{formatNum(act.amount)} {currentToken?.name}
+                    </div>
+                  )}
+                </div>
+                <div className="w-[25%] text-base leading-6 text-white font-normal">{act.block_number}</div>
               </div>
-              <div className="w-[20%] text-base leading-5 text-[rgba(255,255,255,0.6)]">
-                {act.action === 'Deposit' ? (
-                  <div className="h-6 w-fit flex items-center text-[#6EFF90] text-base leading-6">
-                    +{formatNum(act.amount)} {currentToken?.name}
-                  </div>
-                ) : (
-                  <div className="h-6 w-fit flex items-center text-[#FFB39E] text-base leading-6">
-                    -{formatNum(act.amount)} {currentToken?.name}
-                  </div>
-                )}
-              </div>
-              <div className="w-[25%] text-base leading-6 text-white font-normal">{act.block_number}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

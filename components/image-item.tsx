@@ -27,7 +27,21 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hide
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsFullScreen(true)}
       >
-        <Image className="rounded-lg" src={image} alt="Uploaded" fill sizes="140px" />
+        <Image
+          className="rounded-lg"
+          src={image}
+          alt="Uploaded"
+          fill
+          sizes="140px"
+          onError={(event) => {
+            if (event.target instanceof HTMLImageElement) {
+              event.target.src = '/images/server-placeholder.png';
+            } else {
+              console.error('images error');
+            }
+            return;
+          }}
+        />
 
         {!hideDel && isHovered && (
           <Image
