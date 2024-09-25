@@ -14,11 +14,10 @@ export const ImageWithDefaultOnError = ({ defaultImg, ...rest }: ImageWithDefaul
   return !defaultImage ? (
     <Image
       {...rest}
-      loader={() => rest.src}
+      alt={rest.alt}
       onError={() => {
         setDefaultImage(true);
       }}
-      alt={rest.alt}
     />
   ) : (
     <Image {...rest} src={defaultImg || '/images/server-placeholder.png'} alt="default image" />

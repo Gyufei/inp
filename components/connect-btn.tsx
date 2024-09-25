@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { truncateAddr } from '@/lib/utils';
 import { formatNum } from '@/lib/number';
@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { useAccount, useDisconnect } from 'wagmi';
 import { eventEmitterOverall } from '../lib/event-emitter';
 import { useRpc } from '@/lib/hook/use-rpc';
+import { useMcPoints } from '@/lib/api/use-mc-points';
 
 export default function ConnectBtn() {
   const T = useTranslations('Common');
@@ -24,10 +25,8 @@ export default function ConnectBtn() {
 
   const displayAddress = truncateAddr(address || '', { nPrefix: 6, nSuffix: 4 });
 
-  let mcPoints = '--';
-  if (typeof localStorage !== 'undefined') {
-    mcPoints = localStorage.getItem('mc_points') || '--';
-  }
+  const { data: userMcPoints } = useMcPoints();
+
   function handleClick() {
     if (address || isConnected) {
       disconnect();
@@ -91,7 +90,7 @@ export default function ConnectBtn() {
             </div>
             <hr className="border-[rgba(255,255,255,0.2)] mb-4" />
             <p className="text-[rgba(255,255,255,0.6)] text-[14px]  mb-2">{T('MyMCPoints')}</p>
-            <p className="text-white text-[24px] font-din mb-2">{mcPoints ? formatNum(mcPoints) : '--'}</p>
+            <p className="text-white text-[24px] font-din mb-2">{userMcPoints ? formatNum(userMcPoints?.mc_points) : '--'}</p>
             <p className="text-[rgba(255,255,255,0.6)]  text-[14px] mb-2">{T('CustomRPC')}</p>
             <div className="flex justify-between ">
               <input type="text" value={customRPC} onChange={handleCustomRPCChange} placeholder="" className="w-[140px] p-2 border rounded-xl border-[rgba(255,255,255,0.2)]  bg-gray-700 text-white" />

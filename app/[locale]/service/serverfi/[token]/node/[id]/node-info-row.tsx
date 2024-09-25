@@ -12,10 +12,6 @@ export function NodeInfoRow({ server, rank }: { server: IServer | null; rank: nu
   const { data: userLedger } = useLedger(server?.server_id || null);
   const { data: userMcPoints } = useMcPoints();
 
-  if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('mc_points', userMcPoints?.mc_points || '');
-  }
-
   return (
     <div className="mt-[146px] flex justify-between items-end">
       <div className="flex items-end">
