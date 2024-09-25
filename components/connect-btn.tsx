@@ -85,7 +85,7 @@ export default function ConnectBtn() {
         <div className="absolute top-full left-0 h-2 w-full bg-transparent">
           <div className="absolute top-full left-0 w-[240px] h-[251px] mt-0 p-6 bg-[rgba(255,255,255,.1)] rounded-xl shadow-lg">
             <div className="flex items-center mb-4">
-              <Image src={connectorIcon || ''} width={20} height={20} alt="Avatar" className="rounded-full" />
+              <Image src={connectorIcon || ''} width={20} height={20} alt="Avatar" className="rounded-full size-5" />
               <span className="text-white ml-2">{displayAddress}</span>
             </div>
             <hr className="border-[rgba(255,255,255,0.2)] mb-4" />

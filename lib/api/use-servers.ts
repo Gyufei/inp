@@ -36,7 +36,7 @@ export function useServers() {
     const percentServers = servers.map((server: IServer, index: number) => {
       const extraNum = servers.length - 10;
       const extraP = extraNum > 0 ? NP.divide(OtherPercent, extraNum) : 0;
-      const percent = index > 9 ? extraP : ServerPercent[index];
+      const percent = index > 9 ? (extraP > ServerPercent[9] / 10 ? ServerPercent[9] / 10 : extraP) : ServerPercent[index];
 
       return {
         ...server,

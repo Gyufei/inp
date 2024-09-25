@@ -32,7 +32,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ image, onDelete, style = {}, hide
 
         {!hideDel && isHovered && (
           <Image
-            className="absolute -top-2 -right-2 cursor-pointer"
+            className="absolute -top-2 -right-2 cursor-pointer size-5"
             src="/icons/close.svg"
             alt="Uploaded"
             width={20}
