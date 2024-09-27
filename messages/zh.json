@@ -49,6 +49,7 @@
     "CustomRPC": "自定义 RPC",
     "UnsupportedRPC": "不支持的 RPC",
     "Add": "添加",
-    "Picture": "图片"
+    "Picture": "图片",
+    "WalletNetworkFail": "请确认链接钱包的网络环境"
   }
 }

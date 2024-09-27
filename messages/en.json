@@ -49,6 +49,7 @@
     "CustomRPC": "Custom RPC",
     "UnsupportedRPC": "Unsupported RPC",
     "Add": "Add",
-    "Picture": "Picture"
+    "Picture": "Picture",
+    "WalletNetworkFail": "Please confirm the network environment of the linked wallet"
   }
 }

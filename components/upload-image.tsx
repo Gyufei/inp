@@ -92,7 +92,7 @@ const UploadImage = ({
       uploadIcon={
         uploadIcon || (
           <div className="size-[140px] flex flex-col items-center justify-center bg-[rgba(255,255,255,0.1)] rounded-[20px] border border-[rgba(255,255,255,0.2)]">
-            <Image src="/icons/pic.svg" width={60} height={60} alt="" />
+            <Image className="size-[60px]" src="/icons/pic.svg" width={60} height={60} alt="" />
             <p className="text-[16px] font-inter text-[#FFFFFF] opacity-40 mt-[4px]">
               {T('Add')}
               {T('Add') === 'Add' && '\u00A0'}

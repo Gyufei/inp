@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useContext } from 'react';
 import { erc20Abi } from 'viem';
 import { useTranslations } from 'next-intl';
 import { readContract } from '@wagmi/core';
 import { useAccount, useConfig, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { EthConfig } from '../eth';
+import { GlobalMsgContext } from '@/app/global-msg-context';
 
 export function useApproveMak(allowAmount: number = 0) {
   const config = useConfig();
@@ -11,6 +12,7 @@ export function useApproveMak(allowAmount: number = 0) {
   const spender = EthConfig.contract.inphura;
 
   const T = useTranslations('Common');
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
 
   const { address } = useAccount();
 
@@ -48,16 +50,23 @@ export function useApproveMak(allowAmount: number = 0) {
     if (!address) return;
 
     setIsAllowanceLoading(true);
-
-    const res = await readContract(config, {
-      abi: erc20Abi,
-      address: tokenAddr as any,
-      functionName: 'allowance',
-      args: [address, spender as any],
-    });
-
-    setIsAllowanceLoading(false);
-    setAllowance(Number(res) / 10 ** 18);
+    try {
+      const res = await readContract(config, {
+        abi: erc20Abi,
+        address: tokenAddr as any,
+        functionName: 'allowance',
+        args: [address, spender as any],
+      });
+      setIsAllowanceLoading(false);
+      setAllowance(Number(res) / 10 ** 18);
+    } catch (error) {
+      console.log('readAllowance ~ error:', error);
+      setIsAllowanceLoading(false);
+      setGlobalMessage({
+        type: 'error',
+        message: T('WalletNetworkFail'),
+      });
+    }
   }
 
   const isShouldApprove = useMemo(() => {
