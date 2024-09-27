@@ -23,22 +23,27 @@ export function DepositBtn({ serverId }: { serverId: number }) {
 
   const [inputOpen, setInputOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const { isShouldApprove, isApproving, approveAction, approveBtnText } = useApproveMak(Number(inputValue || -1));
+  const { allowance, isShouldApprove, isApproving, approveAction, approveBtnText } = useApproveMak(Number(inputValue || -1));
   const { isLoading: isDepositLoading, write: depositAction, isSuccess: isDepositSuccess } = useDeposit();
 
   function handleDeposit() {
+    if (isProcessing) return;
+    setIsProcessing(true);
+
     if (isShouldApprove) {
-      approveAction();
+      approveAction().finally(() => setIsProcessing(false));
       return;
     }
 
     if (!inputValue) {
+      setIsProcessing(false);
       return;
     }
 
     const amount = Math.floor(Number(inputValue) * 10 ** (currentToken?.decimal || 0));
-    depositAction({ serverId: BigInt(serverId), amount: BigInt(amount) });
+    depositAction({ serverId: BigInt(serverId), amount: BigInt(amount) }).finally(() => setIsProcessing(false)); // 处理完成后重置状态
   }
 
   useEffect(() => {
@@ -72,7 +77,8 @@ export function DepositBtn({ serverId }: { serverId: number }) {
 
   function handleMaxClick() {
     const value = formatUnits(balanceData || BigInt(0), currentToken?.decimal || 0);
-    setInputValue(value);
+    const minValue = Math.min(Number(value), allowance || 0);
+    setInputValue(minValue.toString());
   }
 
   return (
@@ -99,8 +105,8 @@ export function DepositBtn({ serverId }: { serverId: number }) {
         </div>
         <div
           onClick={handleDeposit}
-          data-disabled={!isShouldApprove && !inputValue}
-          className="mt-[10px] bg-[#3E71FF] h-10 cursor-pointer rounded-xl flex items-center justify-center text-white font-hel text-base leading-5 data-[disabled=true]:brightness-75"
+          data-disabled={(!isShouldApprove && !inputValue) || isProcessing}
+          className="mt-[10px] bg-[#3E71FF] h-10 cursor-pointer rounded-xl flex items-center justify-center text-white font-hel text-base leading-5 data-[disabled=true]:brightness-75 data-[disabled=true]:cursor-not-allowed"
         >
           {isShouldApprove ? approveBtnText : T('Confirm')}
         </div>

@@ -110,6 +110,7 @@ export function useApproveMak(allowAmount: number = 0) {
   }, [error, hash]);
 
   return {
+    allowance,
     isShouldApprove,
     isApproving,
     approveAction,

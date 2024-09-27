@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useWithdraw } from '@/lib/hook/use-withdraw';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
@@ -12,6 +12,8 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
   const { setGlobalMessage } = useContext(GlobalMsgContext);
   const T = useTranslations('Common');
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const { isLoading: isWdLoading, write: withdrawAction, isSuccess: isWdSuccess } = useWithdraw();
 
   const { address } = useAccount();
@@ -23,6 +25,8 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
   const { data: userLedger } = useLedger(serverId || null);
 
   function handleWithdraw() {
+    if (isProcessing) return;
+    setIsProcessing(true);
     const stakeAmount = Number(userLedger?.stake_amount || 0);
 
     if (!stakeAmount) {
@@ -34,7 +38,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
     }
 
     const amount = Number(stakeAmount) * 10 ** (currentToken?.decimal || 0);
-    withdrawAction({ serverId: BigInt(serverId), amount: BigInt(amount) });
+    withdrawAction({ serverId: BigInt(serverId), amount: BigInt(amount) }).finally(() => setIsProcessing(false));
   }
 
   useEffect(() => {
