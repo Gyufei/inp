@@ -15,7 +15,7 @@ export default function AirdropBtn({ airdrop, updateAirdrop, index }: any) {
       <div className="flex flex-col justify-center w-[160px] mr-6">
         <div className="text-[22px] leading-6 text-nowrap">{airdrop.name}</div>
       </div>
-      <div className="flex flex-col justify-center w-[200px] mr-6">
+      <div className="flex flex-col justify-center w-[180px] mr-6">
         <div className="font-din font-medium text-[22px] leading-6 text-nowrap">
           <TruncatedText text={formatNum(airdrop.claimable_amount)} maxLength={19} />
         </div>
