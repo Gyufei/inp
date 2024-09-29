@@ -18,7 +18,7 @@ export function NodesList() {
   const servers = data?.filter((server) => server?.verified !== '0');
 
   return (
-    <div className="mt-[152px] relative z-10">
+    <div className="mt-[152px] relative">
       <div className="absolute top-[228px] w-[176px] h-[176px] bg-[#A57755] blur-[250px]"></div>
       <div className="flex absolute w-full -top-[68px] justify-between">
         <div
@@ -74,13 +74,18 @@ export function NodesList() {
               </div>
               <div className="flex flex-col justify-between w-[160px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('MAKPower')}</div>
-                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{formatNum(server.total_power)}</div>
+                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">
+                  <TruncatedText text={formatNum(server.total_power)} maxLength={16} />
+                </div>
               </div>
               <div className="flex flex-col justify-between w-[140px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('TotalAirdrop')}</div>
-                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">${formatNum(server.total_airdrop)}</div>
+                <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap flex">
+                  $
+                  <TruncatedText text={formatNum(server.total_airdrop)} maxLength={16} />
+                </div>
               </div>
-              <div className="flex flex-col justify-between w-[100px] mr-6">
+              <div className="flex flex-col justify-between w-[120px] mr-6">
                 <div className="text-[14px] leading-5 text-[rgba(255,255,255,0.6)]">{T('Airdrop')}</div>
                 <div className="flex items-center justify-between">
                   <div className="font-din font-medium text-white text-[22px] leading-6 text-nowrap">{toPercent(Number(server.airdrop_percent))}%</div>

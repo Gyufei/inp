@@ -16,4 +16,5 @@ export const Paths = {
   albumUpload: WithHost('/server/album/upload'),
   userNameCheck: WithHost('/user/name/check'),
   userMcPoints: WithHost('/user/mc_points'),
+  userAirdropTokens: WithHost('/airdrop/tokens'),
 };

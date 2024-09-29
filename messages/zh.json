@@ -50,6 +50,11 @@
     "UnsupportedRPC": "不支持的 RPC",
     "Add": "添加",
     "Picture": "图片",
-    "WalletNetworkFail": "请确认链接钱包的网络环境"
+    "WalletNetworkFail": "请确认链接钱包的网络环境",
+    "Claim": "领取",
+    "Claimed": "已领取",
+    "N/A": "不可用",
+    "Congrats": "恭喜你!",
+    "Sorry": "抱歉!"
   }
 }

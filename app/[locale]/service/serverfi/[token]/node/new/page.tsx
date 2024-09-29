@@ -35,6 +35,17 @@ export default function RegisterForm() {
 
   const isLoading = isRegisterLoading || (serverImage && isStartUpload) || false;
 
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = 'Register..., Please wait patiently';
+  };
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   useEffect(() => {
     if (searchParams.get('ref')) {
       setServerNo(searchParams.get('ref') as string);
@@ -46,6 +57,7 @@ export default function RegisterForm() {
   };
 
   const handleScheduledUpload = async () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
     setIsStartUpload(false);
     goToNodes();
   };
@@ -55,6 +67,7 @@ export default function RegisterForm() {
   }, [router]);
 
   async function handleSubmit() {
+    window.addEventListener('beforeunload', handleBeforeUnload);
     if (!address) {
       open();
       return;
@@ -157,9 +170,9 @@ export default function RegisterForm() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors disabled:pointer-events-none disabled:opacity-50 bg-primary h-10 px-4 py-2 w-full"
+                className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors disabled:opacity-50 disabled:cursor-progress bg-primary h-10 px-4 py-2 w-full"
               >
-                {T('Register')}
+                {isLoading ? `${T('Register')}...` : T('Register')}
               </button>
             </div>
           </div>

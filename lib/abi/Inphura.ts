@@ -5,6 +5,22 @@ export const InphuraAbi = [
     type: 'constructor',
   },
   {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'AlreadyClaimed',
+    type: 'error',
+  },
+  {
     inputs: [],
     name: 'AlreadyInitialized',
     type: 'error',
@@ -72,6 +88,31 @@ export const InphuraAbi = [
     inputs: [],
     name: 'TransferFailed',
     type: 'error',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'airdropToken',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'claimableAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'AirdropTokenClaimed',
+    type: 'event',
   },
   {
     anonymous: false,
@@ -215,6 +256,25 @@ export const InphuraAbi = [
     inputs: [
       {
         indexed: false,
+        internalType: 'address',
+        name: 'airdropToken',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'bytes32',
+        name: 'merkleRoot',
+        type: 'bytes32',
+      },
+    ],
+    name: 'SetAirdropTokenMerkleRoot',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: 'uint256',
         name: 'baseTotalPower',
         type: 'uint256',
@@ -326,6 +386,44 @@ export const InphuraAbi = [
     type: 'event',
   },
   {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    name: 'airdropTokenClaimed',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'airdropTokenMerkleRootMap',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'baseTotalPower',
     outputs: [
@@ -336,6 +434,29 @@ export const InphuraAbi = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'airdropToken',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'claimableAmount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes32[]',
+        name: 'merkleProof',
+        type: 'bytes32[]',
+      },
+    ],
+    name: 'claim',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -558,6 +679,24 @@ export const InphuraAbi = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: 'airdropToken',
+        type: 'address',
+      },
+      {
+        internalType: 'bytes32',
+        name: 'merkleRoot',
+        type: 'bytes32',
+      },
+    ],
+    name: 'setAirdropTokenMerkleRoot',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: '_baseTotalPower',
         type: 'uint256',
@@ -634,6 +773,24 @@ export const InphuraAbi = [
       },
     ],
     name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'serverIds',
+        type: 'uint256[]',
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'totalPowers',
+        type: 'uint256[]',
+      },
+    ],
+    name: 'updateTotalPower',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

@@ -50,6 +50,11 @@
     "UnsupportedRPC": "Unsupported RPC",
     "Add": "Add",
     "Picture": "Picture",
-    "WalletNetworkFail": "Please confirm the network environment of the linked wallet"
+    "WalletNetworkFail": "Please confirm the network environment of the linked wallet",
+    "Claim": "Claim",
+    "Claimed": "Claimed",
+    "N/A": "N/A",
+    "Congrats": "Congrats!",
+    "Sorry": "Sorry!"
   }
 }

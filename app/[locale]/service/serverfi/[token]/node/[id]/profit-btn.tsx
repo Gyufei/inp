@@ -10,7 +10,7 @@ export function ProfitBtn({ serverId }: { serverId: number }) {
 
   return (
     <div className="flex flex-1">
-      <div className="h-12 w-[244px] p-2 flex relative z-20 items-center rounded-full bg-[#202022]">
+      <div className="h-12 w-[244px] p-2 flex relative z-[1] items-center rounded-full bg-[#202022]">
         <div className="w-8 h-8 mr-[10px] flex items-center justify-center rounded-full border border-solid border-[rgba(255,255,255,0.2)]">
           <Image src="/icons/dollar.svg" width={16} height={16} alt="dollar" />
         </div>
@@ -22,7 +22,7 @@ export function ProfitBtn({ serverId }: { serverId: number }) {
           backgroundImage: 'url(/images/dashed.svg)',
           backgroundPositionX: '-277px',
         }}
-        className="flex-1 relative bg-no-repeat -ml-2 z-10"
+        className="flex-1 relative bg-no-repeat -ml-2"
       ></div>
     </div>
   );

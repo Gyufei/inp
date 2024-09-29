@@ -33,6 +33,7 @@ export function useApproveMak(allowAmount: number = 0) {
     if (!address) return;
 
     readAllowance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   useEffect(() => {
@@ -44,6 +45,8 @@ export function useApproveMak(allowAmount: number = 0) {
     if (txError) {
       setIsApproving(false);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [txReceipt, txError]);
 
   async function readAllowance() {

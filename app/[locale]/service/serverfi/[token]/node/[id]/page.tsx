@@ -3,6 +3,7 @@ import { Link } from '@/app/navigation';
 import { useServers } from '@/lib/api/use-servers';
 import LanguageSetting from '@/components/language-setting';
 import ConnectBtn from '@/components/connect-btn';
+import AirdropBtn from '@/components/airdrop-btn';
 import { AirdropTime } from '@/components/airdrop-time';
 import { useTranslations } from 'next-intl';
 import { NodeInfoRow } from './node-info-row';
@@ -27,6 +28,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
           <div className="flex items-start justify-between">
             <AirdropTime />
             <div className="flex items-center gap-x-5">
+              <AirdropBtn />
               <LanguageSetting />
               <ConnectBtn />
             </div>
@@ -49,7 +51,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         <video className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
       </div>
 
-      <div className="mt-10 flex items-center gap-x-1 z-10 relative">
+      <div className="mt-10 flex items-center gap-x-1 relative">
         <DepositBtn serverId={Number(id)} />
         <WithdrawBtn serverId={Number(id)} />
         <ProfitBtn serverId={Number(id)} />

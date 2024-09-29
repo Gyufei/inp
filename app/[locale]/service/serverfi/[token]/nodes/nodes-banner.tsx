@@ -1,6 +1,7 @@
 'use client';
 
 import ConnectBtn from '@/components/connect-btn';
+import AirdropBtn from '@/components/airdrop-btn';
 import LanguageSetting from '@/components/language-setting';
 import { useTranslations } from 'next-intl';
 import { AirdropTime } from '../../../../../../components/airdrop-time';
@@ -12,6 +13,7 @@ export function NodesBanner() {
     <div className="relative">
       <div className="z-10 relative">
         <div className="flex items-center justify-end gap-x-5">
+          <AirdropBtn />
           <LanguageSetting />
           <ConnectBtn />
         </div>

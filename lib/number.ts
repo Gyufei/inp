@@ -204,3 +204,16 @@ export function truncateNumber(num: number | string, n: number) {
   const truncatedNum = Math.trunc(multipliedNum); // 截断小数部分，保留整数部分
   return truncatedNum;
 }
+
+export function toBigIntNumber(numberStr: string, n: number = 18) {
+  if (!numberStr) return BigInt(0);
+  let numberStrWithoutDecimal = numberStr.replace('.', '');
+
+  const decimalPlaces = numberStr.length - numberStr.indexOf('.') - 1;
+  if (decimalPlaces < n) {
+    numberStrWithoutDecimal += '0'.repeat(n - decimalPlaces);
+  }
+
+  const bigIntNumber = BigInt(numberStrWithoutDecimal);
+  return bigIntNumber;
+}
