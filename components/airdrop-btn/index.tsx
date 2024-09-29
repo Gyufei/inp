@@ -10,7 +10,7 @@ import { isProduction } from '@/lib/PathMap';
 export default function AirdropBtn() {
   const T = useTranslations('Common');
   const [showFloatingLayer, setShowFloatingLayer] = useState(false);
-  const { data: airdropTokensData, updateAirdropTokens } = useAirdropTokens();
+  const { data: airdropTokensData = [] } = useAirdropTokens();
   const [airdropTokens, setAirdropTokens] = useState([] as any);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function AirdropBtn() {
     let airdropTokens = [] as any;
     if (airdropTokensData && airdropTokensData.length > 0) {
       airdropTokens = airdropTokensData.map((token: any) => {
-        const localToken = localTokens.find((t: any) => t.airdrop_token === token.airdrop_token);
+        const localToken = localTokens.find((t: any) => t.airdrop_token.toLowerCase() === token.airdrop_token.toLowerCase());
         return { ...token, name: localToken?.name, decimal: localToken?.decimal };
       });
     } else {
@@ -29,7 +29,7 @@ export default function AirdropBtn() {
 
   function handleUpdateAirdrop(token: any) {
     console.log('🚀 ~ handleUpdateAirdrop ~ airdrop:');
-    updateAirdropTokens();
+    // updateAirdropTokens();
     setAirdropTokens(
       airdropTokens.map((t: any) => ({
         ...t,
@@ -58,7 +58,7 @@ export default function AirdropBtn() {
             }}
           >
             <Image className="absolute top-5 right-5 w-[24px] h-[24px] cursor-pointer" src="/icons/x.svg" width={24} height={24} alt="close" onClick={handleClick} />
-            <div className="font-cal font-semibold text-[24px] ">{T('Congrats')}</div>
+            <div className="font-cal font-semibold text-[24px] ">{airdropTokensData.length < 1 ? T('Sorry') : T('Congrats')}</div>
             <div className="min-h-[200px]  max-h-[1000px] mt-4">
               {(airdropTokens || []).map((airdrop: any, index: number) => (
                 <AirdropTokensItem airdrop={airdrop} key={index} updateAirdrop={handleUpdateAirdrop} />

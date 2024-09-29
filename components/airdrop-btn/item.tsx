@@ -22,7 +22,7 @@ export default function AirdropBtn({ airdrop, updateAirdrop, index }: any) {
       </div>
       <div className="flex flex-col justify-between w-[90px] mr-6 text-right">
         {airdrop.claimable_amount !== '0' && airdrop.is_claimed === '0' ? (
-          <div className={`"w-[82px] h-[32px] leading-8 rounded-xl bg-[#3E71FF] text-center  text-[14px] text-white  ${isClaiming ? 'cursor-not-allowed' : ''}`} onClick={claimAction}>
+          <div className={`"w-[82px] h-[32px] leading-8 rounded-xl bg-[#3E71FF] text-center  text-[14px] text-white  ${isClaiming ? ' cursor-not-allowed opacity-70 pointer-events-none' : ''}`} onClick={claimAction}>
             {isClaiming ? `${T('Claim')}...` : T('Claim')}
           </div>
         ) : (
