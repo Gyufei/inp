@@ -32,7 +32,7 @@ export default function AirdropBtn() {
     updateAirdropTokens();
     setAirdropTokens(
       airdropTokens.map((t: any) => ({
-        ...token,
+        ...t,
         claim: token === t.airdrop_token ? '1' : t.claim,
       }))
     );

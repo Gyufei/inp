@@ -29,7 +29,7 @@ export function useAirdropClaim(airdropToken: `0x${string}`, claimableAmount: bi
       setIsClaiming(false);
     }
     if (status === 'success') {
-      callback?.(airdropToken);
+      // callback?.(airdropToken);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,6 +53,11 @@ export function useAirdropClaim(airdropToken: `0x${string}`, claimableAmount: bi
       console.log('🚀 ~ useEffect ~ error || hash:', error, hash);
       setIsClaiming(false);
     }
+    if (hash) {
+      callback?.(airdropToken);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, hash]);
 
   return {

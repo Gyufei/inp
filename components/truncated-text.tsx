@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TruncatedText = ({ text, maxLength }: { text: string; maxLength: number }) => {
+const TruncatedText = ({ text = '', maxLength }: { text: string; maxLength: number }) => {
   const isTruncated = text.length > maxLength;
   const truncatedText = isTruncated ? `${text.slice(0, maxLength)}...` : text;
 

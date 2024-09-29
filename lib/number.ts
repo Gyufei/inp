@@ -205,11 +205,18 @@ export function truncateNumber(num: number | string, n: number) {
   return truncatedNum;
 }
 
-export function toBigIntNumber(numberStr: string, n: number = 18) {
+export function toBigIntNumber(numberStr: string, n: number = 18): bigint {
   if (!numberStr) return BigInt(0);
-  let numberStrWithoutDecimal = numberStr.replace('.', '');
 
-  const decimalPlaces = numberStr.length - numberStr.indexOf('.') - 1;
+  const decimalIndex = numberStr.indexOf('.');
+
+  if (decimalIndex === -1) {
+    return BigInt(numberStr + '0'.repeat(n));
+  }
+
+  let numberStrWithoutDecimal = numberStr.slice(0, decimalIndex) + numberStr.slice(decimalIndex + 1);
+
+  const decimalPlaces = numberStr.length - decimalIndex - 1;
   if (decimalPlaces < n) {
     numberStrWithoutDecimal += '0'.repeat(n - decimalPlaces);
   }
