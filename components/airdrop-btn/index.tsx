@@ -12,6 +12,7 @@ export default function AirdropBtn() {
   const [showFloatingLayer, setShowFloatingLayer] = useState(false);
   const { data: airdropTokensData = [] } = useAirdropTokens();
   const [airdropTokens, setAirdropTokens] = useState([] as any);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
     const localTokens = isProduction ? MainAirdropTokens : TestAirdropTokens;
@@ -21,6 +22,7 @@ export default function AirdropBtn() {
         const localToken = localTokens.find((t: any) => t.airdrop_token.toLowerCase() === token.airdrop_token.toLowerCase());
         return { ...token, name: localToken?.name, decimal: localToken?.decimal };
       });
+      setNotificationCount(airdropTokens.filter((token: any) => token.is_claimed === '0').length);
     } else {
       airdropTokens = localTokens;
     }
@@ -28,7 +30,6 @@ export default function AirdropBtn() {
   }, [airdropTokensData]);
 
   function handleUpdateAirdrop(token: any) {
-    console.log('🚀 ~ handleUpdateAirdrop ~ airdrop:');
     // updateAirdropTokens();
     setAirdropTokens(
       airdropTokens.map((t: any) => ({
@@ -36,6 +37,7 @@ export default function AirdropBtn() {
         is_claimed: token.toLowerCase() === t.airdrop_token.toLowerCase() ? '1' : t.is_claimed,
       }))
     );
+    setNotificationCount(notificationCount - 1);
   }
 
   function handleClick() {
@@ -47,6 +49,7 @@ export default function AirdropBtn() {
       <div onClick={handleClick} className="w-12 h-12 rounded-full flex items-center justify-center border border-solid border-[rgba(255,255,255,0.4)] text-base leading-5 text-white font-inter cursor-pointer">
         <div className="flex items-center justify-center gap-2">
           <Image src="/icons/airdrop.svg" width={28} height={28} alt="airdrop" />
+          {notificationCount > 0 && <div className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">{notificationCount}</div>}
         </div>
       </div>
       {showFloatingLayer && (
