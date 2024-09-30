@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useLedger } from '@/lib/api/use-ledger';
 import { useTranslations } from 'next-intl';
 import { GlobalMsgContext } from '@/app/global-msg-context';
+import { toBigIntNumber } from '@/lib/number';
 
 export function WithdrawBtn({ serverId }: { serverId: number }) {
   const { setGlobalMessage } = useContext(GlobalMsgContext);
@@ -37,8 +38,8 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
       return;
     }
 
-    const amount = Number(stakeAmount) * 10 ** (currentToken?.decimal || 0);
-    withdrawAction({ serverId: BigInt(serverId), amount: BigInt(amount) }).finally(() => setIsProcessing(false));
+    const amount = toBigIntNumber(userLedger?.stake_amount || '', currentToken?.decimal);
+    withdrawAction({ serverId: BigInt(serverId), amount: amount }).finally(() => setIsProcessing(false));
   }
 
   useEffect(() => {
