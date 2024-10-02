@@ -26,12 +26,26 @@ export const MainAirdropTokens = [
     is_claimed: '0',
     decimal: 18,
   },
+  {
+    name: '12306',
+    airdrop_token: '0xA3936379F429D2881a5206F57809ca7FdC5B4212',
+    claimable_amount: '0',
+    is_claimed: '0',
+    decimal: 18,
+  },
 ];
 
 export const TestAirdropTokens = [
   {
     name: 'STARSHIP',
     airdrop_token: '0x6bbC96B0A4fd77E045D2eC8Dc5D87C49D1EA8389',
+    claimable_amount: '0',
+    is_claimed: '0',
+    decimal: 18,
+  },
+  {
+    name: '12306',
+    airdrop_token: '0xe8e6e13029a8c576c7a2121abdcc2818f1933e03',
     claimable_amount: '0',
     is_claimed: '0',
     decimal: 18,

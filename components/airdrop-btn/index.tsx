@@ -19,8 +19,18 @@ export default function AirdropBtn() {
     let airdropTokens = [] as any;
     if (airdropTokensData && airdropTokensData.length > 0) {
       airdropTokens = airdropTokensData.map((token: any) => {
+        const storageClaimedData = localStorage.getItem(`is_claimed_${token.airdrop_token}`);
+        console.log('🚀 ~ airdropTokens=airdropTokensData.map ~ Date.now():', Date.now());
+        if (storageClaimedData && Date.now() > +storageClaimedData) {
+          localStorage.removeItem(`is_claimed_${token.airdrop_token}`);
+        }
         const localToken = localTokens.find((t: any) => t.airdrop_token.toLowerCase() === token.airdrop_token.toLowerCase());
-        return { ...token, name: localToken?.name, decimal: localToken?.decimal };
+        return {
+          ...token,
+          is_claimed: localStorage.getItem(`is_claimed_${token.airdrop_token}`) || token.is_claimed,
+          name: localToken?.name,
+          decimal: localToken?.decimal,
+        };
       });
       setNotificationCount(airdropTokens.filter((token: any) => token.is_claimed === '0').length);
     } else {
@@ -37,6 +47,7 @@ export default function AirdropBtn() {
         is_claimed: token.toLowerCase() === t.airdrop_token.toLowerCase() ? '1' : t.is_claimed,
       }))
     );
+    localStorage.setItem(`is_claimed_${token.toLowerCase()}`, JSON.stringify(Date.now() + 5 * 60 * 1000));
     setNotificationCount(notificationCount - 1);
   }
 
