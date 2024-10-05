@@ -14,7 +14,10 @@ export default function ConnectBtn() {
   const T = useTranslations('Common');
   const { disconnect } = useDisconnect();
   const { address, isConnected, isConnecting, connector } = useAccount();
-  const connectorIcon = connector?.icon;
+  let connectorIcon = connector?.icon;
+  if (connector?.type === 'walletConnect') {
+    connectorIcon = '/icons/walletconnect.svg';
+  }
   const { open } = useWeb3Modal();
   const { open: isOpen } = useWeb3ModalState();
   const { checkRpc } = useRpc();

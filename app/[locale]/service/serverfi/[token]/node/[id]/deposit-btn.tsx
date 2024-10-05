@@ -106,7 +106,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
         <div
           onClick={handleDeposit}
           data-disabled={(!isShouldApprove && !inputValue) || isProcessing}
-          className="mt-[10px] bg-[#3E71FF] h-10 cursor-pointer rounded-xl flex items-center justify-center text-white font-hel text-base leading-5 data-[disabled=true]:brightness-75 data-[disabled=true]:cursor-not-allowed"
+          className="mt-[10px] bg-[#3E71FF] h-10 cursor-pointer rounded-xl flex items-center justify-center text-white font-hel text-base leading-5 data-[disabled=true]:brightness-75 data-[disabled=true]:pointer-events-none"
         >
           {isShouldApprove ? approveBtnText : T('Confirm')}
         </div>

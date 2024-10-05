@@ -3,7 +3,7 @@
 import { createContext, useState } from 'react';
 
 export interface IMsg {
-  type: 'success' | 'warning' | 'error';
+  type: 'success' | 'warning' | 'error' | 'info' | 'loading';
   message: string;
 }
 

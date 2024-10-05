@@ -33,6 +33,16 @@ export default function GlobalActionTip() {
       border: '#DEA69C',
       icon: 'D42C1F',
     },
+    info: {
+      bg: '#F1E5D1',
+      border: '#DFCA9C',
+      icon: '#070709',
+    },
+    loading: {
+      bg: '#F1E5D1',
+      border: '#DFCA9C',
+      icon: '#070709',
+    },
   };
 
   return (
@@ -54,6 +64,8 @@ export default function GlobalActionTip() {
                 return <Image width={16} height={16} className="tip-icon" src="/icons/tip-info.svg" loading="lazy" alt="" />;
               case 'error':
                 return <Image width={16} height={16} className="tip-icon" src="/icons/tip.svg" loading="lazy" alt="" />;
+              case 'loading':
+                return <Image width={16} height={16} className="tip-icon" src="/icons/loading.svg" loading="lazy" alt="" />;
               default:
                 return null;
             }

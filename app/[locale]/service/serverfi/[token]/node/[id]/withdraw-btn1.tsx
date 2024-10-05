@@ -1,0 +1,72 @@
+import { useContext, useEffect, useState } from 'react';
+import { useWithdraw } from '@/lib/hook/use-withdraw';
+import { useAccount } from 'wagmi';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { useCurrentToken } from '@/lib/hook/use-current-token';
+import { useQueryClient } from '@tanstack/react-query';
+import { useLedger } from '@/lib/api/use-ledger';
+import { useTranslations } from 'next-intl';
+import { GlobalMsgContext } from '@/app/global-msg-context';
+import { toBigIntNumber } from '@/lib/number';
+
+export function WithdrawBtn({ serverId }: { serverId: number }) {
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
+  const T = useTranslations('Common');
+
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const { isLoading: isWdLoading, write: withdrawAction, isSuccess: isWdSuccess } = useWithdraw();
+
+  const { address } = useAccount();
+  const { open } = useWeb3Modal();
+
+  const currentToken = useCurrentToken();
+  const queryClient = useQueryClient();
+
+  const { data: userLedger } = useLedger(serverId || null);
+
+  function handleWithdraw() {
+    if (isProcessing) return;
+    setIsProcessing(true);
+    const stakeAmount = Number(userLedger?.stake_amount || 0);
+
+    if (!stakeAmount) {
+      setGlobalMessage({
+        type: 'warning',
+        message: T('NoDeposits'),
+      });
+      return;
+    }
+
+    const amount = toBigIntNumber(userLedger?.stake_amount || '', currentToken?.decimal);
+    withdrawAction({ serverId: BigInt(serverId), amount: amount }).finally(() => setIsProcessing(false));
+  }
+
+  useEffect(() => {
+    if (isWdSuccess) {
+      queryClient.invalidateQueries({ queryKey: ['servers'] });
+      queryClient.invalidateQueries({ queryKey: ['user-ledger', serverId, address] });
+      queryClient.invalidateQueries({ queryKey: ['user-activities', serverId] });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isWdSuccess]);
+
+  function handleClick() {
+    if (isWdLoading) {
+      return;
+    }
+
+    if (!address) {
+      open();
+      return;
+    }
+
+    handleWithdraw();
+  }
+
+  return (
+    <div onClick={handleClick} className="w-[200px] h-12 bg-[#FFF96A] flex items-center cursor-pointer justify-center rounded-2xl">
+      <span className="select-none font-hel text-[#070709] text-base leading-5">{T('Withdraw')}</span>
+    </div>
+  );
+}

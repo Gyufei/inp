@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
@@ -15,15 +15,19 @@ import { useRegister } from '@/lib/hook/use-register';
 import { toHex } from '@/lib/utils';
 import useServerName from '@/lib/hook/use-server-name';
 import useOwnerName from '@/lib/hook/use-owner-name';
+import { useLastServerId } from '@/lib/hook/use-get-last-server-id';
+import { GlobalMsgContext } from '@/app/global-msg-context';
 
 export default function RegisterForm() {
   const T = useTranslations('Common');
+  const { setGlobalMessage } = useContext(GlobalMsgContext);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: lastServerId } = useLastServerId();
 
   const { address } = useAccount();
   const { open } = useWeb3Modal();
-  const { isLoading: isRegisterLoading, write: registerAction, isSuccess: isRegisterSuccess } = useRegister();
+  const { isSuccess: isRegisterSuccess, isError: isRegisterError, write: registerAction, status: registerVerifyStatus } = useRegister();
 
   const { serverName, invalidMsg: serverInvalidMsg, handleChange: handleServerChange, handleValidate: handleServerValidate } = useServerName();
 
@@ -32,8 +36,7 @@ export default function RegisterForm() {
   const [serverNo, setServerNo] = useState('');
   const [serverImage, setServerImage] = useState<string | null>(null);
   const [isStartUpload, setIsStartUpload] = useState(false);
-
-  const isLoading = isRegisterLoading || (serverImage && isStartUpload) || false;
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
     event.preventDefault();
@@ -57,14 +60,14 @@ export default function RegisterForm() {
   };
 
   const handleScheduledUpload = async () => {
-    window.removeEventListener('beforeunload', handleBeforeUnload);
     setIsStartUpload(false);
     goToNodes();
   };
 
   const goToNodes = useCallback(() => {
-    router.push('/service/serverfi/mak/nodes');
-  }, [router]);
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+    router.push(`/service/serverfi/mak/node/${Number(lastServerId) + 1}`);
+  }, [router, lastServerId]);
 
   async function handleSubmit() {
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -72,7 +75,7 @@ export default function RegisterForm() {
       open();
       return;
     }
-
+    setIsRegistering(true);
     const serverNameValid = await handleServerValidate(serverName);
     const ownerNameValid = await handleOwnerValidate(ownerName);
 
@@ -96,16 +99,30 @@ export default function RegisterForm() {
       serverLogo: image,
     });
   }
-
   useEffect(() => {
-    if (isRegisterSuccess) {
+    if (registerVerifyStatus === 'success') {
       if (serverImage) {
         setIsStartUpload(true);
       } else {
         goToNodes();
       }
     }
-  }, [isRegisterSuccess, serverImage, goToNodes]);
+  }, [registerVerifyStatus, serverImage, goToNodes]);
+
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      setGlobalMessage({
+        type: 'loading',
+        message: 'verifying your server... ',
+      });
+    }
+  }, [isRegisterSuccess]);
+
+  useEffect(() => {
+    if (isRegisterError) {
+      setIsRegistering(false);
+    }
+  }, [isRegisterError]);
 
   return (
     <div className="relative overflow-hidden h-[657px]">
@@ -169,10 +186,10 @@ export default function RegisterForm() {
             <div className="flex items-center p-6 pt-0">
               <button
                 onClick={handleSubmit}
-                disabled={isLoading}
+                disabled={isRegistering}
                 className="font-cal bg-[#3E71FF] inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors disabled:opacity-50 disabled:cursor-progress bg-primary h-10 px-4 py-2 w-full"
               >
-                {isLoading ? `${T('Register')}...` : T('Register')}
+                {isRegistering ? `${T('Register')}...` : T('Register')}
               </button>
             </div>
           </div>

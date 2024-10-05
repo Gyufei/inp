@@ -1,4 +1,4 @@
-import { useWriteContract } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { useGasEth } from './use-gas-eth';
 import { InphuraAbi } from '../abi/Inphura';
 import useTxStatus from './use-tx-status';
@@ -8,20 +8,17 @@ import { usePurchasePrice } from '@/lib/hook/use-purchase-price';
 export function useRegister() {
   const { getGasParams } = useGasEth();
 
-  const { writeContractAsync } = useWriteContract();
+  const { data: hash, writeContractAsync } = useWriteContract();
   const { data: purchasePrice } = usePurchasePrice();
 
-  const txAction = async ({
-    serverName,
-    ownerName,
-    serverNo,
-    serverLogo,
-  }: {
-    serverName: string;
-    ownerName: string;
-    serverNo: string;
-    serverLogo: string;
-  }) => {
+  const { status } = useWaitForTransactionReceipt({
+    hash,
+    query: {
+      enabled: !!hash,
+    },
+  });
+
+  const txAction = async ({ serverName, ownerName, serverNo, serverLogo }: { serverName: string; ownerName: string; serverNo: string; serverLogo: string }) => {
     if (purchasePrice == undefined) {
       throw new Error('No purchase price');
       return;
@@ -46,11 +43,10 @@ export function useRegister() {
       ...gasParams,
       ...valueParams,
     });
-
     return txHash;
   };
 
   const wrapRes = useTxStatus(txAction);
 
-  return wrapRes;
+  return { ...wrapRes, status };
 }

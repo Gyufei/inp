@@ -1,0 +1,15 @@
+<svg width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆框 -->
+  <circle cx="25" cy="25" r="20" fill="none" stroke-width="3" stroke="#eeeeee" />
+  <!-- 旋转的圆形片段 -->
+  <circle cx="25" cy="25" r="20" fill="none" stroke-width="3" stroke-linecap="round" stroke="#007bff"
+          stroke-dasharray="31.42 31.42" stroke-dashoffset="31.42" transform="rotate(-90 25 25)">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 25 25"
+      to="360 25 25"
+      dur="1s"
+      repeatCount="indefinite" />
+  </circle>
+</svg>

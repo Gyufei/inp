@@ -14,9 +14,9 @@ export function NodeActivities({ serverId }: { serverId: number }) {
     <div className="flex-1">
       <div className="flex w-full justify-between">
         <div
-          className="w-[257px] h-[68px] bg-no-repeat flex items-center pl-6 text-2xl leading-9 text-white font-cal"
+          className="w-[181px] h-[68px] bg-no-repeat bg-contain flex items-center justify-center pr-6 text-2xl leading-9 text-white font-cal"
           style={{
-            backgroundImage: "url('/images/1090.svg')",
+            backgroundImage: "url('/images/1137.png')",
           }}
         >
           {T('Activities')}

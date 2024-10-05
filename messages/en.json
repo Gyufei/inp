@@ -38,7 +38,6 @@
     "EnterNameAndOwner": "Please enter server name and owner name",
     "Approve": "Approve",
     "Approving": "Approving",
-    "Info": "Info",
     "NameErrorRequired": "{name}Name is required",
     "NameErrorStartWith": "Name shouldn't start or end with {letter}",
     "NameErrorTooShort": "Name is too short",

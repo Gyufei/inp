@@ -38,7 +38,6 @@
     "EnterNameAndOwner": "请输入服务器名称和所有者名称",
     "Approve": "Approve",
     "Approving": "Approving",
-    "Info": "信息",
     "NameErrorRequired": "{name}名称是必填项",
     "NameErrorTooShort": "名称太短",
     "NameErrorStartWith": "名称开头或结尾不能是 {letter} ",

@@ -20,7 +20,6 @@ export default function AirdropBtn() {
     if (airdropTokensData && airdropTokensData.length > 0) {
       airdropTokens = airdropTokensData.map((token: any) => {
         const storageClaimedData = localStorage.getItem(`is_claimed_${token.airdrop_token}`);
-        console.log('🚀 ~ airdropTokens=airdropTokensData.map ~ Date.now():', Date.now());
         if (storageClaimedData && Date.now() > +storageClaimedData) {
           localStorage.removeItem(`is_claimed_${token.airdrop_token}`);
         }
