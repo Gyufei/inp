@@ -5,7 +5,7 @@ import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { toBigIntNumber } from '@/lib/number';
+import { parseUnits } from 'viem';
 import { useLedger } from '@/lib/api/use-ledger';
 
 export function WithdrawBtn({ serverId }: { serverId: number }) {
@@ -24,7 +24,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
   const [isProcessing, setIsProcessing] = useState(false);
   let isOverage = false;
   if (inputValue && Number(inputValue) > 0 && userLedger?.stake_amount) {
-    isOverage = toBigIntNumber(inputValue, currentToken?.decimal) > toBigIntNumber(userLedger?.stake_amount, currentToken?.decimal);
+    isOverage = parseUnits(inputValue, currentToken?.decimal || 18) > parseUnits(userLedger?.stake_amount, currentToken?.decimal || 18);
   }
   const { isLoading: isWithdrawLoading, write: withdrawAction, isSuccess: isWithdrawSuccess } = useWithdraw();
 
@@ -37,7 +37,7 @@ export function WithdrawBtn({ serverId }: { serverId: number }) {
       return;
     }
 
-    const amount = toBigIntNumber(inputValue, currentToken?.decimal);
+    const amount = parseUnits(inputValue, currentToken?.decimal || 18);
     withdrawAction({ serverId: BigInt(serverId), amount: amount }).finally(() => setIsProcessing(false));
   }
 

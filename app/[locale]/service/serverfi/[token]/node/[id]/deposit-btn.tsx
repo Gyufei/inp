@@ -6,8 +6,10 @@ import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { formatUnits } from 'viem';
+import { formatUnits, parseUnits } from 'viem';
+import {} from 'viem';
 import { useBalanceDataOf } from '@/lib/hook/use-balanceof';
+import { numberMin } from '@/lib/number';
 
 export function DepositBtn({ serverId }: { serverId: number }) {
   const T = useTranslations('Common');
@@ -42,8 +44,8 @@ export function DepositBtn({ serverId }: { serverId: number }) {
       return;
     }
 
-    const amount = Math.floor(Number(inputValue) * 10 ** (currentToken?.decimal || 0));
-    depositAction({ serverId: BigInt(serverId), amount: BigInt(amount) }).finally(() => setIsProcessing(false)); // 处理完成后重置状态
+    const amount = parseUnits(inputValue, currentToken?.decimal || 18);
+    depositAction({ serverId: BigInt(serverId), amount: amount }).finally(() => setIsProcessing(false));
   }
 
   useEffect(() => {
@@ -77,7 +79,7 @@ export function DepositBtn({ serverId }: { serverId: number }) {
 
   function handleMaxClick() {
     const value = formatUnits(balanceData || BigInt(0), currentToken?.decimal || 0);
-    const minValue = Math.min(Number(value), allowance || 0);
+    const minValue = numberMin(value, allowance || 0);
     setInputValue(minValue.toString());
   }
 

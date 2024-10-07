@@ -3,12 +3,12 @@ import { useTranslations } from 'next-intl';
 import { formatNum } from '@/lib/number';
 import { useAirdropClaim } from '@/lib/hook/use-airdrop-claim';
 import TruncatedText from '@/components/truncated-text';
-import { toBigIntNumber } from '@/lib/number';
+import { parseUnits } from 'viem';
 
 export default function AirdropBtn({ airdrop, updateAirdrop, index }: any) {
   const T = useTranslations('Common');
 
-  const { isClaiming, claimAction } = useAirdropClaim(airdrop.airdrop_token, toBigIntNumber(airdrop.claimable_amount, airdrop?.decimal) as bigint, airdrop.merkle_proof, updateAirdrop);
+  const { isClaiming, claimAction } = useAirdropClaim(airdrop.airdrop_token, parseUnits(airdrop.claimable_amount, airdrop?.decimal) as bigint, airdrop.merkle_proof, updateAirdrop);
 
   return (
     <div className="flex justify-center pl-[10px] py-2 cursor-pointer" key={index}>

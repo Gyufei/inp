@@ -1,4 +1,5 @@
 import NP from 'number-precision';
+import BigNumber from 'bignumber.js';
 
 type NumberType = string | number;
 
@@ -223,4 +224,10 @@ export function toBigIntNumber(numberStr: string, n: number = 18): bigint {
 
   const bigIntNumber = BigInt(numberStrWithoutDecimal);
   return bigIntNumber;
+}
+
+export function numberMin(a: NumberType, b: NumberType) {
+  const numA = new BigNumber(a);
+  const numB = new BigNumber(b);
+  return numA.isLessThan(numB) ? numA.toString() : numB.toString();
 }
