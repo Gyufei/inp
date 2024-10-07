@@ -26,13 +26,20 @@ export const MainAirdropTokens = [
     is_claimed: '0',
     decimal: 18,
   },
-  // {
-  //   name: '12306',
-  //   airdrop_token: '0xA3936379F429D2881a5206F57809ca7FdC5B4212',
-  //   claimable_amount: '0',
-  //   is_claimed: '0',
-  //   decimal: 18,
-  // },
+  {
+    name: '12306',
+    airdrop_token: '0xA3936379F429D2881a5206F57809ca7FdC5B4212',
+    claimable_amount: '0',
+    is_claimed: '0',
+    decimal: 18,
+  },
+  {
+    name: 'BABYHIPPO',
+    airdrop_token: '0x58D13a73d64Ecb0Af2779951B5F48102ec477d80',
+    claimable_amount: '0',
+    is_claimed: '0',
+    decimal: 18,
+  },
 ];
 
 export const TestAirdropTokens = [
@@ -46,6 +53,13 @@ export const TestAirdropTokens = [
   {
     name: '12306',
     airdrop_token: '0xe8e6e13029a8c576c7a2121abdcc2818f1933e03',
+    claimable_amount: '0',
+    is_claimed: '0',
+    decimal: 18,
+  },
+  {
+    name: 'BABYHIPPO',
+    airdrop_token: '0x0f9046b09801e65598Ee826b5Fc209793425d59F',
     claimable_amount: '0',
     is_claimed: '0',
     decimal: 18,
