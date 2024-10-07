@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { formatUnits, parseUnits } from 'viem';
-import {} from 'viem';
 import { useBalanceDataOf } from '@/lib/hook/use-balanceof';
 import { numberMin } from '@/lib/number';
 
