@@ -127,6 +127,7 @@ export default function RegisterForm() {
   return (
     <div className="relative overflow-hidden h-[657px]">
       <video className="absolute -top-[256px] -right-[100px] z-0 w-[1920px] h-[1080px]" src="/1-1.mp4" muted loop autoPlay playsInline />
+      <div className="absolute -top-[265px] -right-[100px] z-0 w-[1920px] h-[1080px]" style={{ backgroundImage: 'radial-gradient(ellipse at center, rgba(6, 6, 7, 0) 40%, #060607 100%)' }}></div>
       <div className="absolute right-[160px] flex items-center">
         <div className="flex flex-col w-[446px] mb-10">
           <h3 className="font-semibold text-[50px] text-white mb-4 text-center font-cal">{T('RegisterYourServer')}</h3>
