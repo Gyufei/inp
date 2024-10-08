@@ -32,11 +32,13 @@ export default function ConnectBtn() {
 
   function handleClick() {
     if (address || isConnected) {
-      disconnect();
       return;
     }
 
     open();
+  }
+  function handleExit() {
+    disconnect();
   }
 
   function handleMouseEnter() {
@@ -72,13 +74,13 @@ export default function ConnectBtn() {
 
   return (
     <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <button onClick={handleClick} className="h-12 border rounded-[32px] text-base leading-5 text-white border-[rgba(255,255,255,0.4)] px-6">
+      <button onClick={handleClick} className="h-12 border rounded-[32px] text-base leading-5 text-white border-[rgba(255,255,255,0.4)] px-6" style={{ cursor: isConnected ? 'default' : 'pointer' }}>
         {isConnecting && isOpen ? (
           T('Connecting')
         ) : isConnected ? (
           <div className="flex items-center justify-center gap-2">
             <span className="mr-2">{displayAddress}</span>
-            <Image src="/icons/exit.svg" width={16} height={16} alt="exit" />
+            <Image className="hover:scale-110 cursor-pointer" src="/icons/exit.svg" width={16} height={16} alt="exit" onClick={handleExit} />
           </div>
         ) : (
           T('ConnectWallet')

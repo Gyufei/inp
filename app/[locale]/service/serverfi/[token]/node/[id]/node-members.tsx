@@ -22,13 +22,16 @@ export function NodeMembers({ serverId }: { serverId: number }) {
 
   const totalAmount = Object.values(userBalances).reduce((acc: number, val) => acc + val, 0) as number;
 
-  const combinedData = Object.keys(userBalances).map((user) => {
-    return {
-      user: user,
-      final_amount: userBalances[user],
-      percentage: totalAmount === 0 ? 0 : ((userBalances[user] / totalAmount) * 100).toFixed(2),
-    };
-  });
+  const combinedData = Object.keys(userBalances)
+    .map((user) => {
+      return {
+        user: user,
+        final_amount: userBalances[user],
+        percentage: totalAmount === 0 ? 0 : ((userBalances[user] / totalAmount) * 100).toFixed(2),
+      };
+    })
+    .filter((num) => num.percentage !== '0.00')
+    .sort((a, b) => +b.percentage - +a.percentage);
 
   return (
     <div className="w-[452px] ml-[8px]">

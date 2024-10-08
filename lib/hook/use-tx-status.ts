@@ -38,7 +38,8 @@ export default function useTxStatus(txFn: (_args: any) => Promise<any>, successT
       setIsError(true);
       setError(e);
 
-      const eMsg = e?.message || '';
+      let eMsg = e?.message || '';
+      if (eMsg.includes('Missing or invalid parameters')) eMsg = 'User rejected the request.';
       setGlobalMessage({
         type: 'error',
         message: eMsg.length > 40 ? eMsg.substring(0, 40) + '...' : eMsg || errorTip || 'Fail: Some error occur',
