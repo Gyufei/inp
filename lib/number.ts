@@ -69,7 +69,7 @@ export function toAmount(num: NumberType, unit = true) {
 export function toPercent(percent: number) {
   percent = Math.abs(percent);
   if (percent * 1 === 0) return '0';
-  if (percent * 1 < 0.01) return '< 0.01';
+  if (percent * 1 < 0.01) return '<0.01';
   return formatNum(percent * 1);
 }
 
@@ -204,26 +204,6 @@ export function truncateNumber(num: number | string, n: number) {
   const multipliedNum = Number(num) * multiplier; // 将数字扩大对应倍数
   const truncatedNum = Math.trunc(multipliedNum); // 截断小数部分，保留整数部分
   return truncatedNum;
-}
-
-export function toBigIntNumber(numberStr: string, n: number = 18): bigint {
-  if (!numberStr) return BigInt(0);
-
-  const decimalIndex = numberStr.indexOf('.');
-
-  if (decimalIndex === -1) {
-    return BigInt(numberStr + '0'.repeat(n));
-  }
-
-  let numberStrWithoutDecimal = numberStr.slice(0, decimalIndex) + numberStr.slice(decimalIndex + 1);
-
-  const decimalPlaces = numberStr.length - decimalIndex - 1;
-  if (decimalPlaces < n) {
-    numberStrWithoutDecimal += '0'.repeat(n - decimalPlaces);
-  }
-
-  const bigIntNumber = BigInt(numberStrWithoutDecimal);
-  return bigIntNumber;
 }
 
 export function numberMin(a: NumberType, b: NumberType) {

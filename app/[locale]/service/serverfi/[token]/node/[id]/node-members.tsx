@@ -2,6 +2,7 @@ import { useActivities } from '@/lib/api/use-activities';
 import { truncateAddr } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { useAccount } from 'wagmi';
+import { toPercent } from '@/lib/number';
 
 export function NodeMembers({ serverId }: { serverId: number }) {
   const T = useTranslations('Common');
@@ -27,10 +28,10 @@ export function NodeMembers({ serverId }: { serverId: number }) {
       return {
         user: user,
         final_amount: userBalances[user],
-        percentage: totalAmount === 0 ? 0 : ((userBalances[user] / totalAmount) * 100).toFixed(2),
+        percentage: toPercent((userBalances[user] / totalAmount) * 100),
       };
     })
-    .filter((num) => num.percentage !== '0.00')
+    .filter((num) => num.percentage !== '0')
     .sort((a, b) => +b.percentage - +a.percentage);
 
   return (

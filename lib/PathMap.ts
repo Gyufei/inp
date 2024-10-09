@@ -14,6 +14,7 @@ export const Paths = {
   userLedger: WithHost('/user/ledger'),
   userActivities: WithHost('/user/activities'),
   albumUpload: WithHost('/server/album/upload'),
+  logoUpdate: WithHost('/server/logo/update'),
   userNameCheck: WithHost('/user/name/check'),
   userMcPoints: WithHost('/user/mc_points'),
   userAirdropTokens: WithHost('/airdrop/tokens'),

@@ -63,7 +63,14 @@ const ImageUploader = ({ onFileAdded, onFileRemoved, uploadIcon, deleteIcon, sty
           </label>
         )}
         {currentImg.dataUrl && !hideImg && (
-          <Image className="block object-cover absolute w-full h-full border border-[#ffffff80] rounded-[20px]" width={200} height={200} src={currentImg.dataUrl} alt={currentImg.dataUrl} loading="lazy" />
+          <Image
+            className="block object-cover absolute w-full h-full border border-[#ffffff80] rounded-[20px] hover:border-[#3E71FF]"
+            width={200}
+            height={200}
+            src={currentImg.dataUrl}
+            alt={currentImg.dataUrl}
+            loading="lazy"
+          />
         )}
       </div>
     </div>

@@ -81,7 +81,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         <RegisterBtn serverId={Number(id)} />
       </div>
       <div className="mt-16 flex">
-        <InfoBox server={currentServer || null} />
+        <InfoBox server={currentServer || null} setServers={setServers} />
       </div>
 
       <div className="mt-16 flex">
