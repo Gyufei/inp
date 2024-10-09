@@ -52,13 +52,17 @@ export function InfoBox({ server, setServers }: { server: IServer | null; setSer
   return (
     <div className="flex items-center justify-between w-full">
       <div className="flex gap-x-[20px] relative ">
-        <UploadImage
-          onImageUpload={handleLogoImageUpdate}
-          style={{ height: '66px', width: '66px', border: 'none' }}
-          uploadIcon={
-            <ImageWithDefaultOnError className="size-[66px] border border-[#ffffff80] rounded-[20px] hover:border-[#3E71FF]" src={server?.server_logo || '/images/server.png'} width={66} height={66} alt="" priority />
-          }
-        />
+        {allowUploadImg ? (
+          <UploadImage
+            onImageUpload={handleLogoImageUpdate}
+            style={{ height: '66px', width: '66px', border: 'none' }}
+            uploadIcon={
+              <ImageWithDefaultOnError className="size-[66px] border border-[#ffffff80] rounded-[20px] hover:border-[#3E71FF]" src={server?.server_logo || '/images/server.png'} width={66} height={66} alt="" priority />
+            }
+          />
+        ) : (
+          <ImageWithDefaultOnError className="size-[66px] border border-[#ffffff80] rounded-[20px]" src={server?.server_logo || '/images/server.png'} width={66} height={66} alt="" priority />
+        )}
 
         <div className="flex flex-col gap-y-[10px]">
           <div className="font-hel text-[#707274] text-[16px] leading-[24px]">{T('ServerName')}</div>
